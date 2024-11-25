@@ -8,11 +8,12 @@ ZyroPos is an advanced and intuitive Point-of-Sale (POS) system designed to stre
 
 ## 🌟 Features
 
-- **Inventory Management**: Track and update stock levels in real time.
+-**TO BE DECIDED**
+<!--- **Inventory Management**: Track and update stock levels in real time.
 - **Sales Tracking**: Monitor sales transactions with detailed reporting.
 - **Customer Management**: Manage customer information and purchase history.
 - **User Roles**: Support for multiple user roles with tailored permissions.
-- **Customizable UI**: A beautifully designed and responsive user interface.
+- **Customizable UI**: A beautifully designed and responsive user interface.-->
 
 ---
 
