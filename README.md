@@ -1,6 +1,6 @@
 # ZyroPos
 
-![ZyroPos Logo](src/main/resources/assets/logo1.svg)
+![ZyroPos Logo](src/main/resources/assets/ZyroPOS.svg)
 
 ZyroPos is an advanced and intuitive Point-of-Sale (POS) system designed to streamline sales operations, manage inventory, and enhance customer service. Built with **JavaFX**, this application combines functionality with a sleek user interface to meet the needs of modern businesses.
 
