@@ -95,7 +95,7 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 
 ## 🙏 Acknowledgments
 
-- Thanks to the open-source community for inspiring this project.
+<!--- Thanks to the open-source community for inspiring this project.-->
 - Special thanks to [JavaFX](https://openjfx.io/) for a fantastic UI framework.
 
 ---
