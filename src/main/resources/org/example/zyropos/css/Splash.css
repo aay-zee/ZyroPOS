@@ -1,11 +1,14 @@
 .root{
     /*-fx-background-color: #00CED1;*/
     /*-fx-background-color: #4169E1;*/
-    -fx-background-color: #0078D4;
+    /*-fx-background-color: #0078D4;*/
+
+    --fxbackground-color: white;
 }
 
 .label{
-    -fx-text-fill: white;
+    /*-fx-text-fill: #4169E1;*/
+    -fx-text-fill: #01225A;
 }
 
 #lblHeading{
@@ -13,5 +16,10 @@
 }
 
 #myProgress{
-    -fx-accent: white;
+    /*-fx-accent: #4169E1;*/
+    -fx-accent: #01225A
+}
+
+#myLogo2{
+    --fxbackground-color: white;
 }

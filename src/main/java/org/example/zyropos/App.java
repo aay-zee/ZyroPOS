@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,7 +17,8 @@ public class App extends Application {
         Scene scene=new Scene(root);
         String css= Objects.requireNonNull(this.getClass().getResource("css/Splash.css")).toExternalForm();
         scene.getStylesheets().add(css);
-        stage.setTitle("Splash");
+        stage.getIcons().add(new Image("D:\\University (FAST)\\Semester 5\\Software Construction and Development\\ZyroPOS\\src\\main\\resources\\assets\\ZyroPOS1.png"));
+        stage.setTitle("ZyroPOS");
         stage.setScene(scene);
         stage.show();
     }
