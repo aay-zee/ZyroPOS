@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a43c4309-6a80-4d66-b445-7722c5d0679f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/Splash.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/Splash.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SplashController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SplashController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/Splash.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/Splash.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,6 +18,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
+        <option value="Class" />
         <option value="CSS File" />
       </list>
     </option>
@@ -73,7 +75,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1732542443358</updated>
-      <workItem from="1732542444489" duration="8126000" />
+      <workItem from="1732542444489" duration="8727000" />
+      <workItem from="1732564418992" duration="101000" />
+      <workItem from="1732810713088" duration="8523000" />
     </task>
     <servers />
   </component>
