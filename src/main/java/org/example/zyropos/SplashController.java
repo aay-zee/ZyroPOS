@@ -92,6 +92,7 @@ public class SplashController implements Initializable {
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.sizeToScene();
+        stage.centerOnScreen();
         stage.show();
     }
 }

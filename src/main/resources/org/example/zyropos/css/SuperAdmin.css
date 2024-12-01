@@ -1,0 +1,28 @@
+#sideAnchorPane{
+    -fx-background-color: #353A56;
+    /*-fx-background-color: #01225A;*/
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-style: solid;
+}
+
+#innerPane1{
+    -fx-background-color: #748CF1;
+    /*-fx-background-color: #00CED1;*/
+    -fx-border-color: #748CF1;
+    /*-fx-border-color: #00CED1;*/
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-style: solid;
+}
+
+.sideButton{
+    -fx-background-color: #141313;
+    -fx-border-color: #141313;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-style: solid;
+}

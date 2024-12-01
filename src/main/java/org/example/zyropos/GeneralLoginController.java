@@ -2,15 +2,21 @@ package org.example.zyropos;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import utilities.Values;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class GeneralLoginController {
     @FXML
@@ -30,31 +36,43 @@ public class GeneralLoginController {
     private Stage stage;
     private Scene scene;
 
+    private void showConfirmationDialog(String title, String header, String content,String fxmlFile) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
 
-    public void changeToSuperAdmin(ActionEvent event) {
-        Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Change Super Admin");
-        alert.setHeaderText("You're About to Login as Super Admin!");
-        alert.setContentText("Are you sure you want to proceed?");
-        alert.setGraphic(new ImageView("D:\\JAVAFX\\logout\\src\\main\\resources\\org\\example\\logout\\svgviewer-png-output.png"));
-        if(alert.showAndWait().get() == ButtonType.OK) {
-            stage = (Stage) scenePane.getScene().getWindow();
-            System.out.println("Scene Changed to Super Admin");
-            //New Scene Logic
-            stage.close();
+        if(alert.showAndWait().get() == ButtonType.OK){
+            root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
+            stage=(Stage)scenePane.getScene().getWindow();
+            scene=new Scene(root);
+
+            //add css
+
+            stage.sizeToScene();
+            stage.setScene(scene);
+            stage.show();
+            stage.centerOnScreen();
+            //stage.close();
         }
+
     }
 
-    public void changeToAdmin(ActionEvent event) {
-        System.out.println("Changed to Admin");
+
+    public void changeToSuperAdmin(ActionEvent event) throws IOException {
+        showConfirmationDialog("Change To Super Admin","You're about to Login as Super Admin!","Are you sure you want to proceed","fxml/SuperAdmin.fxml");
     }
 
-    public void changeToCashier(ActionEvent event) {
-        System.out.println("Changed to Cashier");
+    public void changeToAdmin(ActionEvent event) throws IOException {
+        showConfirmationDialog("Change To Admin","You're about to Login as Admin!","Are you sure you want to proceed","fxml/Admin.fxml");
     }
 
-    public void changeToDataOperator(ActionEvent event) {
-        System.out.println("Changed to Data Operator");
+    public void changeToCashier(ActionEvent event) throws IOException {
+        showConfirmationDialog("Change To Cashier","You're about to Login as Cashier!","Are you sure you want to proceed","fxml/Cashier.fxml");
+    }
+
+    public void changeToDataOperator(ActionEvent event) throws IOException {
+        showConfirmationDialog("Change To Data Entry Operator","You're about to Login as Data Entry Operator!","Are you sure you want to proceed","fxml/DataOperator.fxml");
     }
 
 }

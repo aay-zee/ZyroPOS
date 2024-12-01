@@ -9,6 +9,7 @@ module org.example.zyropos {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires com.jfoenix;
 
     opens org.example.zyropos to javafx.fxml;
     exports org.example.zyropos;
