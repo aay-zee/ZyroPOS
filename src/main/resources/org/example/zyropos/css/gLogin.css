@@ -1,5 +1,16 @@
+/* Apply to the root node with the styleClass "rootPane" */
+#scenePane {
+    -fx-background-image: url('bgGL.jpg');
+    -fx-background-size: cover; /* Ensures the image covers the entire container */
+    -fx-background-repeat: no-repeat; /* Prevents tiling */
+    -fx-background-position: center center; /* Centers the image */
+}
+
+
+
 .label{
     -fx-text-fill: #01225A;
+    /*-fx-text-fill: white;*/
 }
 
 #lblRoleSelect{

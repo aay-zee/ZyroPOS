@@ -7,9 +7,9 @@
     <list default="true" id="a43c4309-6a80-4d66-b445-7722c5d0679f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/GeneralLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/GeneralLoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utilities/Values.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utilities/Values.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/SuperAdmin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/SuperAdmin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/GeneralLogin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/GeneralLogin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/gLogin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/gLogin.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/SuperAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/SuperAdmin.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,6 +58,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\University (FAST)\Semester 5\Software Construction and Development\ZyroPOS\src\main\resources\org\example\zyropos\css" />
       <recent name="D:\University (FAST)\Semester 5\Software Construction and Development\ZyroPOS\src\main\resources\org\example\zyropos\fxml" />
     </key>
   </component>
@@ -83,7 +84,7 @@
       <workItem from="1732990813536" duration="729000" />
       <workItem from="1732991578035" duration="1141000" />
       <workItem from="1733061684433" duration="7520000" />
-      <workItem from="1733141938335" duration="5135000" />
+      <workItem from="1733141938335" duration="7960000" />
     </task>
     <servers />
   </component>

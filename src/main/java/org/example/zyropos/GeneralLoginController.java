@@ -49,7 +49,7 @@ public class GeneralLoginController {
             scene=new Scene(root);
 
             //add css
-            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+            //scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 
             stage.sizeToScene();
             stage.setScene(scene);
