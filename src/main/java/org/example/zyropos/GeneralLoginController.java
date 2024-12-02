@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.kordamp.bootstrapfx.BootstrapFX;
 import utilities.Values;
 
 import java.io.IOException;
@@ -48,6 +49,7 @@ public class GeneralLoginController {
             scene=new Scene(root);
 
             //add css
+            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 
             stage.sizeToScene();
             stage.setScene(scene);

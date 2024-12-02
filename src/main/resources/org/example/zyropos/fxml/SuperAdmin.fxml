@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
 
 <HBox fx:id="rootScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="889.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.zyropos.SuperAdminController">
    <children>
@@ -31,7 +33,7 @@
                         </Text>
                      </children>
                   </Pane>
-                  <JFXButton fx:id="btnAddBranch" buttonType="RAISED" layoutX="17.0" layoutY="119.0" prefHeight="51.0" prefWidth="186.0" styleClass="sideButton" text="Add a Branch" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="btnAddBranch" buttonType="RAISED" layoutX="17.0" layoutY="119.0" onAction="#addBranch" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="Add a Branch" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -43,7 +45,7 @@
                         <Font name="Century Gothic Bold" size="13.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnAddBM" buttonType="RAISED" layoutX="17.0" layoutY="193.0" prefHeight="51.0" prefWidth="186.0" styleClass="sideButton" text="Add Branch Manager" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="btnAddBM" buttonType="RAISED" layoutX="17.0" layoutY="193.0" onAction="#addBM" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="Add Branch Manager" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -55,7 +57,7 @@
                         <Font name="Century Gothic Bold" size="13.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnAddBranch1" buttonType="RAISED" layoutX="17.0" layoutY="271.0" prefHeight="51.0" prefWidth="186.0" styleClass="sideButton" text="View Reports" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="btnAddBranch1" buttonType="RAISED" layoutX="17.0" layoutY="271.0" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="View Reports" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -67,7 +69,7 @@
                         <Font name="Century Gothic Bold" size="13.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnLogout" buttonType="RAISED" layoutX="17.0" layoutY="355.0" onAction="#logout" prefHeight="51.0" prefWidth="186.0" styleClass="sideButton" text="Logout" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="btnLogout" buttonType="RAISED" layoutX="17.0" layoutY="355.0" onAction="#logout" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="Logout" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -83,14 +85,50 @@
             </AnchorPane>
          </children>
       </VBox>
-      <Pane prefHeight="594.0" prefWidth="669.0">
+      <AnchorPane prefHeight="594.0" prefWidth="668.0">
          <children>
-            <ImageView fitHeight="318.0" fitWidth="320.0" layoutX="189.0" layoutY="138.0" opacity="0.07" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../assets/ZyroPOS1.png" />
-               </image>
-            </ImageView>
+            <Pane fx:id="branchPane" layoutX="39.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
+               <children>
+                  <Label layoutX="34.0" layoutY="59.0" text="Branch ID:" />
+                  <TextField layoutX="117.0" layoutY="55.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Branch ID/Code" />
+                  <Label layoutX="34.0" layoutY="113.0" text="Branch Name:" />
+                  <TextField layoutX="117.0" layoutY="109.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Branch Name" />
+                  <Label layoutX="34.0" layoutY="166.0" prefHeight="17.0" prefWidth="29.0" text="City: " />
+                  <TextField layoutX="117.0" layoutY="162.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Branch Location" />
+                  <Label layoutX="34.0" layoutY="216.0" prefHeight="17.0" prefWidth="54.0" text="Address: " />
+                  <TextField layoutX="117.0" layoutY="212.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Branch Address" />
+                  <Label layoutX="34.0" layoutY="264.0" prefHeight="17.0" prefWidth="54.0" text="Contact: " />
+                  <TextField layoutX="117.0" layoutY="260.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter the Branch Contact Number" />
+                  <Label layoutX="34.0" layoutY="372.0" prefHeight="17.0" prefWidth="54.0" text="Status: " />
+                  <Label layoutX="34.0" layoutY="316.0" text="Employees: " />
+                  <TextField editable="false" layoutX="117.0" layoutY="312.0" prefHeight="25.0" prefWidth="451.0" text="0" />
+                  <JFXRadioButton layoutX="117.0" layoutY="371.0" text="Active" />
+                  <JFXRadioButton layoutX="265.0" layoutY="371.0" text="Unactive" />
+                  <JFXButton buttonType="RAISED" layoutX="418.0" layoutY="430.0" prefHeight="25.0" prefWidth="150.0" ripplerFill="BLACK" styleClass="btn-primary" text="Submit" textAlignment="CENTER" />
+               </children>
+            </Pane>
+            <Pane fx:id="bmPane" layoutX="38.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
+               <children>
+                  <TextField layoutX="108.0" layoutY="315.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Manager Email" />
+                  <TextField layoutX="108.0" layoutY="267.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Manager Address" />
+                  <TextField layoutX="108.0" layoutY="220.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Manager Contact Number" />
+                  <TextField layoutX="108.0" layoutY="173.0" prefHeight="25.0" prefWidth="451.0" promptText="The branch ID or code where the manager will work" />
+                  <TextField layoutX="108.0" layoutY="129.0" prefHeight="25.0" prefWidth="451.0" promptText="Full name of the manager" />
+                  <TextField layoutX="108.0" layoutY="85.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Unique ID" />
+                  <JFXButton buttonType="RAISED" layoutX="409.0" layoutY="464.0" prefHeight="25.0" prefWidth="150.0" ripplerFill="BLACK" styleClass="btn-primary" text="Submit" textAlignment="CENTER" />
+                  <Label layoutX="19.0" layoutY="89.0" text="Manager ID:" />
+                  <Label layoutX="19.0" layoutY="133.0" text="Manager Name:" />
+                  <Label layoutX="19.0" layoutY="271.0" prefHeight="17.0" prefWidth="54.0" text="Address: " />
+                  <Label layoutX="19.0" layoutY="224.0" prefHeight="17.0" prefWidth="54.0" text="Contact: " />
+                  <Label layoutX="19.0" layoutY="177.0" prefHeight="17.0" prefWidth="85.0" text="Branch ID:  " />
+                  <Label layoutX="19.0" layoutY="319.0" text="Email: " />
+                  <TextField layoutX="108.0" layoutY="360.0" prefHeight="25.0" prefWidth="451.0" promptText="Username" />
+                  <Label layoutX="19.0" layoutY="364.0" text="Username: " />
+                  <TextField layoutX="108.0" layoutY="404.0" prefHeight="25.0" prefWidth="451.0" promptText="Password" />
+                  <Label layoutX="19.0" layoutY="408.0" text="Password: " />
+               </children>
+            </Pane>
          </children>
-      </Pane>
+      </AnchorPane>
    </children>
 </HBox>

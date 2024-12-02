@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
@@ -18,6 +19,12 @@ import java.util.Objects;
 public class SuperAdminController {
     @FXML
     private JFXButton btnLogout;
+    @FXML
+    private JFXButton btnAddBranch;
+    @FXML
+    private Pane branchPane;
+    @FXML
+    private Pane bmPane;
 
     private Parent root;
     private Stage stage;
@@ -46,5 +53,15 @@ public class SuperAdminController {
             stage.centerOnScreen();
             stage.show();
         }
+    }
+
+    public void addBranch(ActionEvent event) throws IOException {
+        bmPane.setVisible(false);
+        branchPane.setVisible(true);
+    }
+
+    public void addBM(ActionEvent event) throws IOException {
+        branchPane.setVisible(false);
+        bmPane.setVisible(true);
     }
 }
