@@ -6,10 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="a43c4309-6a80-4d66-b445-7722c5d0679f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/GeneralLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/GeneralLoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utilities/Values.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utilities/Values.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SplashController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SplashController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/SuperAdmin/saIcon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/SuperAdmin/saIcon.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/SuperAdmin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/SuperAdmin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/gLogin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/gLogin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/GeneralLogin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/GeneralLogin.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/SuperAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/SuperAdmin.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,23 +41,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.App.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.App.executor": "Run",
+    "Application.MySqlExample.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Java/mysql-connector-java-8.0.28.jar",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.42413792",
+    "settings.editor.selected.configurable": "preferences.updates",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\University (FAST)\Semester 5\Software Construction and Development\ZyroPOS\src\main\resources\org\example\zyropos\css" />
@@ -84,7 +92,10 @@
       <workItem from="1732990813536" duration="729000" />
       <workItem from="1732991578035" duration="1141000" />
       <workItem from="1733061684433" duration="7520000" />
-      <workItem from="1733141938335" duration="7960000" />
+      <workItem from="1733141938335" duration="8256000" />
+      <workItem from="1733164182746" duration="299000" />
+      <workItem from="1733220152712" duration="163000" />
+      <workItem from="1733228645516" duration="5866000" />
     </task>
     <servers />
   </component>

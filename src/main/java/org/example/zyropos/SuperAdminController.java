@@ -22,6 +22,10 @@ public class SuperAdminController {
     @FXML
     private JFXButton btnAddBranch;
     @FXML
+    private JFXButton btnAddBM;
+    @FXML
+    private JFXButton btnVR;
+    @FXML
     private Pane branchPane;
     @FXML
     private Pane bmPane;
@@ -30,6 +34,14 @@ public class SuperAdminController {
     private Stage stage;
     private Scene scene;
 
+
+    @FXML
+    private void initialize() {
+        btnAddBranch.setFocusTraversable(false);
+        btnLogout.setFocusTraversable(false);
+        btnAddBM.setFocusTraversable(false);
+        btnVR.setFocusTraversable(false);
+    }
 
 
     public void logout(ActionEvent event) throws IOException {

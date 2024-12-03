@@ -5,7 +5,8 @@
 
 #sideAnchorPane{
     /*-fx-background-color: #353A56;*/
-    -fx-background-color: white;
+    /*-fx-background-color: white;*/
+    -fx-background-color: #2F71C2;
     -fx-border-width: 2px 2px 2px 2px;
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
@@ -14,9 +15,11 @@
 
 #innerPane1{
     /*-fx-background-color: #748CF1;*/
-    -fx-background-color: #FFD700;
+    /*-fx-background-color: #FFD700;*/
     /*-fx-border-color: #748CF1;*/
+    -fx-background-color: black;
     -fx-border-color: black;
+    -fx-text-fill: white;
     -fx-border-width: 2px 2px 2px 2px;
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
@@ -26,10 +29,12 @@
 .sideBtn{
     /*-fx-background-color: #141313;*/
     /*-fx-background-color: #007BFF;*/
-    -fx-background-color: white;
+    /*-fx-background-color: white;*/
     /*-fx-border-color: #141313;*/
-    -fx-border-color: #007BFF;
-    -fx-text-fill: #007BFF;
+    /*-fx-border-color: #007BFF;*/
+    /*-fx-text-fill: #007BFF;*/
+    -fx-border-color: white;
+    -fx-text-fill: white;
     -fx-border-width: 2px 2px 2px 2px;
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
@@ -37,13 +42,15 @@
 }
 
 .sideBtn:hover{
-    -fx-background-color: #007BFF;
+    /*-fx-background-color: #007BFF;*/
+    -fx-background-color: black;
     -fx-text-fill: white;
     -fx-border-color: black;
 }
 
 .btnSubmit{
-    -fx-background-color: #FFD700;
+    /*-fx-background-color: #FFD700;*/
+    -fx-background-color: #2F71C2;
 }
 
 .btnImg{
