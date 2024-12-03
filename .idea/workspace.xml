@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a43c4309-6a80-4d66-b445-7722c5d0679f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SplashController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SplashController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/SuperAdmin/saIcon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/SuperAdmin/saIcon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/SuperAdmin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/SuperAdmin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/GeneralLogin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/GeneralLogin.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/SuperAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/SuperAdmin.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +89,7 @@
       <workItem from="1733141938335" duration="8256000" />
       <workItem from="1733164182746" duration="299000" />
       <workItem from="1733220152712" duration="163000" />
-      <workItem from="1733228645516" duration="5866000" />
+      <workItem from="1733228645516" duration="6798000" />
     </task>
     <servers />
   </component>

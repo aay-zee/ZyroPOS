@@ -72,6 +72,10 @@ public class SuperAdminController {
         branchPane.setVisible(true);
     }
 
+    public void addBranchSubmit(ActionEvent event) throws IOException {
+
+    }
+
     public void addBM(ActionEvent event) throws IOException {
         branchPane.setVisible(false);
         bmPane.setVisible(true);
