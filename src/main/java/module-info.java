@@ -11,7 +11,6 @@ module org.example.zyropos {
     requires eu.hansolo.tilesfx;
     requires com.jfoenix;
     requires java.sql;
-    requires mysql.connector.java;
 
     opens org.example.zyropos to javafx.fxml;
     exports org.example.zyropos;

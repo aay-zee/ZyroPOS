@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="a43c4309-6a80-4d66-b445-7722c5d0679f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/DatabaseConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/DatabaseConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/SuperAdminModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/SuperAdminModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/SuperAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/SuperAdmin.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +48,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Java/mysql-connector-java-8.0.28.jar",
+    "last_opened_file_path": "D:/Java Jars/mysql-connector-java-8.0.28.jar",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -89,7 +93,11 @@
       <workItem from="1733141938335" duration="8256000" />
       <workItem from="1733164182746" duration="299000" />
       <workItem from="1733220152712" duration="163000" />
-      <workItem from="1733228645516" duration="6798000" />
+      <workItem from="1733228645516" duration="6866000" />
+      <workItem from="1733254587697" duration="3000" />
+      <workItem from="1733254855270" duration="3000" />
+      <workItem from="1733293372217" duration="391000" />
+      <workItem from="1733318212851" duration="7974000" />
     </task>
     <servers />
   </component>
