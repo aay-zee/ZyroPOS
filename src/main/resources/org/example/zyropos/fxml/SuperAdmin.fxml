@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -57,7 +62,7 @@
                         <Font name="Century Gothic Bold" size="13.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnVR" buttonType="RAISED" layoutX="17.0" layoutY="271.0" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="View Reports" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="btnVR" buttonType="RAISED" layoutX="17.0" layoutY="271.0" onAction="#viewReport" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="View Reports" textAlignment="CENTER" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="btnImg">
                            <image>
@@ -104,30 +109,59 @@
                   <TextField fx:id="tfABEmp" editable="false" layoutX="117.0" layoutY="312.0" prefHeight="25.0" prefWidth="451.0" promptText="0" text="0" />
                   <JFXRadioButton fx:id="rdABActive" layoutX="117.0" layoutY="371.0" text="Active" />
                   <JFXRadioButton fx:id="rdABUnactive" layoutX="265.0" layoutY="371.0" text="Unactive" />
-                  <JFXButton fx:id="btnABSubmit" buttonType="RAISED" layoutX="418.0" layoutY="430.0" onAction="#addBranchToDatabase" prefHeight="25.0" prefWidth="150.0" ripplerFill="BLACK" styleClass="btnSubmit" stylesheets="@../css/SuperAdmin.css" text="Submit" textAlignment="CENTER" textFill="WHITE" />
+                  <JFXButton fx:id="btnABSubmit" buttonType="RAISED" layoutX="418.0" layoutY="430.0" onAction="#addBranchDB" prefHeight="25.0" prefWidth="150.0" ripplerFill="BLACK" styleClass="btnSubmit" stylesheets="@../css/SuperAdmin.css" text="Submit" textAlignment="CENTER" textFill="WHITE" />
                </children>
             </Pane>
             <Pane fx:id="bmPane" layoutX="38.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
                <children>
-                  <TextField layoutX="108.0" layoutY="315.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Manager Email" />
-                  <TextField layoutX="108.0" layoutY="267.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Manager Address" />
-                  <TextField layoutX="108.0" layoutY="220.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Manager Contact Number" />
-                  <TextField layoutX="108.0" layoutY="173.0" prefHeight="25.0" prefWidth="451.0" promptText="The branch ID or code where the manager will work" />
-                  <TextField layoutX="108.0" layoutY="129.0" prefHeight="25.0" prefWidth="451.0" promptText="Full name of the manager" />
-                  <TextField layoutX="108.0" layoutY="85.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Unique ID" />
-                  <JFXButton buttonType="RAISED" layoutX="409.0" layoutY="464.0" prefHeight="25.0" prefWidth="150.0" ripplerFill="BLACK" styleClass="btnSubmit" stylesheets="@../css/SuperAdmin.css" text="Submit" textAlignment="CENTER" textFill="WHITE" />
+                  <TextField fx:id="tfEmail" layoutX="108.0" layoutY="315.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Manager Email" />
+                  <TextField fx:id="tfAddress" layoutX="108.0" layoutY="267.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Manager Address" />
+                  <TextField fx:id="tfContact" layoutX="108.0" layoutY="220.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Manager Contact Number" />
+                  <TextField fx:id="tfBID" layoutX="108.0" layoutY="173.0" prefHeight="25.0" prefWidth="451.0" promptText="The branch ID or code where the manager will work" />
+                  <TextField fx:id="tfMName" layoutX="108.0" layoutY="129.0" prefHeight="25.0" prefWidth="451.0" promptText="Full name of the manager" />
+                  <TextField fx:id="tfMID" layoutX="108.0" layoutY="85.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Unique ID" />
+                  <JFXButton buttonType="RAISED" layoutX="409.0" layoutY="464.0" onAction="#addBManagerDB" prefHeight="25.0" prefWidth="150.0" ripplerFill="BLACK" styleClass="btnSubmit" stylesheets="@../css/SuperAdmin.css" text="Submit" textAlignment="CENTER" textFill="WHITE" />
                   <Label layoutX="19.0" layoutY="89.0" text="Manager ID:" />
                   <Label layoutX="19.0" layoutY="133.0" text="Manager Name:" />
                   <Label layoutX="19.0" layoutY="271.0" prefHeight="17.0" prefWidth="54.0" text="Address: " />
                   <Label layoutX="19.0" layoutY="224.0" prefHeight="17.0" prefWidth="54.0" text="Contact: " />
                   <Label layoutX="19.0" layoutY="177.0" prefHeight="17.0" prefWidth="85.0" text="Branch ID:  " />
                   <Label layoutX="19.0" layoutY="319.0" text="Email: " />
-                  <TextField layoutX="108.0" layoutY="360.0" prefHeight="25.0" prefWidth="451.0" promptText="Username" />
+                  <TextField fx:id="tfUsername" layoutX="108.0" layoutY="360.0" prefHeight="25.0" prefWidth="451.0" promptText="Username" />
                   <Label layoutX="19.0" layoutY="364.0" text="Username: " />
-                  <TextField layoutX="108.0" layoutY="404.0" prefHeight="25.0" prefWidth="451.0" promptText="Password" />
+                  <TextField fx:id="tfPassword" layoutX="108.0" layoutY="404.0" prefHeight="25.0" prefWidth="451.0" promptText="Password" />
                   <Label layoutX="19.0" layoutY="408.0" text="Password: " />
                </children>
             </Pane>
+            <BorderPane fx:id="reportPane" layoutX="39.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
+               <top>
+                  <Pane prefHeight="102.0" prefWidth="590.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="Branch ID: " />
+                        <TextField layoutX="71.0" layoutY="10.0" prefHeight="25.0" prefWidth="74.0" />
+                        <Label layoutX="223.0" layoutY="14.0" text="Report Type: " />
+                        <Label layoutX="422.0" layoutY="14.0" text="Specify Range: " />
+                        <JFXButton buttonType="RAISED" layoutX="243.0" layoutY="63.0" text="Generate Report" />
+                        <JFXComboBox fx:id="cbReportType" layoutX="295.0" layoutY="10.0" prefHeight="25.0" prefWidth="74.0" />
+                        <JFXComboBox fx:id="cbRange" layoutX="502.0" layoutY="10.0" prefHeight="25.0" prefWidth="74.0" />
+                     </children>
+                  </Pane>
+               </top>
+               <center>
+                  <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <LineChart fx:id="lineChart" layoutX="45.0" layoutY="47.0" prefHeight="323.0" prefWidth="500.0" title="Branch Report">
+                          <xAxis>
+                            <CategoryAxis label="Data Range" side="BOTTOM" fx:id="x" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis fx:id="y" label="Values" side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                     </children>
+                  </Pane>
+               </center>
+            </BorderPane>
          </children>
       </AnchorPane>
    </children>
