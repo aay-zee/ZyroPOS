@@ -1,14 +1,12 @@
 package org.example.zyropos;
 
+import com.jfoenix.controls.JFXRadioButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -51,10 +49,10 @@ public class GeneralLoginController {
             //add css
             //scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 
-            stage.sizeToScene();
             stage.setScene(scene);
-            stage.show();
+            stage.sizeToScene();
             stage.centerOnScreen();
+            stage.show();
             //stage.close();
         }
 
@@ -62,19 +60,19 @@ public class GeneralLoginController {
 
 
     public void changeToSuperAdmin(ActionEvent event) throws IOException {
-        showConfirmationDialog("Change To Super Admin","You're about to Login as Super Admin!","Are you sure you want to proceed","fxml/SuperAdmin.fxml");
+        showConfirmationDialog("Change To Super Admin","You're about to Login as Super Admin!","Are you sure you want to proceed","fxml/Login.fxml");
     }
 
     public void changeToAdmin(ActionEvent event) throws IOException {
-        showConfirmationDialog("Change To Admin","You're about to Login as Admin!","Are you sure you want to proceed","fxml/Admin.fxml");
+        showConfirmationDialog("Change To Admin","You're about to Login as Admin!","Are you sure you want to proceed","fxml/Login.fxml");
     }
 
     public void changeToCashier(ActionEvent event) throws IOException {
-        showConfirmationDialog("Change To Cashier","You're about to Login as Cashier!","Are you sure you want to proceed","fxml/Cashier.fxml");
+        showConfirmationDialog("Change To Cashier","You're about to Login as Cashier!","Are you sure you want to proceed","fxml/Login.fxml");
     }
 
     public void changeToDataOperator(ActionEvent event) throws IOException {
-        showConfirmationDialog("Change To Data Entry Operator","You're about to Login as Data Entry Operator!","Are you sure you want to proceed","fxml/DataOperator.fxml");
+        showConfirmationDialog("Change To Data Entry Operator","You're about to Login as Data Entry Operator!","Are you sure you want to proceed","fxml/Login.fxml");
     }
 
 }

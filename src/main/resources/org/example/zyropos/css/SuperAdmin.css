@@ -56,3 +56,7 @@
 .btnImg{
     -fx-text-fill: black;
 }
+
+#btnGenerateReport{
+    -fx-background-color: #FFD700;
+}

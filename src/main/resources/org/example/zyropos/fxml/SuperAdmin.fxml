@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox fx:id="rootScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="889.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.zyropos.SuperAdminController">
+<HBox fx:id="rootScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="889.0" stylesheets="@../css/SuperAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.zyropos.SuperAdminController">
    <children>
       <VBox prefHeight="594.0" prefWidth="221.0">
          <children>
@@ -139,11 +139,11 @@
                      <children>
                         <Label layoutX="14.0" layoutY="14.0" text="Branch ID: " />
                         <TextField layoutX="71.0" layoutY="10.0" prefHeight="25.0" prefWidth="74.0" />
-                        <Label layoutX="223.0" layoutY="14.0" text="Report Type: " />
-                        <Label layoutX="422.0" layoutY="14.0" text="Specify Range: " />
-                        <JFXButton buttonType="RAISED" layoutX="243.0" layoutY="63.0" text="Generate Report" />
-                        <JFXComboBox fx:id="cbReportType" layoutX="295.0" layoutY="10.0" prefHeight="25.0" prefWidth="74.0" />
-                        <JFXComboBox fx:id="cbRange" layoutX="502.0" layoutY="10.0" prefHeight="25.0" prefWidth="74.0" />
+                        <Label layoutX="176.0" layoutY="14.0" text="Report Type: " />
+                        <Label layoutX="411.0" layoutY="14.0" text="Specify Range: " />
+                        <JFXButton fx:id="btnGenerateReport" buttonType="RAISED" layoutX="243.0" layoutY="63.0" text="Generate Report" />
+                        <JFXComboBox fx:id="cbReportType" focusColor="#2f71c2" layoutX="248.0" layoutY="10.0" prefHeight="25.0" prefWidth="142.0" />
+                        <JFXComboBox fx:id="cbRange" focusColor="#2f71c2" layoutX="491.0" layoutY="10.0" prefHeight="25.0" prefWidth="85.0" />
                      </children>
                   </Pane>
                </top>
