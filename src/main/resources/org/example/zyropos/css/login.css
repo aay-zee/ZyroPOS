@@ -7,3 +7,8 @@
 #btnSubmit{
     -fx-background-color: #2F71C2;
 }
+
+#btnBack{
+    -fx-background-color: white;
+    -fx-border-color: #2F71C2;
+}

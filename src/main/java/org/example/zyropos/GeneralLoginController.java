@@ -1,18 +1,14 @@
 package org.example.zyropos;
 
-import com.jfoenix.controls.JFXRadioButton;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.kordamp.bootstrapfx.BootstrapFX;
-import utilities.Values;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -60,19 +56,19 @@ public class GeneralLoginController {
 
 
     public void changeToSuperAdmin(ActionEvent event) throws IOException {
-        showConfirmationDialog("Change To Super Admin","You're about to Login as Super Admin!","Are you sure you want to proceed","fxml/Login.fxml");
+        showConfirmationDialog("Change To Super Admin","You're about to Login as Super Admin!","Are you sure you want to proceed","fxml/SuperAdminLogin.fxml");
     }
 
     public void changeToAdmin(ActionEvent event) throws IOException {
-        showConfirmationDialog("Change To Admin","You're about to Login as Admin!","Are you sure you want to proceed","fxml/Login.fxml");
+        showConfirmationDialog("Change To Admin","You're about to Login as Admin!","Are you sure you want to proceed","fxml/AdminLogin.fxml");
     }
 
     public void changeToCashier(ActionEvent event) throws IOException {
-        showConfirmationDialog("Change To Cashier","You're about to Login as Cashier!","Are you sure you want to proceed","fxml/Login.fxml");
+        showConfirmationDialog("Change To Cashier","You're about to Login as Cashier!","Are you sure you want to proceed","fxml/CashierLogin.fxml");
     }
 
     public void changeToDataOperator(ActionEvent event) throws IOException {
-        showConfirmationDialog("Change To Data Entry Operator","You're about to Login as Data Entry Operator!","Are you sure you want to proceed","fxml/Login.fxml");
+        showConfirmationDialog("Change To Data Entry Operator","You're about to Login as Data Entry Operator!","Are you sure you want to proceed","fxml/DataOperatorLogin.fxml");
     }
 
 }

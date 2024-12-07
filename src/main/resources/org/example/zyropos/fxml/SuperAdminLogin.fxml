@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.zyropos.SuperAdminLoginController">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="331.0" prefWidth="614.0" stylesheets="@../css/login.css">
+         <left>
+            <Pane id="pane" prefHeight="418.0" prefWidth="314.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="lblSystemName" layoutX="96.0" layoutY="143.0" text="ZyroPOS" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblRole" layoutX="117.0" layoutY="188.0" text="Super Admin" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </left>
+         <center>
+            <Pane fx:id="loginPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="lblLogin" layoutX="113.0" layoutY="48.0" text="Login" textAlignment="CENTER">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <JFXButton id="btnSubmit" fx:id="btnSubmit" layoutX="199.0" layoutY="255.0" onAction="#submit" prefHeight="25.0" prefWidth="81.0" text="Submit" textAlignment="CENTER" textFill="WHITE" />
+                  <TextField fx:id="tfUsername" layoutX="20.0" layoutY="128.0" prefHeight="25.0" prefWidth="260.0" promptText="Username" />
+                  <ImageView fitHeight="20.0" fitWidth="23.0" layoutX="260.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../assets/Login/username.png" />
+                     </image>
+                  </ImageView>
+                  <JFXButton id="btnBack" fx:id="btnBack" layoutX="20.0" layoutY="255.0" onAction="#back" prefHeight="25.0" prefWidth="81.0" text="Back" textAlignment="CENTER" textFill="#2f71c2" />
+                  <PasswordField fx:id="pfPassword" layoutX="20.0" layoutY="185.0" prefWidth="260.0" promptText="Password" />
+                  <ImageView fitHeight="20.0" fitWidth="23.0" layoutX="260.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../assets/Login/login.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>
