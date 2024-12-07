@@ -14,9 +14,9 @@ public class AdminLoginController extends LoginController {
     }
 
     @Override
-    void submit(ActionEvent event) throws SQLException {
+    public void submit(ActionEvent event) throws SQLException {
         LoginModel loginModel = new LoginModel();
 
-        loginModel.addNewUser("Admin",tfUsername.getText(),pfPassword.getText());
+        loginModel.authenticateUser("Admin",tfUsername.getText(),pfPassword.getText());
     }
 }

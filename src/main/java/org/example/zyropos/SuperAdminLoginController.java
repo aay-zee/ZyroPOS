@@ -14,9 +14,9 @@ public class SuperAdminLoginController extends LoginController {
     }
 
     @Override
-    void submit(ActionEvent event) throws SQLException {
+    public void submit(ActionEvent event) throws SQLException {
         LoginModel loginModel = new LoginModel();
 
-        loginModel.addNewUser("SuperAdmin",tfUsername.getText(),pfPassword.getText());
+        loginModel.authenticateUser("SuperAdmin",tfUsername.getText(),pfPassword.getText());
     }
 }

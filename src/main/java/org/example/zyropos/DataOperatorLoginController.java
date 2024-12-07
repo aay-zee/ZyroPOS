@@ -11,10 +11,17 @@ public class DataOperatorLoginController extends LoginController{
         System.out.println("DataOperatorLoginController");
     }
 
+//    @Override
+//     submit(ActionEvent event) throws SQLException {
+//        LoginModel loginModel = new LoginModel();
+//
+//        loginModel.addNewUser("DataOperator",tfUsername.getText(),pfPassword.getText());
+//    }
+
     @Override
-    void submit(ActionEvent event) throws SQLException {
+    public void submit(ActionEvent event) throws SQLException {
         LoginModel loginModel = new LoginModel();
 
-        loginModel.addNewUser("DataOperator",tfUsername.getText(),pfPassword.getText());
+        loginModel.authenticateUser("DataOperator",tfUsername.getText(),pfPassword.getText());
     }
 }
