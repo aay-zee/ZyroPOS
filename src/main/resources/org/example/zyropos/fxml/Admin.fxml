@@ -112,7 +112,7 @@
                   <PasswordField fx:id="pfPassword" layoutX="108.0" layoutY="404.0" prefWidth="451.0" promptText="Password" />
                     </children>
                 </Pane>
-            <BorderPane fx:id="cpPane" layoutX="206.0" layoutY="153.0" prefHeight="287.0" prefWidth="254.0">
+            <BorderPane fx:id="cpPane" layoutX="206.0" layoutY="153.0" prefHeight="287.0" prefWidth="254.0" visible="false">
                <top>
                   <PasswordField promptText="Old Password" BorderPane.alignment="CENTER" />
                </top>
