@@ -53,10 +53,14 @@ public abstract class LoginController implements Initializable {
         btnSubmit.setFocusTraversable(false);
     }
 
-    public void openDashboard(String fxmlFile) throws IOException {
+    public void openDashboard(String fxmlFile,String user) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
         stage=(Stage)tfUsername.getScene().getWindow();
         scene=new Scene(root);
+
+        DashboardController dashboardController=loader.getController();
+        dashboardController.setUsername(user);
 
         //add css
         //scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());

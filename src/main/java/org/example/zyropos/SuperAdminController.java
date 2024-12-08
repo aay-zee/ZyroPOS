@@ -40,6 +40,9 @@ public class SuperAdminController extends DashboardController implements Initial
     @FXML
     private Pane bmPane;
 
+    @FXML
+    private Label lblPerson;
+
     //Add Branch Pane
     @FXML
     private Pane branchPane;
@@ -123,6 +126,12 @@ public class SuperAdminController extends DashboardController implements Initial
 //        XYChart.Series series=new XYChart.Series();
 //        series.getData().add(new XYChart.Data("1",23));
 //    }
+
+
+    @Override
+    public void setUsername(String username) {
+        lblPerson.setText("Welcome "+username);
+    }
 
     public SuperAdminController() {
         saModel=new SuperAdminModel();

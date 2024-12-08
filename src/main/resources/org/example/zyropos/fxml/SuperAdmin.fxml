@@ -158,6 +158,11 @@
                   </Pane>
                </center>
             </BorderPane>
+            <Label fx:id="lblPerson" layoutX="299.0" layoutY="14.0" text="Label">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

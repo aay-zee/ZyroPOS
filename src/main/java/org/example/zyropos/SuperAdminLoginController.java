@@ -29,7 +29,7 @@ public class SuperAdminLoginController extends LoginController {
         LoginModel loginModel = new LoginModel();
 
         if(loginModel.authenticateUser("SuperAdmin",tfUsername.getText(),pfPassword.getText())){
-            openDashboard("fxml/SuperAdmin.fxml");
+            openDashboard("fxml/SuperAdmin.fxml",tfUsername.getText());
         }
     }
 }

@@ -6,6 +6,7 @@ import database.model.AdminModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -30,6 +31,9 @@ public class AdminController extends DashboardController implements Initializabl
 
     @FXML
     private BorderPane reportPane;
+
+    @FXML
+    private Label lblPerson;
 
     @FXML
     private JFXButton btnAddEmp;
@@ -104,6 +108,11 @@ public class AdminController extends DashboardController implements Initializabl
 
         cmbRole.getItems().addAll(role);
         cmbCurrency.getItems().addAll(currency);
+    }
+
+    @Override
+    public void setUsername(String username){
+        lblPerson.setText("Welcome "+username);
     }
 
     @FXML
