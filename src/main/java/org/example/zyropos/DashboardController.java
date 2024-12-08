@@ -21,7 +21,6 @@ public class DashboardController {
     public DashboardController() {
     }
 
-    public void setUsername(String username){};
 
     public void showAlert(String title, String header, String content){
         Alert alert=new Alert(Alert.AlertType.INFORMATION);

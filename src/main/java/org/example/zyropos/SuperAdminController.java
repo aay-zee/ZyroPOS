@@ -3,28 +3,22 @@ package org.example.zyropos;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.geometry.Pos;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import database.model.SuperAdminModel;
-import org.kordamp.bootstrapfx.BootstrapFX;
+import utilities.Values;
 
+import javax.swing.text.Position;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class SuperAdminController extends DashboardController implements Initializable {
@@ -106,6 +100,10 @@ public class SuperAdminController extends DashboardController implements Initial
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        lblPerson.setText("Welcome "+ Values.PERSON_NAME);
+        lblPerson.setAlignment(Pos.CENTER);
+
         btnAddBranch.setFocusTraversable(false);
         btnLogout.setFocusTraversable(false);
         btnAddBM.setFocusTraversable(false);
@@ -128,10 +126,6 @@ public class SuperAdminController extends DashboardController implements Initial
 //    }
 
 
-    @Override
-    public void setUsername(String username) {
-        lblPerson.setText("Welcome "+username);
-    }
 
     public SuperAdminController() {
         saModel=new SuperAdminModel();
@@ -142,6 +136,7 @@ public class SuperAdminController extends DashboardController implements Initial
     }
 
     public void addBranch() {
+        lblPerson.setVisible(false);
         ToggleGroup status=new ToggleGroup();
         rdABActive.setToggleGroup(status);
         rdABUnactive.setToggleGroup(status);
@@ -170,6 +165,7 @@ public class SuperAdminController extends DashboardController implements Initial
     }
 
     public void addBM() {
+        lblPerson.setVisible(false);
         reportPane.setVisible(false);
         branchPane.setVisible(false);
         bmPane.setVisible(true);
@@ -186,6 +182,7 @@ public class SuperAdminController extends DashboardController implements Initial
     }
 
     public void viewReport(){
+        lblPerson.setVisible(false);
         branchPane.setVisible(false);
         bmPane.setVisible(false);
         reportPane.setVisible(true);

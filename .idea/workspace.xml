@@ -6,14 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="a43c4309-6a80-4d66-b445-7722c5d0679f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/AdminLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/AdminLoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/DashboardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminLoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/Admin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/Admin.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/SuperAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/SuperAdmin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utilities/Values.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utilities/Values.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +109,7 @@
       <workItem from="1733485516443" duration="14024000" />
       <workItem from="1733502880653" duration="7031000" />
       <workItem from="1733560523084" duration="6633000" />
-      <workItem from="1733668286036" duration="13253000" />
+      <workItem from="1733668286036" duration="14443000" />
     </task>
     <servers />
   </component>

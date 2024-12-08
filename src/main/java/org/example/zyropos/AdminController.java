@@ -6,6 +6,7 @@ import database.model.AdminModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -13,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import utilities.Values;
 
 import java.io.IOException;
 import java.net.URL;
@@ -101,6 +103,10 @@ public class AdminController extends DashboardController implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        lblPerson.setText("Welcome "+ Values.PERSON_NAME);
+        lblPerson.setAlignment(Pos.CENTER);
+
         btnAddEmp.setFocusTraversable(false);
         btnLogout.setFocusTraversable(false);
         btnCP.setFocusTraversable(false);
@@ -110,13 +116,10 @@ public class AdminController extends DashboardController implements Initializabl
         cmbCurrency.getItems().addAll(currency);
     }
 
-    @Override
-    public void setUsername(String username){
-        lblPerson.setText("Welcome "+username);
-    }
 
     @FXML
     void displayEM(ActionEvent event) {
+        lblPerson.setVisible(false);
         reportPane.setVisible(false);
         cpPane.setVisible(false);
         emPane.setVisible(true);
@@ -124,6 +127,7 @@ public class AdminController extends DashboardController implements Initializabl
 
     @FXML
     void displayVR(){
+        lblPerson.setVisible(false);
         cpPane.setVisible(false);
         emPane.setVisible(false);
         reportPane.setVisible(true);
@@ -131,6 +135,7 @@ public class AdminController extends DashboardController implements Initializabl
 
     @FXML
     void displayCP(){
+        lblPerson.setVisible(false);
         reportPane.setVisible(false);
         emPane.setVisible(false);
         cpPane.setVisible(true);

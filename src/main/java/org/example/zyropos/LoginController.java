@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
+import utilities.Values;
 
 import java.io.IOException;
 import java.net.URL;
@@ -54,13 +55,11 @@ public abstract class LoginController implements Initializable {
     }
 
     public void openDashboard(String fxmlFile,String user) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
         stage=(Stage)tfUsername.getScene().getWindow();
         scene=new Scene(root);
 
-        DashboardController dashboardController=loader.getController();
-        dashboardController.setUsername(user);
+        Values.setPersonName(user);
 
         //add css
         //scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
