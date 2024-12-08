@@ -20,74 +20,70 @@
 
 <HBox fx:id="rootScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="889.0" stylesheets="@../css/SuperAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.zyropos.SuperAdminController">
    <children>
-      <VBox prefHeight="594.0" prefWidth="221.0">
+      <VBox id="menuBar" alignment="TOP_CENTER" prefHeight="594.0" prefWidth="221.0" spacing="50.0">
          <children>
-            <AnchorPane fx:id="sideAnchorPane" prefHeight="600.0" prefWidth="222.0" stylesheets="@../css/SuperAdmin.css">
+            <Pane fx:id="innerPane1" prefHeight="58.0" prefWidth="186.0">
                <children>
-                  <Pane fx:id="innerPane1" layoutX="17.0" layoutY="14.0" prefHeight="58.0" prefWidth="186.0">
-                     <children>
-                        <ImageView fitHeight="29.0" fitWidth="33.0" layoutX="14.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../assets/SuperAdmin/saIcon.png" />
-                           </image>
-                        </ImageView>
-                        <Text fill="WHITE" layoutX="43.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Super Admin" textAlignment="CENTER" wrappingWidth="109.7999877929687">
-                           <font>
-                              <Font name="System Bold" size="17.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </Pane>
-                  <JFXButton fx:id="btnAddBranch" buttonType="RAISED" layoutX="17.0" layoutY="119.0" onAction="#addBranch" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="Add a Branch" textAlignment="CENTER" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="btnImg">
-                           <image>
-                              <Image url="@../../../../assets/SuperAdmin/addBranch.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                  <ImageView fitHeight="29.0" fitWidth="33.0" layoutX="14.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../assets/SuperAdmin/saIcon.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="WHITE" layoutX="43.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Super Admin" textAlignment="CENTER" wrappingWidth="109.7999877929687">
                      <font>
-                        <Font name="Century Gothic Bold" size="13.0" />
+                        <Font name="System Bold" size="17.0" />
                      </font>
-                  </JFXButton>
-                  <JFXButton fx:id="btnAddBM" buttonType="RAISED" layoutX="17.0" layoutY="193.0" onAction="#addBM" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="Add Branch Manager" textAlignment="CENTER" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="btnImg">
-                           <image>
-                              <Image url="@../../../../assets/SuperAdmin/addPerson.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="Century Gothic Bold" size="13.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="btnVR" buttonType="RAISED" layoutX="17.0" layoutY="271.0" onAction="#viewReport" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="View Reports" textAlignment="CENTER" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="btnImg">
-                           <image>
-                              <Image url="@../../../../assets/SuperAdmin/viewReport.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="Century Gothic Bold" size="13.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="btnLogout" buttonType="RAISED" layoutX="17.0" layoutY="355.0" onAction="#handleLogout" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="Logout" textAlignment="CENTER" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="btnImg">
-                           <image>
-                              <Image url="@../../../../assets/SuperAdmin/logout.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="Century Gothic Bold" size="13.0" />
-                     </font>
-                  </JFXButton>
+                  </Text>
                </children>
-            </AnchorPane>
+            </Pane>
+            <JFXButton fx:id="btnAddBranch" buttonType="RAISED" onAction="#addBranch" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="Add a Branch" textAlignment="CENTER" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="btnImg">
+                     <image>
+                        <Image url="@../../../../assets/SuperAdmin/addBranch.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Century Gothic Bold" size="13.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnAddBM" buttonType="RAISED" onAction="#addBM" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="Add Branch Manager" textAlignment="CENTER" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="btnImg">
+                     <image>
+                        <Image url="@../../../../assets/SuperAdmin/addPerson.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Century Gothic Bold" size="13.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnVR" buttonType="RAISED" onAction="#viewReport" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="View Reports" textAlignment="CENTER" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="btnImg">
+                     <image>
+                        <Image url="@../../../../assets/SuperAdmin/viewReport.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Century Gothic Bold" size="13.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnLogout" buttonType="RAISED" onAction="#handleLogout" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="Logout" textAlignment="CENTER" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="btnImg">
+                     <image>
+                        <Image url="@../../../../assets/SuperAdmin/logout.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Century Gothic Bold" size="13.0" />
+               </font>
+            </JFXButton>
          </children>
       </VBox>
       <AnchorPane prefHeight="594.0" prefWidth="668.0">

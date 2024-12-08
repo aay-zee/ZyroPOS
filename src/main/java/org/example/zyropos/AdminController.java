@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
@@ -21,7 +22,16 @@ public class AdminController extends DashboardController implements Initializabl
     private Pane emPane;
 
     @FXML
+    private BorderPane cpPane;
+
+    @FXML
     private JFXButton btnAddEmp;
+
+    @FXML
+    private JFXButton btnVR;
+
+    @FXML
+    private JFXButton btnCP;
 
     @FXML
     private JFXButton btnLogout;
@@ -81,14 +91,28 @@ public class AdminController extends DashboardController implements Initializabl
     public void initialize(URL location, ResourceBundle resources) {
         btnAddEmp.setFocusTraversable(false);
         btnLogout.setFocusTraversable(false);
+        btnCP.setFocusTraversable(false);
+        btnVR.setFocusTraversable(false);
 
         cmbRole.getItems().addAll(role);
         cmbCurrency.getItems().addAll(currency);
     }
 
     @FXML
-    void addEM(ActionEvent event) {
+    void displayEM(ActionEvent event) {
+        cpPane.setVisible(false);
         emPane.setVisible(true);
+    }
+
+    @FXML
+    void displayVR(){
+
+    }
+
+    @FXML
+    void displayCP(){
+        emPane.setVisible(false);
+        cpPane.setVisible(true);
     }
 
     @FXML
