@@ -76,5 +76,5 @@ public abstract class LoginController implements Initializable {
     }
 
     @FXML
-    public abstract void submit(ActionEvent event) throws SQLException;
+    public abstract void submit(ActionEvent event) throws SQLException, IOException;
 }
