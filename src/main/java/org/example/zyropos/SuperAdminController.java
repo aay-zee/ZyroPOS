@@ -27,7 +27,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class SuperAdminController implements Initializable {
+public class SuperAdminController extends DashboardController implements Initializable {
     private final SuperAdminModel saModel;
     @FXML
     private JFXButton btnLogout;
@@ -100,10 +100,6 @@ public class SuperAdminController implements Initializable {
 
 
 
-    private Parent root;
-    private Stage stage;
-    private Scene scene;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -132,38 +128,11 @@ public class SuperAdminController implements Initializable {
         saModel=new SuperAdminModel();
     }
 
-    private void showAlert(String title,String header,String content){
-        Alert alert=new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
+    public void handleLogout() throws IOException {
+        logout(btnLogout);
     }
 
-    public void logout(ActionEvent event) throws IOException {
-
-
-        Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Logout");
-        alert.setHeaderText("You're About to Logout!");
-        alert.setContentText("Are you sure you want to Logout?");
-        //alert.setGraphic(new ImageView("D:\\JAVAFX\\logout\\src\\main\\resources\\org\\example\\logout\\svgviewer-png-output.png"));
-        if(alert.showAndWait().get() == ButtonType.OK) {
-            root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/GeneralLogin.fxml")));
-            stage=(Stage)btnLogout.getScene().getWindow();
-            scene=new Scene(root);
-            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-
-            //add css
-
-            stage.sizeToScene();
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.show();
-        }
-    }
-
-    public void addBranch(ActionEvent event) throws IOException {
+    public void addBranch() {
         ToggleGroup status=new ToggleGroup();
         rdABActive.setToggleGroup(status);
         rdABUnactive.setToggleGroup(status);
@@ -191,7 +160,7 @@ public class SuperAdminController implements Initializable {
         });
     }
 
-    public void addBM(ActionEvent event) throws IOException {
+    public void addBM() {
         reportPane.setVisible(false);
         branchPane.setVisible(false);
         bmPane.setVisible(true);

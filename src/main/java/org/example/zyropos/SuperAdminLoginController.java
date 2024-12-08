@@ -23,26 +23,13 @@ public class SuperAdminLoginController extends LoginController {
         System.out.println("SuperAdminLoginController");
     }
 
-    public void superAdminScreen(String fxmlFile) throws IOException {
-        root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
-        stage=(Stage)tfUsername.getScene().getWindow();
-        scene=new Scene(root);
-
-        //add css
-        //scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-
-        stage.setScene(scene);
-        stage.sizeToScene();
-        stage.centerOnScreen();
-        stage.show();
-    }
 
     @Override
     public void submit(ActionEvent event) throws SQLException, IOException {
         LoginModel loginModel = new LoginModel();
 
         if(loginModel.authenticateUser("SuperAdmin",tfUsername.getText(),pfPassword.getText())){
-            superAdminScreen("fxml/SuperAdmin.fxml");
+            openDashboard("fxml/SuperAdmin.fxml");
         }
     }
 }

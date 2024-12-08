@@ -53,6 +53,20 @@ public abstract class LoginController implements Initializable {
         btnSubmit.setFocusTraversable(false);
     }
 
+    public void openDashboard(String fxmlFile) throws IOException {
+        root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
+        stage=(Stage)tfUsername.getScene().getWindow();
+        scene=new Scene(root);
+
+        //add css
+        //scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.centerOnScreen();
+        stage.show();
+    }
+
     @FXML
     public void back(ActionEvent event) throws IOException {
         Alert alert=new Alert(Alert.AlertType.CONFIRMATION);

@@ -4,6 +4,7 @@ package org.example.zyropos;
 import database.model.LoginModel;
 import javafx.event.ActionEvent;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 
@@ -14,9 +15,11 @@ public class AdminLoginController extends LoginController {
     }
 
     @Override
-    public void submit(ActionEvent event) throws SQLException {
+    public void submit(ActionEvent event) throws SQLException, IOException {
         LoginModel loginModel = new LoginModel();
 
-        loginModel.authenticateUser("Admin",tfUsername.getText(),pfPassword.getText());
+        if(loginModel.authenticateUser("BranchManager",tfUsername.getText(),pfPassword.getText())){
+            openDashboard("fxml/Admin.fxml");
+        }
     }
 }
