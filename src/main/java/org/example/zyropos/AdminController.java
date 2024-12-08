@@ -2,6 +2,7 @@ package org.example.zyropos;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import database.model.AdminModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,15 +15,21 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class AdminController extends DashboardController implements Initializable {
+
+    private AdminModel adminModel;
 
     @FXML
     private Pane emPane;
 
     @FXML
     private BorderPane cpPane;
+
+    @FXML
+    private BorderPane reportPane;
 
     @FXML
     private JFXButton btnAddEmp;
@@ -85,6 +92,7 @@ public class AdminController extends DashboardController implements Initializabl
     private String[] currency={"PKR","USD","GBP"};
 
     public AdminController() {
+        adminModel=new AdminModel();
     }
 
     @Override
@@ -100,17 +108,21 @@ public class AdminController extends DashboardController implements Initializabl
 
     @FXML
     void displayEM(ActionEvent event) {
+        reportPane.setVisible(false);
         cpPane.setVisible(false);
         emPane.setVisible(true);
     }
 
     @FXML
     void displayVR(){
-
+        cpPane.setVisible(false);
+        emPane.setVisible(false);
+        reportPane.setVisible(true);
     }
 
     @FXML
     void displayCP(){
+        reportPane.setVisible(false);
         emPane.setVisible(false);
         cpPane.setVisible(true);
     }
@@ -121,8 +133,8 @@ public class AdminController extends DashboardController implements Initializabl
     }
 
     @FXML
-    void submit(ActionEvent event) {
-
+    void submit() throws SQLException {
+        adminModel.addNewEmployeeToDatabase(cmbRole.getValue(),Integer.parseInt(tfEID.getText()),tfEName.getText(),Integer.parseInt(tfBID.getText()),tfContact.getText(),tfAddress.getText(),tfEmail.getText(),tfSalary.getText(),tfUsername.getText(),pfPassword.getText());
     }
 
 }

@@ -3,6 +3,9 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -128,6 +131,33 @@
                <bottom>
                   <JFXButton buttonType="RAISED" prefHeight="26.0" prefWidth="84.0" styleClass="btnSubmit" text="Confirm" textAlignment="CENTER" textFill="WHITE" BorderPane.alignment="BASELINE_RIGHT" />
                </bottom>
+            </BorderPane>
+            <BorderPane fx:id="reportPane" layoutX="38.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
+               <top>
+                  <Pane prefHeight="102.0" prefWidth="590.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="Report Type: " />
+                        <Label layoutX="346.0" layoutY="14.0" text="Specify Range: " />
+                        <JFXButton fx:id="btnGenerateReport" buttonType="RAISED" layoutX="243.0" layoutY="63.0" text="Generate Report" />
+                        <JFXComboBox fx:id="cbReportType" focusColor="#2f71c2" layoutX="86.0" layoutY="10.0" prefHeight="25.0" prefWidth="150.0" />
+                        <JFXComboBox fx:id="cbRange" focusColor="#2f71c2" layoutX="426.0" layoutY="10.0" prefHeight="25.0" prefWidth="150.0" />
+                     </children>
+                  </Pane>
+               </top>
+               <center>
+                  <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <LineChart fx:id="lineChart" layoutX="45.0" layoutY="47.0" prefHeight="323.0" prefWidth="500.0" title="Branch Report">
+                           <xAxis>
+                              <CategoryAxis label="Data Range" side="BOTTOM" fx:id="x" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis fx:id="y" label="Values" side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                     </children>
+                  </Pane>
+               </center>
             </BorderPane>
             </children>
         </AnchorPane>
