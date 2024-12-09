@@ -60,3 +60,18 @@
 #btnGenerateReport{
     -fx-background-color: #FFD700;
 }
+
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 8px;
+    -fx-font-family: 'Arial';
+}
+.column-header {
+    -fx-background-color: #f0f0f0;
+    -fx-font-weight: bold;
+}
+
+#btnDanger{
+    -fx-background-color: #dc3545;
+}

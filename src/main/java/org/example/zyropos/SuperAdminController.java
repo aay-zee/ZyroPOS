@@ -32,7 +32,14 @@ public class SuperAdminController extends DashboardController implements Initial
     @FXML
     private JFXButton btnVR;
     @FXML
+    private JFXButton btnVB;
+    @FXML
+    private JFXButton btnVBM;
+    @FXML
     private Pane bmPane;
+
+    @FXML
+    private BorderPane vbPane;
 
     @FXML
     private Label lblPerson;
@@ -92,6 +99,25 @@ public class SuperAdminController extends DashboardController implements Initial
     @FXML
     private JFXComboBox<String> cbRange;
 
+    //View Branch Table
+    @FXML
+    private TableView<?> tblBranches;
+
+    @FXML
+    private TableColumn<?, ?> branchID;
+    @FXML
+    private TableColumn<?, ?> name;
+    @FXML
+    private TableColumn<?, ?> city;
+    @FXML
+    private TableColumn<?, ?> address;
+    @FXML
+    private TableColumn<?, ?> contact;
+    @FXML
+    private TableColumn<?, ?> empCount;
+    @FXML
+    private TableColumn<?, ?> status;
+
     private String[] reportType={"Sales","Remaining Stock","Profit"};
     private String[] range={"Daily","Weekly","Monthly","Yearly"};
 
@@ -108,6 +134,8 @@ public class SuperAdminController extends DashboardController implements Initial
         btnLogout.setFocusTraversable(false);
         btnAddBM.setFocusTraversable(false);
         btnVR.setFocusTraversable(false);
+        btnVB.setFocusTraversable(false);
+        btnVBM.setFocusTraversable(false);
 
         cbReportType.getItems().addAll(reportType);
         cbRange.getItems().addAll(range);
@@ -140,9 +168,19 @@ public class SuperAdminController extends DashboardController implements Initial
         ToggleGroup status=new ToggleGroup();
         rdABActive.setToggleGroup(status);
         rdABUnactive.setToggleGroup(status);
+        vbPane.setVisible(false);
         bmPane.setVisible(false);
         reportPane.setVisible(false);
         branchPane.setVisible(true);
+    }
+
+    @FXML
+    public void viewBranch(){
+        lblPerson.setVisible(false);
+        bmPane.setVisible(false);
+        reportPane.setVisible(false);
+        branchPane.setVisible(false);
+        vbPane.setVisible(true);
     }
 
     public void addBranchDB() throws SQLException {
@@ -166,6 +204,7 @@ public class SuperAdminController extends DashboardController implements Initial
 
     public void addBM() {
         lblPerson.setVisible(false);
+        vbPane.setVisible(false);
         reportPane.setVisible(false);
         branchPane.setVisible(false);
         bmPane.setVisible(true);
@@ -183,6 +222,7 @@ public class SuperAdminController extends DashboardController implements Initial
 
     public void viewReport(){
         lblPerson.setVisible(false);
+        vbPane.setVisible(false);
         branchPane.setVisible(false);
         bmPane.setVisible(false);
         reportPane.setVisible(true);

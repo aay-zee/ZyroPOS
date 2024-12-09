@@ -47,6 +47,9 @@ public class AdminController extends DashboardController implements Initializabl
     private JFXButton btnCP;
 
     @FXML
+    private JFXButton btnVE;
+
+    @FXML
     private JFXButton btnLogout;
 
     @FXML
@@ -57,6 +60,11 @@ public class AdminController extends DashboardController implements Initializabl
 
     @FXML
     private JFXComboBox<String> cmbRole;
+
+    @FXML
+    private JFXComboBox<String> cmbReportType;
+    @FXML
+    private JFXComboBox<String> cmbRange;
 
     @FXML
     private Pane innerPane1;
@@ -96,6 +104,8 @@ public class AdminController extends DashboardController implements Initializabl
 
     private String[] role={"Data Entry Operator","Cashier"};
     private String[] currency={"PKR","USD","GBP"};
+    private String[] reportType={"Sales","Remaining Stock","Profit"};
+    private String[] range={"Daily","Weekly","Monthly","Yearly"};
 
     public AdminController() {
         adminModel=new AdminModel();
@@ -111,9 +121,13 @@ public class AdminController extends DashboardController implements Initializabl
         btnLogout.setFocusTraversable(false);
         btnCP.setFocusTraversable(false);
         btnVR.setFocusTraversable(false);
+        btnVE.setFocusTraversable(false);
 
         cmbRole.getItems().addAll(role);
         cmbCurrency.getItems().addAll(currency);
+        cmbReportType.getItems().addAll(reportType);
+        cmbRange.getItems().addAll(range);
+
     }
 
 
