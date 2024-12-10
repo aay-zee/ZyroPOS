@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -40,6 +41,9 @@ public class SuperAdminController extends DashboardController implements Initial
 
     @FXML
     private BorderPane vbPane;
+
+    @FXML
+    private BorderPane vmPane;
 
     @FXML
     private Label lblPerson;
@@ -90,7 +94,7 @@ public class SuperAdminController extends DashboardController implements Initial
     private NumberAxis y;
 
     @FXML
-    private LineChart<?, ?> lineChart;
+    private LineChart<String, Number> lineChart;
 
     @FXML
     private BorderPane reportPane;
@@ -139,7 +143,37 @@ public class SuperAdminController extends DashboardController implements Initial
 
         cbReportType.getItems().addAll(reportType);
         cbRange.getItems().addAll(range);
-        lineChart=new LineChart<>(x,y);
+        //lineChart= new LineChart<>(x, y);
+
+        XYChart.Series series=new XYChart.Series();
+        series.getData().add(new XYChart.Data("1",23));
+        series.getData().add(new XYChart.Data("2",45));
+        series.getData().add(new XYChart.Data("3",47));
+        series.getData().add(new XYChart.Data("4",54));
+        series.getData().add(new XYChart.Data("5",34));
+        series.getData().add(new XYChart.Data("6",98));
+        series.getData().add(new XYChart.Data("7",78));
+        series.getData().add(new XYChart.Data("8",56));
+        series.getData().add(new XYChart.Data("9",78));
+        series.getData().add(new XYChart.Data("10",98));
+
+        XYChart.Series series1=new XYChart.Series();
+        series1.getData().add(new XYChart.Data("1",32));
+        series1.getData().add(new XYChart.Data("2",23));
+        series1.getData().add(new XYChart.Data("3",54));
+        series1.getData().add(new XYChart.Data("4",43));
+        series1.getData().add(new XYChart.Data("5",66));
+        series1.getData().add(new XYChart.Data("6",98));
+        series1.getData().add(new XYChart.Data("7",13));
+        series1.getData().add(new XYChart.Data("8",56));
+        series1.getData().add(new XYChart.Data("9",87));
+        series1.getData().add(new XYChart.Data("10",54));
+        series1.getData().add(new XYChart.Data("11",33));
+
+        lineChart.getData().add(series);
+        lineChart.getData().add(series1);
+
+
     }
 
 //    @FXML
@@ -171,6 +205,7 @@ public class SuperAdminController extends DashboardController implements Initial
         vbPane.setVisible(false);
         bmPane.setVisible(false);
         reportPane.setVisible(false);
+        vmPane.setVisible(false);
         branchPane.setVisible(true);
     }
 
@@ -180,7 +215,18 @@ public class SuperAdminController extends DashboardController implements Initial
         bmPane.setVisible(false);
         reportPane.setVisible(false);
         branchPane.setVisible(false);
+        vmPane.setVisible(false);
         vbPane.setVisible(true);
+    }
+
+    @FXML
+    public void displayManagers(){
+        lblPerson.setVisible(false);
+        bmPane.setVisible(false);
+        reportPane.setVisible(false);
+        branchPane.setVisible(false);
+        vbPane.setVisible(false);
+        vmPane.setVisible(true);
     }
 
     public void addBranchDB() throws SQLException {
@@ -207,6 +253,7 @@ public class SuperAdminController extends DashboardController implements Initial
         vbPane.setVisible(false);
         reportPane.setVisible(false);
         branchPane.setVisible(false);
+        vmPane.setVisible(false);
         bmPane.setVisible(true);
     }
 
@@ -225,6 +272,7 @@ public class SuperAdminController extends DashboardController implements Initial
         vbPane.setVisible(false);
         branchPane.setVisible(false);
         bmPane.setVisible(false);
+        vmPane.setVisible(false);
         reportPane.setVisible(true);
     }
 }

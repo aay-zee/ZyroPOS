@@ -22,7 +22,7 @@
 
 <HBox fx:id="rootScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="889.0" stylesheets="@../css/SuperAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.zyropos.SuperAdminController">
    <children>
-      <VBox id="menuBar" alignment="TOP_CENTER" prefHeight="594.0" prefWidth="221.0" spacing="35.0">
+      <VBox id="menuBar" alignment="TOP_CENTER" prefHeight="594.0" prefWidth="238.0" spacing="35.0">
          <children>
             <Pane fx:id="innerPane1" prefHeight="58.0" prefWidth="186.0">
                <children>
@@ -74,7 +74,7 @@
                   <Font name="Century Gothic Bold" size="13.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btnVBM" buttonType="RAISED" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="View Branch Managers" textAlignment="CENTER" textFill="WHITE">
+            <JFXButton fx:id="btnVBM" buttonType="RAISED" onAction="#displayManagers" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="View Managers" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Century Gothic Bold" size="13.0" />
                </font>
@@ -201,6 +201,38 @@
                         <TableColumn fx:id="empCount" prefWidth="103.20010375976562" text="Employee Count" />
                         <TableColumn fx:id="status" prefWidth="76.800048828125" text="Status" />
                     </columns>
+                  </TableView>
+               </center>
+               <top>
+                  <Pane prefHeight="120.0" prefWidth="590.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton id="btnDanger" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="480.0" layoutY="48.0" ripplerFill="#c91c1c" text="Remove" textAlignment="CENTER" textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../assets/danger.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <TextField layoutX="14.0" layoutY="81.0" prefWidth="210.0" promptText="Search Column" />
+                        <TextField layoutX="14.0" layoutY="23.0" prefHeight="25.0" prefWidth="210.0" promptText="Search Value" />
+                     </children>
+                  </Pane>
+               </top>
+            </BorderPane>
+            <BorderPane fx:id="vmPane" layoutX="39.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
+               <center>
+                  <TableView fx:id="tblBranches1" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <columns>
+                        <TableColumn fx:id="branchID1" prefWidth="63.20001220703125" styleClass="column-header" text="Branch ID" />
+                        <TableColumn fx:id="name1" prefWidth="94.40001678466797" text="Name" />
+                        <TableColumn fx:id="city1" prefWidth="57.60003662109375" text="City" />
+                        <TableColumn fx:id="address1" prefWidth="94.39996337890625" text="Address" />
+                        <TableColumn fx:id="contact1" prefWidth="98.39996337890625" text="Contact" />
+                        <TableColumn fx:id="empCount1" prefWidth="103.20010375976562" text="Employee Count" />
+                        <TableColumn fx:id="status1" prefWidth="76.800048828125" text="Status" />
+                     </columns>
                   </TableView>
                </center>
                <top>

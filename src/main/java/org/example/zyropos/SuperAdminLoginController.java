@@ -27,9 +27,11 @@ public class SuperAdminLoginController extends LoginController {
     @Override
     public void submit(ActionEvent event) throws SQLException, IOException {
         LoginModel loginModel = new LoginModel();
+        System.out.println(tfUsername.getText());
+        System.out.println(pfPassword.getText());
 
         if(loginModel.authenticateUser("SuperAdmin",tfUsername.getText(),pfPassword.getText())){
-            openDashboard("fxml/SuperAdmin.fxml",tfUsername.getText());
+            openDashboard("fxml/SuperAdmin.fxml");
         }
     }
 }

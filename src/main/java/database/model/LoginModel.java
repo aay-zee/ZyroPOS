@@ -33,7 +33,7 @@ public class LoginModel extends BaseModel{
             System.out.println("Authentication Failed");
         }
 
-
+        preparedStatement.close();
         return false;
     }
 }
