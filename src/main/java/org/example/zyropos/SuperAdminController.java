@@ -11,12 +11,12 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import database.model.SuperAdminModel;
 import utilities.Values;
 
-import javax.swing.text.Position;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -47,6 +47,11 @@ public class SuperAdminController extends DashboardController implements Initial
 
     @FXML
     private Label lblPerson;
+
+    @FXML
+    private JFXComboBox<String> cmbSearchColumn;
+    @FXML
+    private JFXComboBox<String> cmbVMSearchCol;
 
     //Add Branch Pane
     @FXML
@@ -105,25 +110,44 @@ public class SuperAdminController extends DashboardController implements Initial
 
     //View Branch Table
     @FXML
-    private TableView<?> tblBranches;
+    private TableView<Branch> tblBranches;
 
     @FXML
-    private TableColumn<?, ?> branchID;
+    private TableColumn<Branch, Integer> branchID;
     @FXML
-    private TableColumn<?, ?> name;
+    private TableColumn<Branch, String> name;
     @FXML
-    private TableColumn<?, ?> city;
+    private TableColumn<Branch, String> city;
     @FXML
-    private TableColumn<?, ?> address;
+    private TableColumn<Branch, String> address;
     @FXML
-    private TableColumn<?, ?> contact;
+    private TableColumn<Branch, String> contact;
     @FXML
-    private TableColumn<?, ?> empCount;
+    private TableColumn<Branch, Integer> empCount;
     @FXML
-    private TableColumn<?, ?> status;
+    private TableColumn<Branch, Boolean> status;
+
+    //View Manager Table
+    @FXML
+    private TableView<BranchManager> tblManagers;
+
+    @FXML
+    private TableColumn<BranchManager, Integer> id;
+    @FXML
+    private TableColumn<BranchManager, String> managerName;
+    @FXML
+    private TableColumn<BranchManager, Integer> managerBranchID;
+    @FXML
+    private TableColumn<BranchManager, String> managerContact;
+    @FXML
+    private TableColumn<BranchManager, String> managerAddress;
+    @FXML
+    private TableColumn<BranchManager, String> managerEmail;
+
 
     private String[] reportType={"Sales","Remaining Stock","Profit"};
     private String[] range={"Daily","Weekly","Monthly","Yearly"};
+    private String[] cols={"Branch ID","Name","City","Address","Contact","Employee Count","Status"};
 
 
 
@@ -143,6 +167,8 @@ public class SuperAdminController extends DashboardController implements Initial
 
         cbReportType.getItems().addAll(reportType);
         cbRange.getItems().addAll(range);
+        cmbSearchColumn.getItems().addAll(cols);
+        cmbVMSearchCol.getItems().addAll(cols);
         //lineChart= new LineChart<>(x, y);
 
         XYChart.Series series=new XYChart.Series();
@@ -209,24 +235,58 @@ public class SuperAdminController extends DashboardController implements Initial
         branchPane.setVisible(true);
     }
 
+    private void setupBranchTable() {
+        branchID.setCellValueFactory(new PropertyValueFactory<>("branchID"));
+        name.setCellValueFactory(new PropertyValueFactory<>("branchName"));
+        city.setCellValueFactory(new PropertyValueFactory<>("city"));
+        address.setCellValueFactory(new PropertyValueFactory<>("address"));
+        contact.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        empCount.setCellValueFactory(new PropertyValueFactory<>("empCount"));
+        status.setCellValueFactory(new PropertyValueFactory<>("active"));
+    }
+
+    private void setupManagerTable(){
+        id.setCellValueFactory(new PropertyValueFactory<>("managerID"));
+        managerName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        managerBranchID.setCellValueFactory(new PropertyValueFactory<>("branchID"));
+        managerContact.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        managerAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        managerEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+    }
+
     @FXML
-    public void viewBranch(){
+    public void viewBranch() throws SQLException {
         lblPerson.setVisible(false);
         bmPane.setVisible(false);
         reportPane.setVisible(false);
         branchPane.setVisible(false);
         vmPane.setVisible(false);
         vbPane.setVisible(true);
+
+//        branchID.setCellValueFactory(new PropertyValueFactory<>("BranchID"));
+//        name.setCellValueFactory(new PropertyValueFactory<>("BranchName"));
+//        city.setCellValueFactory(new PropertyValueFactory<>("City"));
+//        address.setCellValueFactory(new PropertyValueFactory<>("Address"));
+//        contact.setCellValueFactory(new PropertyValueFactory<>("Phone"));
+//        empCount.setCellValueFactory(new PropertyValueFactory<>("EmpCount"));
+//        status.setCellValueFactory(new PropertyValueFactory<>("isActive"));
+
+        setupBranchTable();
+
+        tblBranches.setItems(saModel.getAllBranches());
     }
 
     @FXML
-    public void displayManagers(){
+    public void displayManagers() throws SQLException {
         lblPerson.setVisible(false);
         bmPane.setVisible(false);
         reportPane.setVisible(false);
         branchPane.setVisible(false);
         vbPane.setVisible(false);
         vmPane.setVisible(true);
+
+        setupManagerTable();
+        tblManagers.setItems(saModel.getAllBranchManagers());
     }
 
     public void addBranchDB() throws SQLException {
@@ -234,7 +294,7 @@ public class SuperAdminController extends DashboardController implements Initial
         if(rdABUnactive.isSelected()){
             status=false;
         }
-        saModel.addNewBranchToDatabase(Integer.parseInt(tfABBranchID.getText()),tfABBranchName.getText(),tfABCity.getText(),tfABAddress.getText(),tfABContact.getText(),Integer.parseInt(tfABEmp.getText()),status);
+        saModel.addNewBranchToDatabase(tfABBranchName.getText(),tfABCity.getText(),tfABAddress.getText(),tfABContact.getText(),Integer.parseInt(tfABEmp.getText()),status);
 
         showAlert("Add Branch","Branch Addition Status","Branch Added Successfully");
 
@@ -258,7 +318,7 @@ public class SuperAdminController extends DashboardController implements Initial
     }
 
     public void addBManagerDB() throws SQLException {
-        saModel.addNewBManagerToDatabase(Integer.parseInt(tfMID.getText()),tfMName.getText(),Integer.parseInt(tfBID.getText()),tfContact.getText(),tfAddress.getText(),tfEmail.getText(),tfUsername.getText(),tfPassword.getText());
+        saModel.addNewBManagerToDatabase(tfMName.getText(),Integer.parseInt(tfBID.getText()),tfContact.getText(),tfAddress.getText(),tfEmail.getText(),tfUsername.getText(),tfPassword.getText());
 
         showAlert("Add Branch Manager","Branch Manager Addition Status","Branch Manager Added Successfully");
 
