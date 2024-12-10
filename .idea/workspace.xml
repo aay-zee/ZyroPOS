@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a43c4309-6a80-4d66-b445-7722c5d0679f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/Branch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/model/SuperAdminModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/model/SuperAdminModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utilities/Branch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/SuperAdmin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/SuperAdmin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/SuperAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/SuperAdmin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/model/AdminModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/model/AdminModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/AddProductPopUp.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/AddVendorPopUp.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/Admin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/Admin.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +132,7 @@
       <workItem from="1733766786606" duration="2554000" />
       <workItem from="1733815783054" duration="7479000" />
       <workItem from="1733835262082" duration="756000" />
-      <workItem from="1733836049789" duration="9347000" />
+      <workItem from="1733836049789" duration="14035000" />
     </task>
     <servers />
   </component>

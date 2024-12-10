@@ -8,6 +8,8 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -21,7 +23,7 @@
 
 <HBox fx:id="rootScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="889.0" stylesheets="@../css/SuperAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.zyropos.AdminController">
     <children>
-        <VBox id="menuBar" alignment="TOP_CENTER" prefHeight="594.0" prefWidth="221.0" spacing="45.0">
+        <VBox id="menuBar" alignment="TOP_CENTER" prefHeight="594.0" prefWidth="221.0" spacing="35.0">
             <children>
                   <Pane fx:id="innerPane1" prefHeight="58.0" prefWidth="186.0">
                       <children>
@@ -49,7 +51,19 @@
                           <Font name="Century Gothic Bold" size="13.0" />
                       </font>
                   </JFXButton>
-            <JFXButton fx:id="btnVE" buttonType="RAISED" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="View Employees" textAlignment="CENTER" textFill="WHITE">
+            <JFXButton fx:id="btnVDO" buttonType="RAISED" onAction="#displayVDO" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="View Data Operators" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Century Gothic Bold" size="13.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../assets/view.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnCa" buttonType="RAISED" layoutX="28.0" layoutY="212.0" onAction="#displayCashier" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="View Cashiers" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Century Gothic Bold" size="13.0" />
                </font>
@@ -101,30 +115,35 @@
         </VBox>
         <AnchorPane prefHeight="594.0" prefWidth="668.0">
             <children>
-                <Pane fx:id="emPane" layoutX="38.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
+                <Pane fx:id="emPane" layoutX="38.0" prefHeight="557.0" prefWidth="590.0" visible="false">
                     <children>
-                        <TextField fx:id="tfEmail" layoutX="108.0" layoutY="279.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Employee Email" />
-                        <TextField fx:id="tfAddress" layoutX="108.0" layoutY="235.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Employee Address" />
-                        <TextField fx:id="tfContact" layoutX="108.0" layoutY="194.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Employee Contact Number" />
-                        <TextField fx:id="tfBID" layoutX="108.0" layoutY="149.0" prefHeight="25.0" prefWidth="451.0" promptText="The branch ID or code where the employee will work" />
-                        <TextField fx:id="tfEName" layoutX="108.0" layoutY="107.0" prefHeight="25.0" prefWidth="451.0" promptText="Full name of the employee" />
-                        <TextField fx:id="tfEID" layoutX="108.0" layoutY="62.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Unique ID" />
-                        <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="409.0" layoutY="457.0" onAction="#submit" prefHeight="25.0" prefWidth="150.0" ripplerFill="BLACK" styleClass="btnSubmit" stylesheets="@../css/SuperAdmin.css" text="Submit" textAlignment="CENTER" textFill="WHITE" />
-                        <Label layoutX="19.0" layoutY="66.0" text="Employee ID:" />
-                        <Label layoutX="19.0" layoutY="111.0" text="Employee Name:" />
-                        <Label layoutX="19.0" layoutY="239.0" prefHeight="17.0" prefWidth="54.0" text="Address: " />
-                        <Label layoutX="19.0" layoutY="198.0" prefHeight="17.0" prefWidth="54.0" text="Contact: " />
-                        <Label layoutX="19.0" layoutY="153.0" prefHeight="17.0" prefWidth="85.0" text="Branch ID:  " />
+                        <TextField fx:id="tfEmail" layoutX="108.0" layoutY="330.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Employee Email" />
+                        <TextField fx:id="tfAddress" layoutX="108.0" layoutY="286.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Employee Address" />
+                        <TextField fx:id="tfContact" layoutX="108.0" layoutY="245.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Employee Contact Number" />
+                        <TextField fx:id="tfBID" layoutX="108.0" layoutY="200.0" prefHeight="25.0" prefWidth="451.0" promptText="The branch ID or code where the employee will work" />
+                        <TextField fx:id="tfEName" layoutX="108.0" layoutY="158.0" prefHeight="25.0" prefWidth="451.0" promptText="Full name of the employee" />
+                        <TextField fx:id="tfEID" layoutX="108.0" layoutY="113.0" prefHeight="25.0" prefWidth="451.0" promptText="Enter Unique ID" />
+                        <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="409.0" layoutY="508.0" onAction="#submit" prefHeight="25.0" prefWidth="150.0" ripplerFill="BLACK" styleClass="btnSubmit" stylesheets="@../css/SuperAdmin.css" text="Submit" textAlignment="CENTER" textFill="WHITE" />
+                        <Label layoutX="19.0" layoutY="117.0" text="Employee ID:" />
+                        <Label layoutX="19.0" layoutY="162.0" text="Employee Name:" />
+                        <Label layoutX="19.0" layoutY="290.0" prefHeight="17.0" prefWidth="54.0" text="Address: " />
+                        <Label layoutX="19.0" layoutY="249.0" prefHeight="17.0" prefWidth="54.0" text="Contact: " />
+                        <Label layoutX="19.0" layoutY="204.0" prefHeight="17.0" prefWidth="85.0" text="Branch ID:  " />
                         <Label layoutX="19.0" layoutY="283.0" text="Email: " />
-                        <TextField fx:id="tfUsername" layoutX="108.0" layoutY="364.0" prefHeight="25.0" prefWidth="451.0" promptText="Username" />
-                        <Label layoutX="19.0" layoutY="368.0" text="Username: " />
-                        <Label layoutX="19.0" layoutY="408.0" text="Password: " />
-                  <TextField fx:id="tfSalary" layoutX="183.0" layoutY="323.0" prefHeight="25.0" prefWidth="376.0" promptText="Salary" />
+                        <TextField fx:id="tfUsername" layoutX="108.0" layoutY="415.0" prefHeight="25.0" prefWidth="451.0" promptText="Username" />
+                        <Label layoutX="19.0" layoutY="419.0" text="Username: " />
+                        <Label layoutX="19.0" layoutY="459.0" text="Password: " />
+                  <TextField fx:id="tfSalary" layoutX="183.0" layoutY="374.0" prefHeight="25.0" prefWidth="376.0" promptText="Salary" />
                   <Label layoutX="19.0" layoutY="327.0" text="Salary: " />
-                  <JFXComboBox fx:id="cmbCurrency" focusColor="#2f71c2" layoutX="108.0" layoutY="323.0" prefHeight="25.0" prefWidth="76.0" unFocusColor="BLACK" />
-                  <Label layoutX="19.0" layoutY="24.0" text="Role: " />
-                  <JFXComboBox fx:id="cmbRole" focusColor="#2f71c2" layoutX="108.0" layoutY="20.0" prefWidth="451.0" promptText="Please Select an Option" unFocusColor="BLACK" />
-                  <PasswordField fx:id="pfPassword" layoutX="108.0" layoutY="404.0" prefWidth="451.0" promptText="Password" />
+                  <JFXComboBox fx:id="cmbCurrency" focusColor="#2f71c2" layoutX="108.0" layoutY="374.0" prefHeight="25.0" prefWidth="76.0" unFocusColor="BLACK" />
+                  <Label layoutX="21.0" layoutY="75.0" text="Role: " />
+                  <JFXComboBox fx:id="cmbRole" focusColor="#2f71c2" layoutX="108.0" layoutY="71.0" prefWidth="451.0" promptText="Please Select an Option" unFocusColor="BLACK" />
+                  <PasswordField fx:id="pfPassword" layoutX="108.0" layoutY="455.0" prefWidth="451.0" promptText="Password" />
+                  <Label layoutX="227.0" layoutY="14.0" text="Add Employee">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
                     </children>
                 </Pane>
             <BorderPane fx:id="cpPane" layoutX="206.0" layoutY="153.0" prefHeight="287.0" prefWidth="254.0" visible="false">
@@ -144,15 +163,20 @@
                   <JFXButton buttonType="RAISED" prefHeight="26.0" prefWidth="84.0" styleClass="btnSubmit" text="Confirm" textAlignment="CENTER" textFill="WHITE" BorderPane.alignment="BASELINE_RIGHT" />
                </bottom>
             </BorderPane>
-            <BorderPane fx:id="reportPane" layoutX="38.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
+            <BorderPane fx:id="reportPane" layoutX="38.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0">
                <top>
-                  <Pane prefHeight="102.0" prefWidth="590.0" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="138.0" prefWidth="590.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label layoutX="14.0" layoutY="14.0" text="Report Type: " />
-                        <Label layoutX="346.0" layoutY="14.0" text="Specify Range: " />
-                        <JFXButton fx:id="btnGenerateReport" buttonType="RAISED" layoutX="243.0" layoutY="63.0" text="Generate Report" />
-                        <JFXComboBox fx:id="cmbReportType" focusColor="#2f71c2" layoutX="86.0" layoutY="10.0" prefHeight="25.0" prefWidth="150.0" />
-                        <JFXComboBox fx:id="cmbRange" focusColor="#2f71c2" layoutX="426.0" layoutY="10.0" prefHeight="25.0" prefWidth="150.0" />
+                        <Label layoutX="14.0" layoutY="56.0" text="Report Type: " />
+                        <Label layoutX="346.0" layoutY="56.0" text="Specify Range: " />
+                        <JFXButton fx:id="btnGenerateReport" buttonType="RAISED" layoutX="243.0" layoutY="102.0" text="Generate Report" />
+                        <JFXComboBox fx:id="cmbReportType" focusColor="#2f71c2" layoutX="86.0" layoutY="52.0" prefHeight="25.0" prefWidth="150.0" />
+                        <JFXComboBox fx:id="cmbRange" focusColor="#2f71c2" layoutX="426.0" layoutY="52.0" prefHeight="25.0" prefWidth="150.0" />
+                        <Label layoutX="233.0" layoutY="14.0" text="View Reports">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
                      </children>
                   </Pane>
                </top>
@@ -171,11 +195,81 @@
                   </Pane>
                </center>
             </BorderPane>
-            <Label fx:id="lblPerson" layoutX="298.0" layoutY="14.0" text="Label" textAlignment="CENTER">
+            <Label fx:id="lblPerson" layoutX="261.0" layoutY="274.0" text="Dashboard" textAlignment="CENTER">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
+            <BorderPane fx:id="vdoPane" layoutX="38.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
+               <center>
+                  <TableView fx:id="tblDataOperators" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <columns>
+                        <TableColumn fx:id="doID" prefWidth="63.20001220703125" styleClass="column-header" text="ID" />
+                        <TableColumn fx:id="doName" prefWidth="94.40001678466797" text="Name" />
+                        <TableColumn fx:id="doBranchID" prefWidth="69.5999755859375" text="Branch ID" />
+                        <TableColumn fx:id="doContact" prefWidth="82.4000244140625" text="Contact" />
+                        <TableColumn fx:id="doAddress" prefWidth="98.39996337890625" text="Address" />
+                        <TableColumn fx:id="doEmail" prefWidth="103.20010375976562" text="Email" />
+                        <TableColumn fx:id="doSalary" prefWidth="77.60001220703123" text="Salary" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </center>
+               <top>
+                  <Pane prefHeight="120.0" prefWidth="590.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton id="btnDanger" fx:id="btnRemove" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="462.0" layoutY="14.0" prefHeight="25.0" prefWidth="128.0" ripplerFill="#c91c1c" text="Remove" textAlignment="CENTER" textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../assets/danger.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <TextField fx:id="tfSearchVal" layoutY="70.0" prefHeight="25.0" prefWidth="210.0" promptText="Search Value" />
+                        <JFXComboBox fx:id="cmbSearchCol" focusColor="#2f71c2" layoutY="14.0" prefWidth="210.0" promptText="Specify Column" unFocusColor="BLACK" />
+                     </children>
+                  </Pane>
+               </top>
+            </BorderPane>
+            <BorderPane fx:id="cashierPane" layoutX="38.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
+               <center>
+                  <TableView fx:id="tblCashiers" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <columns>
+                        <TableColumn fx:id="cID" prefWidth="63.20001220703125" styleClass="column-header" text="ID" />
+                        <TableColumn fx:id="cName" prefWidth="94.40001678466797" text="Name" />
+                        <TableColumn fx:id="cBranchID" prefWidth="69.5999755859375" text="Branch ID" />
+                        <TableColumn fx:id="cContact" prefWidth="82.4000244140625" text="Contact" />
+                        <TableColumn fx:id="cAddress" prefWidth="98.39996337890625" text="Address" />
+                        <TableColumn fx:id="cEmail" prefWidth="103.20010375976562" text="Email" />
+                        <TableColumn fx:id="cSalary" prefWidth="77.60001220703123" text="Salary" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </center>
+               <top>
+                  <Pane prefHeight="120.0" prefWidth="590.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton id="btnDanger" fx:id="btnRemove1" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="462.0" layoutY="14.0" prefHeight="25.0" prefWidth="128.0" ripplerFill="#c91c1c" text="Remove" textAlignment="CENTER" textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../assets/danger.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <TextField fx:id="tfSearchVal1" layoutY="70.0" prefHeight="25.0" prefWidth="210.0" promptText="Search Value" />
+                        <JFXComboBox fx:id="cmbSearchCol2" focusColor="#2f71c2" layoutY="14.0" prefWidth="210.0" promptText="Specify Column" unFocusColor="BLACK" />
+                     </children>
+                  </Pane>
+               </top>
+            </BorderPane>
             </children>
         </AnchorPane>
     </children>

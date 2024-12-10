@@ -1,6 +1,12 @@
 package database.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import org.example.zyropos.Cashier;
+import org.example.zyropos.DataOperator;
+
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AdminModel extends BaseModel{
@@ -31,5 +37,51 @@ public class AdminModel extends BaseModel{
         }
 
         preparedStatement.close();
+    }
+
+    public ObservableList<DataOperator> getAllOperators() throws SQLException {
+        ObservableList<DataOperator> operators = FXCollections.observableArrayList();
+        String selectQuery="SELECT employeeID,employeeName,branchID,contact,address,email,salary FROM DataOperator";
+        PreparedStatement preparedStatement=connection.prepareStatement(selectQuery);
+        ResultSet resultSet=preparedStatement.executeQuery();
+
+        while(resultSet.next()){
+            operators.add(new DataOperator(
+                    resultSet.getInt("employeeID"),
+                    resultSet.getString("employeeName"),
+                    resultSet.getInt("branchID"),
+                    resultSet.getString("contact"),
+                    resultSet.getString("address"),
+                    resultSet.getString("email"),
+                    resultSet.getString("salary")
+            ));
+        }
+
+        resultSet.close();
+        preparedStatement.close();
+        return operators;
+    }
+
+    public ObservableList<Cashier> getAllCashiers() throws SQLException {
+        ObservableList<Cashier> cashiers = FXCollections.observableArrayList();
+        String selectQuery="SELECT employeeID,employeeName,branchID,contact,address,email,salary FROM Cashier";
+        PreparedStatement preparedStatement=connection.prepareStatement(selectQuery);
+        ResultSet resultSet=preparedStatement.executeQuery();
+
+        while(resultSet.next()){
+            cashiers.add(new Cashier(
+                    resultSet.getInt("employeeID"),
+                    resultSet.getString("employeeName"),
+                    resultSet.getInt("branchID"),
+                    resultSet.getString("contact"),
+                    resultSet.getString("address"),
+                    resultSet.getString("email"),
+                    resultSet.getString("salary")
+            ));
+        }
+
+        resultSet.close();
+        preparedStatement.close();
+        return cashiers;
     }
 }
