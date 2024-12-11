@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -17,9 +18,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox fx:id="rootScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="889.0" stylesheets="@../css/SuperAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.zyropos.AdminController">
+<HBox fx:id="rootScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="889.0" stylesheets="@../css/SuperAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.zyropos.CashierController">
     <children>
-        <VBox id="menuBar" alignment="TOP_CENTER" prefHeight="594.0" prefWidth="221.0" spacing="45.0">
+        <VBox id="menuBar" alignment="TOP_CENTER" prefHeight="594.0" prefWidth="221.0" spacing="35.0">
             <children>
                 <Pane fx:id="innerPane1" prefHeight="58.0" prefWidth="186.0">
                     <children>
@@ -35,19 +36,19 @@
                         </Text>
                     </children>
                 </Pane>
-                <JFXButton fx:id="btnGenerateBill" buttonType="RAISED" graphicTextGap="2.0" onAction="#displayGB" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="Generate Bill" textAlignment="CENTER" textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="btnImg">
-                            <image>
-                                <Image url="@../../../../assets/SuperAdmin/addBranch.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
+                <JFXButton fx:id="btnViewProducts" onAction="#displayVP" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="View Products" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="Century Gothic Bold" size="13.0" />
                     </font>
+                    <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../../assets/view.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
                 </JFXButton>
-                <JFXButton fx:id="btnViewBills" buttonType="RAISED" onAction="#displayVB" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="View Bills" textAlignment="CENTER" textFill="WHITE">
+                <JFXButton fx:id="btnViewCart" layoutX="28.0" layoutY="212.0" onAction="#dislayVC" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="View Cart" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="Century Gothic Bold" size="13.0" />
                     </font>
@@ -104,54 +105,67 @@
                         <JFXButton buttonType="RAISED" prefHeight="26.0" prefWidth="84.0" styleClass="btnSubmit" text="Confirm" textAlignment="CENTER" textFill="WHITE" BorderPane.alignment="BASELINE_RIGHT" />
                     </bottom>
                 </BorderPane>
-                <Label fx:id="lblPerson" layoutX="261.0" layoutY="14.0" text="Dashboard" textAlignment="CENTER">
+                <Label fx:id="lblPerson" layoutX="261.0" layoutY="274.0" text="Dashboard" textAlignment="CENTER">
                     <font>
                         <Font size="30.0" />
                     </font>
                 </Label>
-                <BorderPane fx:id="mvPane" layoutX="38.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
-                    <top>
-                        <Pane prefHeight="106.0" prefWidth="590.0" BorderPane.alignment="CENTER">
-                            <children>
-                                <TextField fx:id="tfSearch" layoutX="24.0" layoutY="41.0" prefHeight="25.0" prefWidth="196.0" promptText="Search..." />
-                                <JFXButton fx:id="btnAdd" buttonType="RAISED" layoutX="402.0" layoutY="41.0" text="Add" />
-                                <JFXButton fx:id="btnRemove" buttonType="RAISED" layoutX="499.0" layoutY="41.0" text="Remove" />
-                            </children>
-                        </Pane>
-                    </top>
-                    <center>
-                        <TableView fx:id="tblVendors" prefHeight="286.0" prefWidth="590.0" BorderPane.alignment="CENTER">
-                            <columns>
-                                <TableColumn prefWidth="75.0" text="ID" />
-                                <TableColumn prefWidth="75.0" text="Name" />
-                            </columns>
-                        </TableView>
-                    </center>
-                </BorderPane>
-                <BorderPane fx:id="mpPane" layoutX="38.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
-                    <top>
-                        <Pane fx:id="tfSearch" prefHeight="90.0" prefWidth="590.0" BorderPane.alignment="CENTER">
-                            <children>
-                                <TextField layoutX="30.0" layoutY="33.0" prefHeight="25.0" prefWidth="196.0" promptText="Search..." />
-                                <JFXButton fx:id="btnAdd" buttonType="RAISED" layoutX="424.0" layoutY="33.0" text="Add" />
-                                <JFXButton fx:id="btnRemove" buttonType="RAISED" layoutX="501.0" layoutY="33.0" text="Remove" />
-                            </children>
-                        </Pane>
-                    </top>
+                <BorderPane fx:id="vpPane" layoutX="39.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
                     <center>
                         <TableView fx:id="tblProducts" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                             <columns>
-                                <TableColumn prefWidth="75.0" text="ID" />
-                                <TableColumn prefWidth="99.99993133544922" text="Name" />
-                                <TableColumn prefWidth="97.60003662109375" text="Category" />
-                                <TableColumn prefWidth="85.60003662109375" text="Original Price" />
-                                <TableColumn text="Sale Price" />
-                                <TableColumn prefWidth="68.79995727539062" text="Unit Price" />
-                                <TableColumn prefWidth="82.39990234375" text="Carton Price" />
+                                <TableColumn fx:id="vpID" prefWidth="63.20001220703125" styleClass="column-header" text="ID" />
+                                <TableColumn fx:id="vpName" prefWidth="94.40001678466797" text="Name" />
+                                <TableColumn fx:id="vpCategory" prefWidth="96.79998779296875" text="Category" />
+                                <TableColumn fx:id="vpSalePrice" prefWidth="79.19998168945312" text="Sale Price" />
+                                <TableColumn fx:id="vpUnitPrice" prefWidth="79.19998779296873" text="Unit Price" />
+                                <TableColumn fx:id="vpCartonPrice" prefWidth="75.0" text="Carton Price" />
+                                <TableColumn fx:id="vpQuantity" prefWidth="96.800048828125" text="Quantity" />
                             </columns>
                         </TableView>
                     </center>
+                    <top>
+                        <Pane prefHeight="120.0" prefWidth="590.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <JFXButton fx:id="btnVPCart" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="462.0" layoutY="14.0" onAction="#addToCart" prefHeight="25.0" prefWidth="128.0" ripplerFill="#c91c1c" styleClass="btnSuccess" text="Add to Cart" textAlignment="CENTER" textFill="WHITE" />
+                                <TextField fx:id="tfVPSearchVal" layoutY="70.0" onAction="#searchProducts" prefHeight="25.0" prefWidth="210.0" promptText="Search Value" />
+                                <JFXComboBox fx:id="cmbVPSearchColumn" focusColor="#2f71c2" layoutY="14.0" prefWidth="210.0" promptText="Specify Column" unFocusColor="BLACK" />
+                                <JFXButton id="btnGenerateReport" fx:id="btnVPSearch" layoutX="462.0" layoutY="70.0" onAction="#searchProducts" prefHeight="25.0" prefWidth="128.0" text="Search" textAlignment="CENTER" />
+                            </children>
+                        </Pane>
+                    </top>
                 </BorderPane>
+            <BorderPane fx:id="vcPane" layoutX="39.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
+               <center>
+                  <TableView fx:id="tblCart" editable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <columns>
+                        <TableColumn fx:id="vcID" editable="false" prefWidth="63.20001220703125" styleClass="column-header" text="ID" />
+                        <TableColumn fx:id="vcName" editable="false" prefWidth="94.40001678466797" text="Name" />
+                        <TableColumn fx:id="vcCategory" editable="false" prefWidth="96.79998779296875" text="Category" />
+                        <TableColumn fx:id="vcSalePrice" editable="false" prefWidth="79.19998168945312" text="Sale Price" />
+                        <TableColumn fx:id="vcUnitPrice" editable="false" prefWidth="79.19998779296873" text="Unit Price" />
+                        <TableColumn fx:id="vcCartonPrice" editable="false" prefWidth="75.0" text="Carton Price" />
+                        <TableColumn fx:id="vcQuantity" prefWidth="100.0" text="Quantity" />
+                     </columns>
+                  </TableView>
+               </center>
+               <bottom>
+                  <Pane prefHeight="46.0" prefWidth="590.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton id="btnDanger" fx:id="btnVCRemove" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutY="11.0" onAction="#removeCartItem" prefHeight="25.0" prefWidth="128.0" ripplerFill="#c91c1c" text="Remove" textAlignment="CENTER" textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../assets/danger.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="btnVCGenerateBill" layoutX="462.0" layoutY="11.0" onAction="#generateBill" prefHeight="25.0" prefWidth="128.0" styleClass="btnSuccess" text="Generate Bill" textAlignment="CENTER" textFill="WHITE" />
+                     </children>
+                  </Pane>
+               </bottom>
+            </BorderPane>
             </children>
         </AnchorPane>
     </children>

@@ -61,6 +61,10 @@
     -fx-background-color: #FFD700;
 }
 
+.btnSuccess{
+    -fx-background-color: #28A745;
+}
+
 /*.table-view {*/
 /*    -fx-background-color: white;*/
 /*    -fx-border-color: #ccc;*/

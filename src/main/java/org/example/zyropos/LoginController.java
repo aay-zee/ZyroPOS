@@ -64,6 +64,10 @@ public abstract class LoginController implements Initializable {
             DataOperatorController dataOperatorController=fxmlLoader.getController();
             dataOperatorController.setUsername(username);
         }
+        else if(controllerName.equals("Cashier")) {
+            CashierController cashierController=fxmlLoader.getController();
+            cashierController.setUsername(username);
+        }
 
         stage=(Stage)tfUsername.getScene().getWindow();
         scene=new Scene(root);

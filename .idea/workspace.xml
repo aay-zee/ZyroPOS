@@ -6,15 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="a43c4309-6a80-4d66-b445-7722c5d0679f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/AdminLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/AdminLoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/DataOperatorLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/DataOperatorLoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/CashierLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/CashierLoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zyropos/SuperAdminLoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/Admin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/Admin.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/DataOperator.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/DataOperator.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/DataOperatorLogin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/DataOperatorLogin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/SuperAdmin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/css/SuperAdmin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/Cashier.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/Cashier.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/CashierLogin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/zyropos/fxml/CashierLogin.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +133,7 @@
       <workItem from="1733815783054" duration="7479000" />
       <workItem from="1733835262082" duration="756000" />
       <workItem from="1733836049789" duration="14131000" />
-      <workItem from="1733910217378" duration="18962000" />
+      <workItem from="1733910217378" duration="26329000" />
     </task>
     <servers />
   </component>
