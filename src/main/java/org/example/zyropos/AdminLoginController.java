@@ -19,7 +19,7 @@ public class AdminLoginController extends LoginController {
         LoginModel loginModel = new LoginModel();
 
         if(loginModel.authenticateUser("BranchManager",tfUsername.getText(),pfPassword.getText())){
-            openDashboard("fxml/Admin.fxml");
+            openDashboard("fxml/Admin.fxml","Admin");
         }
     }
 }

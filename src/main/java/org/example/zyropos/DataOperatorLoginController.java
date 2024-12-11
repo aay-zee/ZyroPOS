@@ -26,7 +26,7 @@ public class DataOperatorLoginController extends LoginController{
         System.out.println(pfPassword.getText());
 
         if(loginModel.authenticateUser("DataOperator",tfUsername.getText(),pfPassword.getText())){
-            openDashboard("fxml/DataOperator.fxml");
+            openDashboard("fxml/DataOperator.fxml","DataOperator");
         }
     }
 }

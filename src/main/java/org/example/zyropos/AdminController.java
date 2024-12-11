@@ -172,8 +172,8 @@ public class AdminController extends DashboardController implements Initializabl
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        lblPerson.setText("Welcome "+ Values.PERSON_NAME);
-        lblPerson.setAlignment(Pos.CENTER);
+        //lblPerson.setText("Welcome "+ Values.PERSON_NAME);
+        //lblPerson.setAlignment(Pos.CENTER);
 
         btnAddEmp.setFocusTraversable(false);
         btnLogout.setFocusTraversable(false);
@@ -248,6 +248,7 @@ public class AdminController extends DashboardController implements Initializabl
         reportPane.setVisible(false);
         cpPane.setVisible(false);
         emPane.setVisible(false);
+        cashierPane.setVisible(false);
         setupOperatorTable();
         tblDataOperators.setItems(adminModel.getAllOperators());
         vdoPane.setVisible(true);

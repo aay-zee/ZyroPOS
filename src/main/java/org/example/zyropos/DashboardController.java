@@ -23,11 +23,24 @@ public class DashboardController {
 
 
     public void showAlert(String title, String header, String content){
-        Alert alert=new Alert(Alert.AlertType.INFORMATION);
+        Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    public boolean showAlertConfirmation(String title, String header, String content){
+        Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        if(alert.showAndWait().get()==ButtonType.OK){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public void logout(JFXButton btnLogout) throws IOException {

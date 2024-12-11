@@ -31,7 +31,7 @@ public class SuperAdminLoginController extends LoginController {
         System.out.println(pfPassword.getText());
 
         if(loginModel.authenticateUser("SuperAdmin",tfUsername.getText(),pfPassword.getText())){
-            openDashboard("fxml/SuperAdmin.fxml");
+            openDashboard("fxml/SuperAdmin.fxml","SuperAdmin");
         }
     }
 }
