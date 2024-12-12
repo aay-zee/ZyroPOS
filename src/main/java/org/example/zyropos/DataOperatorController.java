@@ -215,6 +215,14 @@ public class DataOperatorController extends DashboardController implements Initi
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+
+        try {
+            checkFirstTimeLogin("DataOperator",username);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
         lblPerson.setText(username+"'s Dashboard");
         lblPerson.setAlignment(Pos.CENTER);
 

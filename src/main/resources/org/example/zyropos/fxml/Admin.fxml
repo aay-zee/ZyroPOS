@@ -233,7 +233,7 @@
                <top>
                   <Pane prefHeight="129.0" prefWidth="590.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton id="btnDanger" fx:id="btnRemove" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="448.0" layoutY="65.0" prefHeight="25.0" prefWidth="128.0" ripplerFill="#c91c1c" text="Remove" textAlignment="CENTER" textFill="WHITE">
+                        <JFXButton id="btnDanger" fx:id="btnRemove" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="462.0" layoutY="39.0" onAction="#removeDOs" prefHeight="25.0" prefWidth="128.0" ripplerFill="#c91c1c" text="Remove" textAlignment="CENTER" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -249,6 +249,7 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
+                        <JFXButton id="btnGenerateReport" fx:id="btnVDOSearch" buttonType="RAISED" layoutX="462.0" layoutY="91.0" onAction="#searchDOs" prefHeight="25.0" prefWidth="128.0" text="Search" textAlignment="CENTER" />
                      </children>
                   </Pane>
                </top>
@@ -273,7 +274,7 @@
                <top>
                   <Pane prefHeight="138.0" prefWidth="590.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton id="btnDanger" fx:id="btnRemove1" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="462.0" layoutY="64.0" prefHeight="25.0" prefWidth="128.0" ripplerFill="#c91c1c" text="Remove" textAlignment="CENTER" textFill="WHITE">
+                        <JFXButton id="btnDanger" fx:id="btnVCRemove" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="462.0" layoutY="39.0" onAction="#removeCashiers" prefHeight="25.0" prefWidth="128.0" ripplerFill="#c91c1c" text="Remove" textAlignment="CENTER" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -289,6 +290,7 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
+                        <JFXButton id="btnGenerateReport" fx:id="btnVCSearch" buttonType="RAISED" layoutX="462.0" layoutY="90.0" onAction="#searchCashiers" prefHeight="25.0" prefWidth="128.0" text="Search" textAlignment="CENTER" />
                      </children>
                   </Pane>
                </top>

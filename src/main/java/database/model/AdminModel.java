@@ -2,6 +2,7 @@ package database.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.example.zyropos.Branch;
 import org.example.zyropos.Cashier;
 import org.example.zyropos.DataOperator;
 
@@ -39,10 +40,11 @@ public class AdminModel extends BaseModel{
         preparedStatement.close();
     }
 
-    public ObservableList<DataOperator> getAllOperators() throws SQLException {
+    public ObservableList<DataOperator> getAllOperators(int branchID) throws SQLException {
         ObservableList<DataOperator> operators = FXCollections.observableArrayList();
-        String selectQuery="SELECT employeeID,employeeName,branchID,contact,address,email,salary FROM DataOperator";
+        String selectQuery="SELECT employeeID,employeeName,branchID,contact,address,email,salary FROM DataOperator WHERE branchID=?";
         PreparedStatement preparedStatement=connection.prepareStatement(selectQuery);
+        preparedStatement.setInt(1,branchID);
         ResultSet resultSet=preparedStatement.executeQuery();
 
         while(resultSet.next()){
@@ -62,10 +64,11 @@ public class AdminModel extends BaseModel{
         return operators;
     }
 
-    public ObservableList<Cashier> getAllCashiers() throws SQLException {
+    public ObservableList<Cashier> getAllCashiers(int brancID) throws SQLException {
         ObservableList<Cashier> cashiers = FXCollections.observableArrayList();
-        String selectQuery="SELECT employeeID,employeeName,branchID,contact,address,email,salary FROM Cashier";
+        String selectQuery="SELECT employeeID,employeeName,branchID,contact,address,email,salary FROM Cashier WHERE branchID=?";
         PreparedStatement preparedStatement=connection.prepareStatement(selectQuery);
+        preparedStatement.setInt(1,brancID);
         ResultSet resultSet=preparedStatement.executeQuery();
 
         while(resultSet.next()){
@@ -83,5 +86,69 @@ public class AdminModel extends BaseModel{
         resultSet.close();
         preparedStatement.close();
         return cashiers;
+    }
+
+    public ObservableList<Cashier> searchCashiers(int branchID,String column, String value) throws SQLException {
+        ObservableList<Cashier> cashiers = FXCollections.observableArrayList();
+        String searchQuery = "SELECT employeeID,employeeName,branchID,contact,address,email,salary FROM Cashier WHERE branchID = ? AND " + column + " LIKE ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(searchQuery);
+        preparedStatement.setInt(1, branchID);
+        preparedStatement.setString(2, "%" + value + "%");
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            cashiers.add(new Cashier(
+                    resultSet.getInt("employeeID"),
+                    resultSet.getString("employeeName"),
+                    resultSet.getInt("branchID"),
+                    resultSet.getString("contact"),
+                    resultSet.getString("address"),
+                    resultSet.getString("email"),
+                    resultSet.getString("salary")
+            ));
+        }
+        resultSet.close();
+        preparedStatement.close();
+        return cashiers;
+    }
+
+    public void removeCashier(int cashierId) throws SQLException {
+        String deleteQuery = "DELETE FROM Cashier WHERE employeeID = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+        preparedStatement.setInt(1, cashierId);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+    }
+
+    public ObservableList<DataOperator> searchDOs(int branchID,String column, String value) throws SQLException {
+        ObservableList<DataOperator> operators = FXCollections.observableArrayList();
+        String searchQuery = "SELECT employeeID,employeeName,branchID,contact,address,email,salary FROM DataOperator WHERE branchID = ? AND " + column + " LIKE ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(searchQuery);
+        preparedStatement.setInt(1, branchID);
+        preparedStatement.setString(2, "%" + value + "%");
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            operators.add(new DataOperator(
+                    resultSet.getInt("employeeID"),
+                    resultSet.getString("employeeName"),
+                    resultSet.getInt("branchID"),
+                    resultSet.getString("contact"),
+                    resultSet.getString("address"),
+                    resultSet.getString("email"),
+                    resultSet.getString("salary")
+            ));
+        }
+        resultSet.close();
+        preparedStatement.close();
+        return operators;
+    }
+
+    public void removeDO(int operatorId) throws SQLException {
+        String deleteQuery = "DELETE FROM DataOperator WHERE employeeID = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+        preparedStatement.setInt(1, operatorId);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
     }
 }

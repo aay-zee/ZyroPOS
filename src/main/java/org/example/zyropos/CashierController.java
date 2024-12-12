@@ -9,19 +9,21 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.print.PrinterJob;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CashierController extends  DashboardController implements Initializable {
@@ -148,6 +150,13 @@ public class CashierController extends  DashboardController implements Initializ
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        try {
+            checkFirstTimeLogin("Cashier",username);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         btnViewProducts.setFocusTraversable(false);
         btnViewCart.setFocusTraversable(false);
         btnCP.setFocusTraversable(false);
@@ -231,13 +240,15 @@ public class CashierController extends  DashboardController implements Initializ
 
             try {
                 // Update product quantity in database
-                cashierModel.updateProductQuantity(productId, quantity, branchID);
+                if(!(cashierModel.updateProductQuantity(productId, quantity, branchID))){
+                    showAlert("Error", "Database Error", "Not enough stock available for product: " + product.getName());
+                }
 
                 // Add individual sale record
                 cashierModel.addSaleRecord(productId, quantity, productTotal, branchID);
             } catch (SQLException e) {
                 showAlert("Error", "Database Error", "Failed to process sale: " + e.getMessage());
-                return;
+                e.printStackTrace();
             }
         }
 
@@ -253,7 +264,84 @@ public class CashierController extends  DashboardController implements Initializ
         } catch (SQLException e) {
             showAlert("Error", "Database Error", "Failed to complete transaction: " + e.getMessage());
         }
+
+
+        StringBuilder bill = new StringBuilder();
+
+
+        bill.append("==========================================\n");
+        bill.append("              ZYROPOS BILL               \n");
+        bill.append("==========================================\n\n");
+
+
+        bill.append(String.format("Date: %s\n", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
+        bill.append(String.format("Cashier: %s\n", username));
+        bill.append(String.format("Branch ID: %d\n", branchID));
+        bill.append("------------------------------------------\n");
+
+
+        bill.append(String.format("%-20s %8s %10s\n", "Product", "Qty", "Amount"));
+        bill.append("------------------------------------------\n");
+
+        for (CashierProduct product : cartItems) {
+            bill.append(String.format("%-20s %8d %10.2f\n",
+                    truncateString(product.getName(), 20),
+                    product.getQuantity(),
+                    product.getSalePrice() * product.getQuantity()));
+        }
+
+
+        bill.append("------------------------------------------\n");
+        bill.append(String.format("Total Amount: %24.2f\n", totalBillAmount));
+        bill.append("==========================================\n");
+        bill.append("          Thank You, Visit Again!         \n");
+        bill.append("==========================================\n");
+
+        displayBill(bill.toString());
     }
+
+    private void displayBill(String billContent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Sales Receipt");
+        alert.setHeaderText(null);
+        alert.getDialogPane().setMinWidth(450);
+        alert.getDialogPane().setMinHeight(600);
+
+        TextArea textArea = new TextArea(billContent);
+        textArea.setEditable(false);
+        textArea.setFont(Font.font("Monospace", 12));
+        textArea.setStyle("-fx-control-inner-background: white;");
+
+        ButtonType printButton=new ButtonType("Print Bill");
+        ButtonType okButton=new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        alert.getButtonTypes().addAll(printButton,okButton);
+
+        alert.getDialogPane().setContent(textArea);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == printButton) {
+            // Printing Bill
+            printBill(billContent);
+        }
+    }
+
+    private void printBill(String billContent) {
+        PrinterJob job = PrinterJob.createPrinterJob();
+        if (job != null) {
+            TextArea printArea = new TextArea(billContent);
+            printArea.setFont(Font.font("Monospace", 12));
+            job.printPage(printArea);
+            job.endJob();
+        }
+    }
+
+    private String truncateString(String str, int length) {
+        if (str.length() > length) {
+            return str.substring(0, length - 3) + "...";
+        }
+        return str;
+    }
+
 
     @FXML
     void handleLogout(ActionEvent event) {

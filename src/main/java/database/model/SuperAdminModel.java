@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.Alert;
 import org.example.zyropos.Branch;
 import org.example.zyropos.BranchManager;
+import org.example.zyropos.Product;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -135,5 +136,66 @@ public class SuperAdminModel extends BaseModel{
         resultSet.close();
         preparedStatement.close();
         return branches;
+    }
+
+    public ObservableList<Branch> searchBranches(String column, String value) throws SQLException {
+        ObservableList<Branch> branches = FXCollections.observableArrayList();
+        String searchQuery = "SELECT * FROM Branch WHERE " + column + " LIKE ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(searchQuery);
+        preparedStatement.setString(1, "%" + value + "%");
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            branches.add(new Branch(
+                    resultSet.getInt("branch_id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("city"),
+                    resultSet.getString("address"),
+                    resultSet.getString("phone"),
+                    resultSet.getInt("employees_count"),
+                    resultSet.getBoolean("is_active")
+            ));
+        }
+        resultSet.close();
+        preparedStatement.close();
+        return branches;
+    }
+
+    public ObservableList<BranchManager> searchManagers(String column, String value) throws SQLException {
+        ObservableList<BranchManager> managers = FXCollections.observableArrayList();
+        String searchQuery = "SELECT manager_id,name,branch_id,phone,address,email FROM BranchManager WHERE " + column + " LIKE ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(searchQuery);
+        preparedStatement.setString(1, "%" + value + "%");
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            managers.add(new BranchManager(
+                    resultSet.getInt("manager_id"),
+                    resultSet.getString("name"),
+                    resultSet.getInt("branch_id"),
+                    resultSet.getString("phone"),
+                    resultSet.getString("address"),
+                    resultSet.getString("email")
+            ));
+        }
+        resultSet.close();
+        preparedStatement.close();
+        return managers;
+    }
+
+    public void removeBranch(int branchId) throws SQLException {
+        String deleteQuery = "DELETE FROM Branch WHERE branch_id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+        preparedStatement.setInt(1, branchId);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+    }
+
+    public void removeBranchManager(int managerId) throws SQLException {
+        String deleteQuery = "DELETE FROM BranchManager WHERE manager_id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+        preparedStatement.setInt(1, managerId);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
     }
 }

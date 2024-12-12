@@ -205,7 +205,7 @@
                <top>
                   <Pane prefHeight="120.0" prefWidth="590.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton id="btnDanger" fx:id="btnRemove" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="462.0" layoutY="14.0" prefHeight="25.0" prefWidth="128.0" ripplerFill="#c91c1c" text="Remove" textAlignment="CENTER" textFill="WHITE">
+                        <JFXButton id="btnDanger" fx:id="btnVBRemove" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="462.0" layoutY="14.0" onAction="#removeBranches" prefHeight="25.0" prefWidth="128.0" ripplerFill="#c91c1c" text="Remove" textAlignment="CENTER" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -216,6 +216,7 @@
                         </JFXButton>
                         <TextField fx:id="tfSearchVal" layoutY="70.0" prefHeight="25.0" prefWidth="210.0" promptText="Search Value" />
                         <JFXComboBox fx:id="cmbSearchColumn" focusColor="#2f71c2" layoutY="14.0" prefWidth="210.0" promptText="Specify Column" unFocusColor="BLACK" />
+                        <JFXButton id="btnGenerateReport" fx:id="btnVBSearch" buttonType="RAISED" layoutX="462.0" layoutY="70.0" onAction="#searchBranches" prefHeight="25.0" prefWidth="128.0" text="Search" textAlignment="CENTER" />
                      </children>
                   </Pane>
                </top>
@@ -239,7 +240,7 @@
                <top>
                   <Pane prefHeight="120.0" prefWidth="590.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton id="btnDanger" fx:id="btnVMRemove" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="465.0" layoutY="14.0" prefHeight="25.0" prefWidth="125.0" ripplerFill="#c91c1c" text="Remove" textAlignment="CENTER" textFill="WHITE">
+                        <JFXButton id="btnDanger" fx:id="btnVMRemove" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="465.0" layoutY="14.0" onAction="#removeBManagers" prefHeight="25.0" prefWidth="125.0" ripplerFill="#c91c1c" text="Remove" textAlignment="CENTER" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -250,6 +251,7 @@
                         </JFXButton>
                         <TextField fx:id="tfVMSearchVal" layoutY="73.0" prefHeight="25.0" prefWidth="210.0" promptText="Search Value" />
                         <JFXComboBox fx:id="cmbVMSearchCol" focusColor="#2f71c2" layoutY="14.0" prefWidth="210.0" promptText="Specify Column" unFocusColor="BLACK" />
+                        <JFXButton id="btnGenerateReport" fx:id="btnVMSearch" buttonType="RAISED" layoutX="463.0" layoutY="73.0" onAction="#searchManagers" prefHeight="25.0" prefWidth="128.0" text="Search" textAlignment="CENTER" />
                      </children>
                   </Pane>
                </top>

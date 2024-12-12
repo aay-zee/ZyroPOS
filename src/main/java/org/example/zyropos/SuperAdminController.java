@@ -24,6 +24,8 @@ import java.util.ResourceBundle;
 
 public class SuperAdminController extends DashboardController implements Initializable {
     private final SuperAdminModel saModel;
+
+
     @FXML
     private JFXButton btnLogout;
     @FXML
@@ -90,6 +92,12 @@ public class SuperAdminController extends DashboardController implements Initial
     private TextField tfUsername;
     @FXML
     private TextField tfPassword;
+
+    @FXML
+    private TextField tfVMSearchVal;
+
+    @FXML
+    private TextField tfSearchVal;
 
     //View Reports
     @FXML
@@ -334,5 +342,112 @@ public class SuperAdminController extends DashboardController implements Initial
         bmPane.setVisible(false);
         vmPane.setVisible(false);
         reportPane.setVisible(true);
+    }
+
+    @FXML
+    public void searchManagers(){
+        String searchColumn = cmbVMSearchCol.getValue();
+        String searchValue = tfVMSearchVal.getText();
+
+        if(searchColumn.equals("ID")){
+            searchColumn = "manager_id";
+        }
+        else if(searchColumn.equals("Name")){
+            searchColumn = "name";
+        }
+        else if(searchColumn.equals("Branch ID")){
+            searchColumn = "branch_id";
+        }
+        else if(searchColumn.equals("Contact")){
+            searchColumn = "phone";
+        }
+        else if(searchColumn.equals("Address")){
+            searchColumn = "address";
+        }
+        else if(searchColumn.equals("Email")){
+            searchColumn = "email";
+        }
+
+        try {
+            if (searchColumn != null && !searchValue.isEmpty()) {
+                tblManagers.setItems(saModel.searchManagers(searchColumn, searchValue));
+            } else {
+                // Reset to show all products if search field is empty
+                tblManagers.setItems(saModel.getAllBranchManagers());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void searchBranches(){
+        String searchColumn = cmbSearchColumn.getValue();
+        String searchValue = tfSearchVal.getText();
+
+        if(searchColumn.equals("Branch ID")){
+            searchColumn = "branch_id";
+        }
+        else if(searchColumn.equals("Name")){
+            searchColumn = "name";
+        }
+        else if(searchColumn.equals("City")){
+            searchColumn = "city    ";
+        }
+        else if(searchColumn.equals("Address")){
+            searchColumn = "address";
+        }
+        else if(searchColumn.equals("Contact")){
+            searchColumn = "phone";
+        }
+        else if(searchColumn.equals("Employee Count")){
+            searchColumn = "employees_count";
+        }
+        else if(searchColumn.equals("Status")){
+            searchColumn = "is_active";
+        }
+
+        try {
+            if (searchColumn != null && !searchValue.isEmpty()) {
+                tblBranches.setItems(saModel.searchBranches(searchColumn, searchValue));
+            } else {
+                // Reset to show all products if search field is empty
+                tblBranches.setItems(saModel.getAllBranches());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void removeBranches(){
+        if(showAlertConfirmation("Remove Branch","Are you sure you want to proceed?","The corresponding data will be deleted from database as well.")) {
+            Branch selectedBranch = tblBranches.getSelectionModel().getSelectedItem();
+            if (selectedBranch != null) {
+                try {
+                    saModel.removeBranch(selectedBranch.getBranchID());
+                    tblBranches.getItems().remove(selectedBranch);
+                    tblBranches.refresh();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+
+    @FXML
+    public void removeBManagers(){
+        if(showAlertConfirmation("Remove Branch Manager","Are you sure you want to proceed?","The corresponding data will be deleted from database as well.")) {
+            BranchManager selectedBManager = tblManagers.getSelectionModel().getSelectedItem();
+            if (selectedBManager != null) {
+                try {
+                    saModel.removeBranchManager(selectedBManager.getManagerID());
+                    tblManagers.getItems().remove(selectedBManager);
+                    tblManagers.refresh();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 }

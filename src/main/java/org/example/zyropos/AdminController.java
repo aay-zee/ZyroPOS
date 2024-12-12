@@ -6,14 +6,12 @@ import database.model.AdminModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import utilities.Values;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +21,19 @@ import java.util.ResourceBundle;
 public class AdminController extends DashboardController implements Initializable {
 
     private AdminModel adminModel;
+    private String username;
+    private int branchID;
+
+
+
+    public void setUsername(String username) {
+        this.username = username;
+        System.out.println("Logged in as: "+username);
+
+        //Getting BranchID Corresponding to the username
+        branchID = adminModel.getBranchID(username);
+        System.out.println("Branch ID: "+branchID);
+    }
 
     @FXML
     private Pane emPane;
@@ -119,6 +130,11 @@ public class AdminController extends DashboardController implements Initializabl
     @FXML
     private TextField tfUsername;
 
+    @FXML
+    private TextField tfSearchVal1;
+    @FXML
+    private TextField tfSearchVal;
+
     //Data Operator Table View
 
     @FXML
@@ -174,6 +190,12 @@ public class AdminController extends DashboardController implements Initializabl
 
         //lblPerson.setText("Welcome "+ Values.PERSON_NAME);
         //lblPerson.setAlignment(Pos.CENTER);
+
+        try {
+            checkFirstTimeLogin("BranchManager",username);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         btnAddEmp.setFocusTraversable(false);
         btnLogout.setFocusTraversable(false);
@@ -250,7 +272,7 @@ public class AdminController extends DashboardController implements Initializabl
         emPane.setVisible(false);
         cashierPane.setVisible(false);
         setupOperatorTable();
-        tblDataOperators.setItems(adminModel.getAllOperators());
+        tblDataOperators.setItems(adminModel.getAllOperators(branchID));
         vdoPane.setVisible(true);
     }
 
@@ -262,7 +284,7 @@ public class AdminController extends DashboardController implements Initializabl
         emPane.setVisible(false);
         vdoPane.setVisible(false);
         setupCashierTable();
-        tblCashiers.setItems(adminModel.getAllCashiers());
+        tblCashiers.setItems(adminModel.getAllCashiers(branchID));
         cashierPane.setVisible(true);
     }
 
@@ -274,6 +296,116 @@ public class AdminController extends DashboardController implements Initializabl
     @FXML
     void submit() throws SQLException {
         adminModel.addNewEmployeeToDatabase(cmbRole.getValue(),Integer.parseInt(tfEID.getText()),tfEName.getText(),Integer.parseInt(tfBID.getText()),tfContact.getText(),tfAddress.getText(),tfEmail.getText(),tfSalary.getText(),tfUsername.getText(),pfPassword.getText());
+    }
+
+    @FXML
+    public void searchCashiers(){
+        String searchColumn = cmbSearchCol2.getValue();
+        String searchValue = tfSearchVal1.getText();
+
+        if(searchColumn.equals("ID")){
+            searchColumn = "employeeID";
+        }
+        else if(searchColumn.equals("Name")){
+            searchColumn = "employeeName";
+        }
+        else if(searchColumn.equals("Branch ID")){
+            searchColumn = "branchID";
+        }
+        else if(searchColumn.equals("Contact")){
+            searchColumn = "contact";
+        }
+        else if(searchColumn.equals("Address")){
+            searchColumn = "address";
+        }
+        else if(searchColumn.equals("Email")){
+            searchColumn = "email";
+        }
+        else if(searchColumn.equals("Salary")){
+            searchColumn = "salary";
+        }
+
+        try {
+            if (searchColumn != null && !searchValue.isEmpty()) {
+                tblCashiers.setItems(adminModel.searchCashiers(branchID,searchColumn, searchValue));
+            } else {
+                // Reset to show all products if search field is empty
+                tblCashiers.setItems(adminModel.getAllCashiers(branchID));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void removeCashiers(){
+        if(showAlertConfirmation("Remove Cashier","Are you sure you want to proceed?","The corresponding data will be deleted from database as well.")) {
+            Cashier selectedCashier = tblCashiers.getSelectionModel().getSelectedItem();
+            if (selectedCashier != null) {
+                try {
+                    adminModel.removeCashier(selectedCashier.getId());
+                    tblCashiers.getItems().remove(selectedCashier);
+                    tblCashiers.refresh();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+
+    @FXML
+    public void searchDOs(){
+        String searchColumn = cmbSearchCol.getValue();
+        String searchValue = tfSearchVal.getText();
+
+        if(searchColumn.equals("ID")){
+            searchColumn = "employeeID";
+        }
+        else if(searchColumn.equals("Name")){
+            searchColumn = "employeeName";
+        }
+        else if(searchColumn.equals("Branch ID")){
+            searchColumn = "branchID";
+        }
+        else if(searchColumn.equals("Contact")){
+            searchColumn = "contact";
+        }
+        else if(searchColumn.equals("Address")){
+            searchColumn = "address";
+        }
+        else if(searchColumn.equals("Email")){
+            searchColumn = "email";
+        }
+        else if(searchColumn.equals("Salary")){
+            searchColumn = "salary";
+        }
+
+        try {
+            if (searchColumn != null && !searchValue.isEmpty()) {
+                tblDataOperators.setItems(adminModel.searchDOs(branchID,searchColumn, searchValue));
+            } else {
+                // Reset to show all products if search field is empty
+                tblDataOperators.setItems(adminModel.getAllOperators(branchID));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void removeDOs() {
+        if(showAlertConfirmation("Remove Data Entry Operator","Are you sure you want to proceed?","The corresponding data will be deleted from database as well.")) {
+            DataOperator selectedOperator = tblDataOperators.getSelectionModel().getSelectedItem();
+            if (selectedOperator != null) {
+                try {
+                    adminModel.removeDO(selectedOperator.getId());
+                    tblCashiers.getItems().remove(selectedOperator);
+                    tblCashiers.refresh();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 
 }
