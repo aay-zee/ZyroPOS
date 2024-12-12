@@ -37,7 +37,7 @@ public class DataOperatorController extends DashboardController implements Initi
         System.out.println("Logged in as: "+username);
 
         //Getting BranchID Corresponding to the username
-        branchID = dataOperatorModel.getBranchID(username);
+        branchID = dataOperatorModel.getBranchID("DataOperator",username);
         System.out.println("Branch ID: "+branchID);
     }
 
@@ -215,12 +215,6 @@ public class DataOperatorController extends DashboardController implements Initi
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
-        try {
-            checkFirstTimeLogin("DataOperator",username);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
 
         lblPerson.setText(username+"'s Dashboard");

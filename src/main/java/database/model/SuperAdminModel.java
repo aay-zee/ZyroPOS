@@ -60,7 +60,7 @@ public class SuperAdminModel extends BaseModel{
     public void addNewBManagerToDatabase(String managerName,int branchID,String contact,String address,String email,String userName,String password) throws SQLException {
 
 //        try {
-            String insertQuery = "INSERT INTO BranchManager (name,branch_id,phone,address,email,username,password) VALUES(?,?,?,?,?,?,?)";
+            String insertQuery = "INSERT INTO BranchManager (name,branchID,phone,address,email,username,password) VALUES(?,?,?,?,?,?,?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
 
@@ -97,7 +97,7 @@ public class SuperAdminModel extends BaseModel{
 
         while(resultSet.next()){
             branches.add(new Branch(
-                    resultSet.getInt("branch_id"),
+                    resultSet.getInt("branchID"),
                     resultSet.getString("name"),
                     resultSet.getString("city"),
                     resultSet.getString("address"),
@@ -118,7 +118,7 @@ public class SuperAdminModel extends BaseModel{
 
     public ObservableList<BranchManager> getAllBranchManagers() throws SQLException {
         ObservableList<BranchManager> branches = FXCollections.observableArrayList();
-        String selectQuery="SELECT manager_id,name,branch_id,phone,address,email FROM BranchManager";
+        String selectQuery="SELECT manager_id,name,branchID,phone,address,email FROM BranchManager";
         PreparedStatement preparedStatement=connection.prepareStatement(selectQuery);
         ResultSet resultSet=preparedStatement.executeQuery();
 
@@ -126,7 +126,7 @@ public class SuperAdminModel extends BaseModel{
             branches.add(new BranchManager(
                     resultSet.getInt("manager_id"),
                     resultSet.getString("name"),
-                    resultSet.getInt("branch_id"),
+                    resultSet.getInt("branchID"),
                     resultSet.getString("phone"),
                     resultSet.getString("address"),
                     resultSet.getString("email")
@@ -163,7 +163,7 @@ public class SuperAdminModel extends BaseModel{
 
     public ObservableList<BranchManager> searchManagers(String column, String value) throws SQLException {
         ObservableList<BranchManager> managers = FXCollections.observableArrayList();
-        String searchQuery = "SELECT manager_id,name,branch_id,phone,address,email FROM BranchManager WHERE " + column + " LIKE ?";
+        String searchQuery = "SELECT manager_id,name,branchID,phone,address,email FROM BranchManager WHERE " + column + " LIKE ?";
         PreparedStatement preparedStatement = connection.prepareStatement(searchQuery);
         preparedStatement.setString(1, "%" + value + "%");
 
@@ -172,7 +172,7 @@ public class SuperAdminModel extends BaseModel{
             managers.add(new BranchManager(
                     resultSet.getInt("manager_id"),
                     resultSet.getString("name"),
-                    resultSet.getInt("branch_id"),
+                    resultSet.getInt("branchID"),
                     resultSet.getString("phone"),
                     resultSet.getString("address"),
                     resultSet.getString("email")
@@ -184,7 +184,7 @@ public class SuperAdminModel extends BaseModel{
     }
 
     public void removeBranch(int branchId) throws SQLException {
-        String deleteQuery = "DELETE FROM Branch WHERE branch_id = ?";
+        String deleteQuery = "DELETE FROM Branch WHERE branchID = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
         preparedStatement.setInt(1, branchId);
         preparedStatement.executeUpdate();

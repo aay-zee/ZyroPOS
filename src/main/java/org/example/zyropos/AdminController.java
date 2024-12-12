@@ -31,7 +31,7 @@ public class AdminController extends DashboardController implements Initializabl
         System.out.println("Logged in as: "+username);
 
         //Getting BranchID Corresponding to the username
-        branchID = adminModel.getBranchID(username);
+        branchID = adminModel.getBranchID("BranchManager",username);
         System.out.println("Branch ID: "+branchID);
     }
 
@@ -190,12 +190,6 @@ public class AdminController extends DashboardController implements Initializabl
 
         //lblPerson.setText("Welcome "+ Values.PERSON_NAME);
         //lblPerson.setAlignment(Pos.CENTER);
-
-        try {
-            checkFirstTimeLogin("BranchManager",username);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
         btnAddEmp.setFocusTraversable(false);
         btnLogout.setFocusTraversable(false);

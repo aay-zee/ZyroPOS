@@ -14,7 +14,9 @@ public class DashboardModel extends BaseModel {
         PreparedStatement pst = connection.prepareStatement(query);
         pst.setString(1, username);
         ResultSet rs = pst.executeQuery();
-        return rs.next() && rs.getBoolean("firstTime");
+        boolean c=rs.next();
+        System.out.println(c);
+        return c;
     }
 
     public void updatePassword(String role,String username, String newPassword) throws SQLException {

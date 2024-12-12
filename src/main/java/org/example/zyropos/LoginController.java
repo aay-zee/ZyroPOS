@@ -1,6 +1,7 @@
 package org.example.zyropos;
 
 import com.jfoenix.controls.JFXButton;
+import database.model.DashboardModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public abstract class LoginController implements Initializable {
@@ -40,18 +42,29 @@ public abstract class LoginController implements Initializable {
     @FXML
     protected TextField tfUsername;
 
+    private DashboardModel dashboardModel;
+
     protected Parent root;
     protected Stage stage;
     protected Scene scene;
 
     public LoginController() {
         System.out.println("LoginController");
+        dashboardModel=new DashboardModel();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btnBack.setFocusTraversable(false);
         btnSubmit.setFocusTraversable(false);
+    }
+
+    private void showAlert(String title, String header, String content){
+        Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     public void openDashboard(String fxmlFile,String controllerName) throws IOException {
@@ -67,6 +80,10 @@ public abstract class LoginController implements Initializable {
         else if(controllerName.equals("Cashier")) {
             CashierController cashierController=fxmlLoader.getController();
             cashierController.setUsername(username);
+        }
+        else if(controllerName.equals("Admin")) {
+            AdminController adminController=fxmlLoader.getController();
+            adminController.setUsername(username);
         }
 
         stage=(Stage)tfUsername.getScene().getWindow();
@@ -107,4 +124,31 @@ public abstract class LoginController implements Initializable {
 
     @FXML
     public abstract void submit(ActionEvent event) throws SQLException, IOException;
+
+    public void checkFirstTimeLogin(String role,String username) throws SQLException {
+        try {
+            if (dashboardModel.checkFirstTimeStatus(role,username)) {
+                TextInputDialog passwordDialog = new TextInputDialog();
+                passwordDialog.setTitle("Change Password");
+                passwordDialog.setHeaderText("First Time Login Detected");
+                passwordDialog.setContentText("Please enter your new password:");
+
+                Optional<String> result = passwordDialog.showAndWait();
+                if (result.isPresent()) {
+                    String newPassword = result.get();
+                    dashboardModel.updatePassword(role,username, newPassword);
+                    dashboardModel.updateFirstTimeStatus(role,username);
+
+                    Alert success = new Alert(Alert.AlertType.INFORMATION);
+                    success.setTitle("Success");
+                    success.setHeaderText("Password Updated");
+                    success.setContentText("Your password has been successfully changed.");
+                    success.showAndWait();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Error", "Database Error", "Could not check first time login status.");
+        }
+    }
 }

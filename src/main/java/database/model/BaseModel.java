@@ -14,8 +14,8 @@ public abstract class BaseModel {
         connection= DatabaseConnection.getInstance().getConnection();
     }
 
-    public int getBranchID(String username) {
-        String query = "SELECT branchID FROM DataOperator WHERE username=?";
+    public int getBranchID(String role,String username) {
+        String query = "SELECT branchID FROM "+role+" WHERE username=?";
         int branchID = 0;
 
         try {

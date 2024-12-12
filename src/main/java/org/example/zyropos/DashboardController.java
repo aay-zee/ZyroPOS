@@ -74,32 +74,7 @@ public class DashboardController {
         }
     }
 
-    public void checkFirstTimeLogin(String role,String username) throws SQLException {
-        try {
-            if (dashboardModel.checkFirstTimeStatus(role,username)) {
-                TextInputDialog passwordDialog = new TextInputDialog();
-                passwordDialog.setTitle("Change Password");
-                passwordDialog.setHeaderText("First Time Login Detected");
-                passwordDialog.setContentText("Please enter your new password:");
 
-                Optional<String> result = passwordDialog.showAndWait();
-                if (result.isPresent()) {
-                    String newPassword = result.get();
-                    dashboardModel.updatePassword(role,username, newPassword);
-                    dashboardModel.updateFirstTimeStatus(role,username);
-
-                    Alert success = new Alert(Alert.AlertType.INFORMATION);
-                    success.setTitle("Success");
-                    success.setHeaderText("Password Updated");
-                    success.setContentText("Your password has been successfully changed.");
-                    success.showAndWait();
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Error", "Database Error", "Could not check first time login status.");
-        }
-    }
 
 
 }

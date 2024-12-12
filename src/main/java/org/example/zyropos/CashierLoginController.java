@@ -21,6 +21,7 @@ public class CashierLoginController extends LoginController{
 
         if(loginModel.authenticateUser("Cashier",tfUsername.getText(),pfPassword.getText())){
             try {
+                checkFirstTimeLogin("Cashier",tfUsername.getText());
                 openDashboard("fxml/Cashier.fxml","Cashier");
             } catch (IOException e) {
                 throw new RuntimeException(e);

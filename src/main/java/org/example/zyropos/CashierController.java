@@ -37,7 +37,7 @@ public class CashierController extends  DashboardController implements Initializ
         System.out.println("Logged in as: "+username);
 
         //Getting BranchID Corresponding to the username
-        branchID = cashierModel.getBranchID(username);
+        branchID = cashierModel.getBranchID("Cashier",username);
         System.out.println("Branch ID: "+branchID);
     }
 
@@ -151,11 +151,7 @@ public class CashierController extends  DashboardController implements Initializ
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        try {
-            checkFirstTimeLogin("Cashier",username);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
 
         btnViewProducts.setFocusTraversable(false);
         btnViewCart.setFocusTraversable(false);
