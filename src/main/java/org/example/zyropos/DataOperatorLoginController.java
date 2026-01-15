@@ -1,6 +1,6 @@
 package org.example.zyropos;
 
-import database.model.LoginModel;
+import database.dao.LoginDAO;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
@@ -14,19 +14,19 @@ public class DataOperatorLoginController extends LoginController{
 
 //    @Override
 //     submit(ActionEvent event) throws SQLException {
-//        LoginModel loginModel = new LoginModel();
+//        LoginDAO loginDAO = new LoginDAO();
 //
-//        loginModel.addNewUser("DataOperator",tfUsername.getText(),pfPassword.getText());
+//        loginDAO.addNewUser("DataOperator",tfUsername.getText(),pfPassword.getText());
 //    }
 
     @Override
     public void submit(ActionEvent event) throws SQLException, IOException {
-        LoginModel loginModel = new LoginModel();
+        LoginDAO loginDAO = new LoginDAO();
         System.out.println(tfUsername.getText());
         System.out.println(pfPassword.getText());
 
-        if(loginModel.authenticateUser("DataOperator",tfUsername.getText(),pfPassword.getText())){
-            checkFirstTimeLogin("DataOperator",tfUsername.getText());
+        if(loginDAO.authenticateUser("DataOperator",tfUsername.getText(),pfPassword.getText())){
+
             openDashboard("fxml/DataOperator.fxml","DataOperator");
         }
     }

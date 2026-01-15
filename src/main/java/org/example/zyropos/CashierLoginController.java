@@ -1,6 +1,6 @@
 package org.example.zyropos;
 
-import database.model.LoginModel;
+import database.dao.LoginDAO;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
@@ -14,14 +14,14 @@ public class CashierLoginController extends LoginController{
 
     @Override
     public void submit(ActionEvent event) throws SQLException {
-        LoginModel loginModel = new LoginModel();
+        LoginDAO loginDAO = new LoginDAO();
 
         System.out.println(tfUsername.getText());
         System.out.println(pfPassword.getText());
 
-        if(loginModel.authenticateUser("Cashier",tfUsername.getText(),pfPassword.getText())){
+        if(loginDAO.authenticateUser("Cashier",tfUsername.getText(),pfPassword.getText())){
             try {
-                checkFirstTimeLogin("Cashier",tfUsername.getText());
+
                 openDashboard("fxml/Cashier.fxml","Cashier");
             } catch (IOException e) {
                 throw new RuntimeException(e);

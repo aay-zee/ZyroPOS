@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="zyropos@mysql-zyropos-lhr-f8db.e.aivencloud.com">
-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.52">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.53">
     <root id="1">
       <DefaultCasing>exact</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -1100,37 +1100,37 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
     <column id="307" parent="302" name="branch_id">
-      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="308" parent="302" name="name">
-      <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
+      <StoredType>varchar(50)|0s</StoredType>
     </column>
     <column id="309" parent="302" name="city">
-      <DasType>varchar(30)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
+      <StoredType>varchar(30)|0s</StoredType>
     </column>
     <column id="310" parent="302" name="address">
-      <DasType>varchar(100)|0s</DasType>
       <Position>4</Position>
+      <StoredType>varchar(100)|0s</StoredType>
     </column>
     <column id="311" parent="302" name="phone">
-      <DasType>varchar(15)|0s</DasType>
       <Position>5</Position>
+      <StoredType>varchar(15)|0s</StoredType>
     </column>
     <column id="312" parent="302" name="employees_count">
-      <DasType>int|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>6</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="313" parent="302" name="is_active">
-      <DasType>tinyint(1)|0s</DasType>
       <DefaultExpression>1</DefaultExpression>
       <Position>7</Position>
+      <StoredType>tinyint(1)|0s</StoredType>
     </column>
     <index id="314" parent="302" name="PRIMARY">
       <ColNames>branch_id</ColNames>
@@ -1151,42 +1151,42 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>branch_id</UnderlyingIndexName>
     </key>
     <column id="318" parent="303" name="manager_id">
-      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="319" parent="303" name="name">
-      <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
+      <StoredType>varchar(50)|0s</StoredType>
     </column>
     <column id="320" parent="303" name="branch_id">
-      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="321" parent="303" name="phone">
-      <DasType>varchar(15)|0s</DasType>
       <Position>4</Position>
+      <StoredType>varchar(15)|0s</StoredType>
     </column>
     <column id="322" parent="303" name="address">
-      <DasType>varchar(100)|0s</DasType>
       <Position>5</Position>
+      <StoredType>varchar(100)|0s</StoredType>
     </column>
     <column id="323" parent="303" name="email">
-      <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
+      <StoredType>varchar(50)|0s</StoredType>
     </column>
     <column id="324" parent="303" name="username">
-      <DasType>varchar(30)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
+      <StoredType>varchar(30)|0s</StoredType>
     </column>
     <column id="325" parent="303" name="password">
-      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
+      <StoredType>varchar(255)|0s</StoredType>
     </column>
     <foreign-key id="326" parent="303" name="BranchManager_ibfk_1">
       <ColNames>branch_id</ColNames>
@@ -1233,45 +1233,45 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </key>
     <column id="336" parent="304" name="employeeID">
       <AutoIncrement>1</AutoIncrement>
-      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="337" parent="304" name="employeeName">
-      <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
+      <StoredType>varchar(100)|0s</StoredType>
     </column>
     <column id="338" parent="304" name="branchID">
-      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="339" parent="304" name="contact">
-      <DasType>varchar(15)|0s</DasType>
       <Position>4</Position>
+      <StoredType>varchar(15)|0s</StoredType>
     </column>
     <column id="340" parent="304" name="address">
-      <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
+      <StoredType>varchar(255)|0s</StoredType>
     </column>
     <column id="341" parent="304" name="email">
-      <DasType>varchar(100)|0s</DasType>
       <Position>6</Position>
+      <StoredType>varchar(100)|0s</StoredType>
     </column>
     <column id="342" parent="304" name="salary">
-      <DasType>varchar(20)|0s</DasType>
       <Position>7</Position>
+      <StoredType>varchar(20)|0s</StoredType>
     </column>
     <column id="343" parent="304" name="username">
-      <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
+      <StoredType>varchar(50)|0s</StoredType>
     </column>
     <column id="344" parent="304" name="password">
-      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
+      <StoredType>varchar(255)|0s</StoredType>
     </column>
     <foreign-key id="345" parent="304" name="Cashier_ibfk_1">
       <ColNames>branchID</ColNames>
@@ -1302,45 +1302,45 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </key>
     <column id="351" parent="305" name="employeeID">
       <AutoIncrement>11</AutoIncrement>
-      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="352" parent="305" name="employeeName">
-      <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
+      <StoredType>varchar(100)|0s</StoredType>
     </column>
     <column id="353" parent="305" name="branchID">
-      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="354" parent="305" name="contact">
-      <DasType>varchar(15)|0s</DasType>
       <Position>4</Position>
+      <StoredType>varchar(15)|0s</StoredType>
     </column>
     <column id="355" parent="305" name="address">
-      <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
+      <StoredType>varchar(255)|0s</StoredType>
     </column>
     <column id="356" parent="305" name="email">
-      <DasType>varchar(100)|0s</DasType>
       <Position>6</Position>
+      <StoredType>varchar(100)|0s</StoredType>
     </column>
     <column id="357" parent="305" name="salary">
-      <DasType>varchar(20)|0s</DasType>
       <Position>7</Position>
+      <StoredType>varchar(20)|0s</StoredType>
     </column>
     <column id="358" parent="305" name="username">
-      <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
+      <StoredType>varchar(50)|0s</StoredType>
     </column>
     <column id="359" parent="305" name="password">
-      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
+      <StoredType>varchar(255)|0s</StoredType>
     </column>
     <foreign-key id="360" parent="305" name="DataOperator_ibfk_1">
       <ColNames>branchID</ColNames>
@@ -1371,19 +1371,19 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </key>
     <column id="366" parent="306" name="userID">
       <AutoIncrement>6</AutoIncrement>
-      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="367" parent="306" name="username">
-      <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
+      <StoredType>varchar(50)|0s</StoredType>
     </column>
     <column id="368" parent="306" name="password">
-      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
+      <StoredType>varchar(255)|0s</StoredType>
     </column>
     <index id="369" parent="306" name="PRIMARY">
       <ColNames>userID</ColNames>

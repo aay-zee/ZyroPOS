@@ -1,49 +1,52 @@
-package database.model;
+package database;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import utilities.Config;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
     private static DatabaseConnection instance;
-    private Connection connection;
-    private final String HOST="mysql-zyropos-lhr-f8db.e.aivencloud.com";
-    private final String PORT="10838";
-    private final String DATABASE_NAME="zyropos";
-    private final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE_NAME + "?sslmode=require";
-    private final String USERNAME = "avnadmin";
-    private final String PASSWORD = "AVNS_MZKI03OsO5-UmIgx-Ez";
+    private static HikariDataSource dataSource;
 
     private DatabaseConnection() {
-        try {
-            connection= DriverManager.getConnection(URL,USERNAME,PASSWORD);
-            System.out.println("Connected to the online Database.");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            System.err.println("Failed to Connect to the online Database.");
-            System.exit(1);
-        }
+        HikariConfig config = new HikariConfig();
+        // Construct JDBC URL from .env
+        String jdbcUrl = "jdbc:mysql://" + Config.get("DB_HOST", "localhost") + ":" + 
+                         Config.get("DB_PORT", "3306") + "/" + 
+                         Config.get("DB_NAME", "zyropos");
+        
+        config.setJdbcUrl(jdbcUrl);
+        config.setUsername(Config.get("DB_USER", "root"));
+        config.setPassword(Config.get("DB_PASSWORD", ""));
+        
+        // Pool settings
+        config.setMaximumPoolSize(10);
+        config.setMinimumIdle(2);
+        config.setIdleTimeout(30000);
+        config.setMaxLifetime(1800000); // 30 mins
+        
+        dataSource = new HikariDataSource(config);
+        System.out.println("Database Connection Pool Started.");
     }
 
-    public static DatabaseConnection getInstance() {
+    public static synchronized DatabaseConnection getInstance() {
         if (instance == null) {
             instance = new DatabaseConnection();
         }
         return instance;
     }
 
-    public Connection getConnection(){
-        return connection;
+    public Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
     }
 
     public void closeConnection(){
-        try {
-            if(connection!=null && !connection.isClosed()){
-                connection.close();
-                System.out.println("Database connection closed.");
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        if(dataSource != null && !dataSource.isClosed()){
+            dataSource.close();
+            System.out.println("Database connection pool closed.");
         }
     }
 }

@@ -19,7 +19,6 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.util.Duration;
-import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class SplashController implements Initializable {
     private Stage stage;
@@ -87,13 +86,11 @@ public class SplashController implements Initializable {
         root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/GeneralLogin.fxml")));
         stage=(Stage)myProgress.getScene().getWindow();
         scene=new Scene(root);
-        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-        String css= Objects.requireNonNull(this.getClass().getResource("css/gLogin.css")).toExternalForm();
-        scene.getStylesheets().add(css);
         stage.setScene(scene);
-        stage.sizeToScene();
+        stage.setWidth(1280);
+        stage.setHeight(720);
         stage.centerOnScreen();
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
 }

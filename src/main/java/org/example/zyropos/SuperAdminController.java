@@ -14,7 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import database.model.SuperAdminModel;
+import database.dao.SuperAdminDAO;
 import utilities.Values;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class SuperAdminController extends DashboardController implements Initializable {
-    private final SuperAdminModel saModel;
+    private final SuperAdminDAO saDAO;
 
 
     @FXML
@@ -224,7 +224,7 @@ public class SuperAdminController extends DashboardController implements Initial
 
 
     public SuperAdminController() {
-        saModel=new SuperAdminModel();
+        saDAO=new SuperAdminDAO();
     }
 
     public void handleLogout() throws IOException {
@@ -281,7 +281,7 @@ public class SuperAdminController extends DashboardController implements Initial
 
         setupBranchTable();
 
-        tblBranches.setItems(saModel.getAllBranches());
+        tblBranches.setItems(saDAO.getAllBranches());
     }
 
     @FXML
@@ -294,7 +294,7 @@ public class SuperAdminController extends DashboardController implements Initial
         vmPane.setVisible(true);
 
         setupManagerTable();
-        tblManagers.setItems(saModel.getAllBranchManagers());
+        tblManagers.setItems(saDAO.getAllBranchManagers());
     }
 
     public void addBranchDB() throws SQLException {
@@ -302,7 +302,7 @@ public class SuperAdminController extends DashboardController implements Initial
         if(rdABUnactive.isSelected()){
             status=false;
         }
-        saModel.addNewBranchToDatabase(tfABBranchName.getText(),tfABCity.getText(),tfABAddress.getText(),tfABContact.getText(),Integer.parseInt(tfABEmp.getText()),status);
+        saDAO.addNewBranchToDatabase(tfABBranchName.getText(),tfABCity.getText(),tfABAddress.getText(),tfABContact.getText(),Integer.parseInt(tfABEmp.getText()),status);
 
         showAlert("Add Branch","Branch Addition Status","Branch Added Successfully");
 
@@ -326,7 +326,7 @@ public class SuperAdminController extends DashboardController implements Initial
     }
 
     public void addBManagerDB() throws SQLException {
-        saModel.addNewBManagerToDatabase(tfMName.getText(),Integer.parseInt(tfBID.getText()),tfContact.getText(),tfAddress.getText(),tfEmail.getText(),tfUsername.getText(),tfPassword.getText());
+        saDAO.addNewBManagerToDatabase(tfMName.getText(),Integer.parseInt(tfBID.getText()),tfContact.getText(),tfAddress.getText(),tfEmail.getText(),tfUsername.getText(),tfPassword.getText());
 
         showAlert("Add Branch Manager","Branch Manager Addition Status","Branch Manager Added Successfully");
 
@@ -370,10 +370,10 @@ public class SuperAdminController extends DashboardController implements Initial
 
         try {
             if (searchColumn != null && !searchValue.isEmpty()) {
-                tblManagers.setItems(saModel.searchManagers(searchColumn, searchValue));
+                tblManagers.setItems(saDAO.searchManagers(searchColumn, searchValue));
             } else {
                 // Reset to show all products if search field is empty
-                tblManagers.setItems(saModel.getAllBranchManagers());
+                tblManagers.setItems(saDAO.getAllBranchManagers());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -409,10 +409,10 @@ public class SuperAdminController extends DashboardController implements Initial
 
         try {
             if (searchColumn != null && !searchValue.isEmpty()) {
-                tblBranches.setItems(saModel.searchBranches(searchColumn, searchValue));
+                tblBranches.setItems(saDAO.searchBranches(searchColumn, searchValue));
             } else {
                 // Reset to show all products if search field is empty
-                tblBranches.setItems(saModel.getAllBranches());
+                tblBranches.setItems(saDAO.getAllBranches());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -425,7 +425,7 @@ public class SuperAdminController extends DashboardController implements Initial
             Branch selectedBranch = tblBranches.getSelectionModel().getSelectedItem();
             if (selectedBranch != null) {
                 try {
-                    saModel.removeBranch(selectedBranch.getBranchID());
+                    saDAO.removeBranch(selectedBranch.getBranchID());
                     tblBranches.getItems().remove(selectedBranch);
                     tblBranches.refresh();
                 } catch (SQLException e) {
@@ -441,7 +441,7 @@ public class SuperAdminController extends DashboardController implements Initial
             BranchManager selectedBManager = tblManagers.getSelectionModel().getSelectedItem();
             if (selectedBManager != null) {
                 try {
-                    saModel.removeBranchManager(selectedBManager.getManagerID());
+                    saDAO.removeBranchManager(selectedBManager.getManagerID());
                     tblManagers.getItems().remove(selectedBManager);
                     tblManagers.refresh();
                 } catch (SQLException e) {

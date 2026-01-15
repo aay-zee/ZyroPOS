@@ -1,7 +1,7 @@
 package org.example.zyropos;
 
 
-import database.model.LoginModel;
+import database.dao.LoginDAO;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
@@ -16,10 +16,10 @@ public class AdminLoginController extends LoginController {
 
     @Override
     public void submit(ActionEvent event) throws SQLException, IOException {
-        LoginModel loginModel = new LoginModel();
+        LoginDAO loginDAO = new LoginDAO();
 
-        if(loginModel.authenticateUser("BranchManager",tfUsername.getText(),pfPassword.getText())){
-            checkFirstTimeLogin("BranchManager",tfUsername.getText());
+        if(loginDAO.authenticateUser("BranchManager",tfUsername.getText(),pfPassword.getText())){
+
             openDashboard("fxml/Admin.fxml","Admin");
         }
     }

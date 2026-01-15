@@ -1,7 +1,7 @@
 package org.example.zyropos;
 
 
-import database.model.LoginModel;
+import database.dao.LoginDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,11 +26,11 @@ public class SuperAdminLoginController extends LoginController {
 
     @Override
     public void submit(ActionEvent event) throws SQLException, IOException {
-        LoginModel loginModel = new LoginModel();
+        LoginDAO loginDAO = new LoginDAO();
         System.out.println(tfUsername.getText());
         System.out.println(pfPassword.getText());
 
-        if(loginModel.authenticateUser("SuperAdmin",tfUsername.getText(),pfPassword.getText())){
+        if(loginDAO.authenticateUser("SuperAdmin",tfUsername.getText(),pfPassword.getText())){
             openDashboard("fxml/SuperAdmin.fxml","SuperAdmin");
         }
     }

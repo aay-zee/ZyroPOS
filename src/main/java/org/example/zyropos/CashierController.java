@@ -3,7 +3,7 @@ package org.example.zyropos;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXToggleButton;
-import database.model.CashierModel;
+import database.dao.CashierDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,8 +14,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.io.IOException;
@@ -29,7 +30,7 @@ import java.util.ResourceBundle;
 public class CashierController extends  DashboardController implements Initializable {
     private String username;
     private int branchID;
-    private CashierModel cashierModel;
+    private CashierDAO cashierDAO;
 
 
     public void setUsername(String username) {
@@ -37,7 +38,7 @@ public class CashierController extends  DashboardController implements Initializ
         System.out.println("Logged in as: "+username);
 
         //Getting BranchID Corresponding to the username
-        branchID = cashierModel.getBranchID("Cashier",username);
+        branchID = cashierDAO.getBranchID("Cashier",username);
         System.out.println("Branch ID: "+branchID);
     }
 
@@ -72,7 +73,7 @@ public class CashierController extends  DashboardController implements Initializ
     private JFXComboBox<String> cmbVPSearchColumn;
 
     @FXML
-    private BorderPane cpPane;
+    private VBox cpPane;
 
     @FXML
     private Pane innerPane1;
@@ -81,7 +82,7 @@ public class CashierController extends  DashboardController implements Initializ
     private Label lblPerson;
 
     @FXML
-    private HBox rootScene;
+    private BorderPane rootScene;
 
     @FXML
     private TableView<CashierProduct> tblCart;
@@ -145,7 +146,7 @@ public class CashierController extends  DashboardController implements Initializ
     private String[] cols={"ID","Name","Category","Sale Price","Unit Price","Carton Price","Quantity"};
 
     public CashierController() {
-        cashierModel=new CashierModel();
+        cashierDAO=new CashierDAO();
     }
 
     @Override
@@ -214,7 +215,7 @@ public class CashierController extends  DashboardController implements Initializ
 
         setupProductTable();
         try {
-            tblProducts.setItems(cashierModel.getAllProducts(branchID));
+            tblProducts.setItems(cashierDAO.getAllProducts(branchID));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -236,12 +237,12 @@ public class CashierController extends  DashboardController implements Initializ
 
             try {
                 // Update product quantity in database
-                if(!(cashierModel.updateProductQuantity(productId, quantity, branchID))){
+                if(!(cashierDAO.updateProductQuantity(productId, quantity, branchID))){
                     showAlert("Error", "Database Error", "Not enough stock available for product: " + product.getName());
                 }
 
                 // Add individual sale record
-                cashierModel.addSaleRecord(productId, quantity, productTotal, branchID);
+                cashierDAO.addSaleRecord(productId, quantity, productTotal, branchID);
             } catch (SQLException e) {
                 showAlert("Error", "Database Error", "Failed to process sale: " + e.getMessage());
                 e.printStackTrace();
@@ -250,7 +251,7 @@ public class CashierController extends  DashboardController implements Initializ
 
         try {
             // Add the complete sale transaction
-            cashierModel.addSaleTransaction(totalBillAmount, branchID, username);
+            cashierDAO.addSaleTransaction(totalBillAmount, branchID, username);
 
             // Clear the cart after successful sale
             cartItems.clear();
@@ -302,6 +303,10 @@ public class CashierController extends  DashboardController implements Initializ
         alert.setHeaderText(null);
         alert.getDialogPane().setMinWidth(450);
         alert.getDialogPane().setMinHeight(600);
+        
+        // Apply CSS
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/org/example/zyropos/css/styles.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("my-dialog");
 
         TextArea textArea = new TextArea(billContent);
         textArea.setEditable(false);
@@ -402,10 +407,10 @@ public class CashierController extends  DashboardController implements Initializ
 
         try {
             if (searchColumn != null && !searchValue.isEmpty()) {
-                tblProducts.setItems(cashierModel.searchProducts(branchID, searchColumn, searchValue));
+                tblProducts.setItems(cashierDAO.searchProducts(branchID, searchColumn, searchValue));
             } else {
                 // Reset to show all products if search field is empty
-                tblProducts.setItems(cashierModel.getAllProducts(branchID));
+                tblProducts.setItems(cashierDAO.getAllProducts(branchID));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

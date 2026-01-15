@@ -1,7 +1,7 @@
 package org.example.zyropos;
 
 import com.jfoenix.controls.JFXButton;
-import database.model.DashboardModel;
+import database.dao.DashboardDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.kordamp.bootstrapfx.BootstrapFX;
 import utilities.Values;
 
 import java.io.IOException;
@@ -42,7 +41,7 @@ public abstract class LoginController implements Initializable {
     @FXML
     protected TextField tfUsername;
 
-    private DashboardModel dashboardModel;
+    private DashboardDAO dashboardDAO;
 
     protected Parent root;
     protected Stage stage;
@@ -50,7 +49,7 @@ public abstract class LoginController implements Initializable {
 
     public LoginController() {
         System.out.println("LoginController");
-        dashboardModel=new DashboardModel();
+        dashboardDAO=new DashboardDAO();
     }
 
     @Override
@@ -64,6 +63,11 @@ public abstract class LoginController implements Initializable {
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
+        
+        // Apply CSS
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/org/example/zyropos/css/styles.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("my-dialog");
+        
         alert.showAndWait();
     }
 
@@ -106,12 +110,17 @@ public abstract class LoginController implements Initializable {
         alert.setTitle("Back");
         alert.setHeaderText("You're About to go Back!");
         alert.setContentText("Are you sure you want to go Back?");
+        
+        // Apply CSS
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/org/example/zyropos/css/styles.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("my-dialog");
+        
         //alert.setGraphic(new ImageView("D:\\JAVAFX\\logout\\src\\main\\resources\\org\\example\\logout\\svgviewer-png-output.png"));
         if(alert.showAndWait().get() == ButtonType.OK) {
             root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/GeneralLogin.fxml")));
-            stage=(Stage)lblRole.getScene().getWindow();
+            stage=(Stage)btnBack.getScene().getWindow();
             scene=new Scene(root);
-            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+            //scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 
             //add css
 
@@ -127,22 +136,31 @@ public abstract class LoginController implements Initializable {
 
     public void checkFirstTimeLogin(String role,String username) throws SQLException {
         try {
-            if (dashboardModel.checkFirstTimeStatus(role,username)) {
+            if (dashboardDAO.checkFirstTimeStatus(role,username)) {
                 TextInputDialog passwordDialog = new TextInputDialog();
                 passwordDialog.setTitle("Change Password");
                 passwordDialog.setHeaderText("First Time Login Detected");
                 passwordDialog.setContentText("Please enter your new password:");
+                
+                // Apply CSS
+                passwordDialog.getDialogPane().getStylesheets().add(getClass().getResource("/org/example/zyropos/css/styles.css").toExternalForm());
+                passwordDialog.getDialogPane().getStyleClass().add("my-dialog");
 
                 Optional<String> result = passwordDialog.showAndWait();
                 if (result.isPresent()) {
                     String newPassword = result.get();
-                    dashboardModel.updatePassword(role,username, newPassword);
-                    dashboardModel.updateFirstTimeStatus(role,username);
+                    dashboardDAO.updatePassword(role,username, newPassword);
+                    dashboardDAO.updateFirstTimeStatus(role,username);
 
                     Alert success = new Alert(Alert.AlertType.INFORMATION);
                     success.setTitle("Success");
                     success.setHeaderText("Password Updated");
                     success.setContentText("Your password has been successfully changed.");
+                    
+                    // Apply CSS
+                    success.getDialogPane().getStylesheets().add(getClass().getResource("/org/example/zyropos/css/styles.css").toExternalForm());
+                    success.getDialogPane().getStyleClass().add("my-dialog");
+                    
                     success.showAndWait();
                 }
             }

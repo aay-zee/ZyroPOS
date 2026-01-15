@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TableColumn?>
@@ -10,163 +11,159 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<HBox fx:id="rootScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="889.0" stylesheets="@../css/SuperAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.zyropos.CashierController">
-    <children>
-        <VBox id="menuBar" alignment="TOP_CENTER" prefHeight="594.0" prefWidth="221.0" spacing="35.0">
-            <children>
-                <Pane fx:id="innerPane1" prefHeight="58.0" prefWidth="186.0">
-                    <children>
-                        <ImageView fitHeight="29.0" fitWidth="33.0" layoutX="14.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../../../assets/SuperAdmin/saIcon.png" />
-                            </image>
-                        </ImageView>
-                        <Text fill="WHITE" layoutX="40.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cashier" textAlignment="CENTER" wrappingWidth="135.3999633789062">
-                            <font>
-                                <Font name="System Bold" size="17.0" />
-                            </font>
-                        </Text>
-                    </children>
-                </Pane>
-                <JFXButton fx:id="btnViewProducts" onAction="#displayVP" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="View Products" textAlignment="CENTER" textFill="WHITE">
-                    <font>
-                        <Font name="Century Gothic Bold" size="13.0" />
-                    </font>
+<BorderPane fx:id="rootScene" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.zyropos.CashierController">
+    <!-- Left Sidebar -->
+    <left>
+       <VBox fx:id="menuBar" prefWidth="240.0" styleClass="sidebar">
+          <children>
+             <!-- Logo Area -->
+             <VBox alignment="CENTER" spacing="10" style="-fx-padding: 20 0 30 0;">
+                 <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
+                    <image>
+                       <Image url="@../../../../assets/ZyroPOS2.png" />
+                    </image>
+                 </ImageView>
+                 <Label text="Cashier" styleClass="h3" style="-fx-text-fill: white;"/>
+             </VBox>
+ 
+             <!-- Navigation -->
+             <VBox spacing="5" VBox.vgrow="ALWAYS">
+                 <JFXButton fx:id="btnViewProducts" onAction="#displayVP" prefWidth="Infinity" styleClass="nav-button" text="View Products" graphicTextGap="15">
                     <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../../../assets/view.png" />
-                            </image>
-                        </ImageView>
+                       <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                          <Image url="@../../../../assets/view.png" />
+                       </ImageView>
                     </graphic>
-                </JFXButton>
-                <JFXButton fx:id="btnViewCart" layoutX="28.0" layoutY="212.0" onAction="#dislayVC" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="View Cart" textAlignment="CENTER" textFill="WHITE">
-                    <font>
-                        <Font name="Century Gothic Bold" size="13.0" />
-                    </font>
+                 </JFXButton>
+ 
+                 <JFXButton fx:id="btnViewCart" onAction="#dislayVC" prefWidth="Infinity" styleClass="nav-button" text="View Cart" graphicTextGap="15">
                     <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../../../assets/view.png" />
-                            </image>
-                        </ImageView>
+                       <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                          <Image url="@../../../../assets/view.png" />
+                       </ImageView>
                     </graphic>
-                </JFXButton>
-                <JFXButton fx:id="btnCP" buttonType="RAISED" graphicTextGap="2.0" onAction="#displayCP" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="Change Password" textAlignment="CENTER" textFill="WHITE">
+                 </JFXButton>
+ 
+                 <JFXButton fx:id="btnCP" onAction="#displayCP" prefWidth="Infinity" styleClass="nav-button" text="Change Password" graphicTextGap="15">
                     <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="btnImg">
-                            <image>
-                                <Image url="@../../../../assets/changePassword.png" />
-                            </image>
-                        </ImageView>
+                       <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                          <Image url="@../../../../assets/changePassword.png" />
+                       </ImageView>
                     </graphic>
-                    <font>
-                        <Font name="Century Gothic Bold" size="13.0" />
-                    </font>
-                </JFXButton>
-                <JFXButton fx:id="btnLogout" buttonType="RAISED" graphicTextGap="2.0" onAction="#handleLogout" prefHeight="51.0" prefWidth="186.0" styleClass="sideBtn" text="Logout" textAlignment="CENTER" textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="btnImg">
-                            <image>
-                                <Image url="@../../../../assets/SuperAdmin/logout.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <font>
-                        <Font name="Century Gothic Bold" size="13.0" />
-                    </font>
-                </JFXButton>
-            </children>
-        </VBox>
-        <AnchorPane prefHeight="594.0" prefWidth="668.0">
-            <children>
-                <BorderPane fx:id="cpPane" layoutX="206.0" layoutY="153.0" prefHeight="287.0" prefWidth="254.0" visible="false">
-                    <top>
-                        <PasswordField promptText="Old Password" BorderPane.alignment="CENTER" />
-                    </top>
-                    <center>
-                        <VBox alignment="CENTER" prefHeight="306.0" prefWidth="356.0" spacing="20.0" BorderPane.alignment="CENTER">
-                            <children>
-                                <PasswordField promptText="New Password" />
-                                <PasswordField promptText="Re-Enter New Password" />
-                                <JFXToggleButton fx:id="btnToggle" prefHeight="35.0" prefWidth="166.0" text="Show Passwords" toggleColor="BLACK" toggleLineColor="#2f71c2" unToggleColor="BLACK" unToggleLineColor="#949494" />
-                            </children>
-                        </VBox>
-                    </center>
-                    <bottom>
-                        <JFXButton buttonType="RAISED" prefHeight="26.0" prefWidth="84.0" styleClass="btnSubmit" text="Confirm" textAlignment="CENTER" textFill="WHITE" BorderPane.alignment="BASELINE_RIGHT" />
-                    </bottom>
-                </BorderPane>
-                <Label fx:id="lblPerson" layoutX="261.0" layoutY="274.0" text="Dashboard" textAlignment="CENTER">
-                    <font>
-                        <Font size="30.0" />
-                    </font>
-                </Label>
-                <BorderPane fx:id="vpPane" layoutX="39.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
-                    <center>
-                        <TableView fx:id="tblProducts" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                            <columns>
-                                <TableColumn fx:id="vpID" prefWidth="63.20001220703125" styleClass="column-header" text="ID" />
-                                <TableColumn fx:id="vpName" prefWidth="94.40001678466797" text="Name" />
-                                <TableColumn fx:id="vpCategory" prefWidth="96.79998779296875" text="Category" />
-                                <TableColumn fx:id="vpSalePrice" prefWidth="79.19998168945312" text="Sale Price" />
-                                <TableColumn fx:id="vpUnitPrice" prefWidth="79.19998779296873" text="Unit Price" />
-                                <TableColumn fx:id="vpCartonPrice" prefWidth="75.0" text="Carton Price" />
-                                <TableColumn fx:id="vpQuantity" prefWidth="96.800048828125" text="Quantity" />
-                            </columns>
-                        </TableView>
-                    </center>
-                    <top>
-                        <Pane prefHeight="120.0" prefWidth="590.0" BorderPane.alignment="CENTER">
-                            <children>
-                                <JFXButton fx:id="btnVPCart" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="462.0" layoutY="14.0" onAction="#addToCart" prefHeight="25.0" prefWidth="128.0" ripplerFill="#c91c1c" styleClass="btnSuccess" text="Add to Cart" textAlignment="CENTER" textFill="WHITE" />
-                                <TextField fx:id="tfVPSearchVal" layoutY="70.0" onAction="#searchProducts" prefHeight="25.0" prefWidth="210.0" promptText="Search Value" />
-                                <JFXComboBox fx:id="cmbVPSearchColumn" focusColor="#2f71c2" layoutY="14.0" prefWidth="210.0" promptText="Specify Column" unFocusColor="BLACK" />
-                                <JFXButton id="btnGenerateReport" fx:id="btnVPSearch" layoutX="462.0" layoutY="70.0" onAction="#searchProducts" prefHeight="25.0" prefWidth="128.0" text="Search" textAlignment="CENTER" />
-                            </children>
-                        </Pane>
-                    </top>
-                </BorderPane>
-            <BorderPane fx:id="vcPane" layoutX="39.0" layoutY="37.0" prefHeight="520.0" prefWidth="590.0" visible="false">
-               <center>
-                  <TableView fx:id="tblCart" editable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                     <columns>
-                        <TableColumn fx:id="vcID" editable="false" prefWidth="63.20001220703125" styleClass="column-header" text="ID" />
-                        <TableColumn fx:id="vcName" editable="false" prefWidth="94.40001678466797" text="Name" />
-                        <TableColumn fx:id="vcCategory" editable="false" prefWidth="96.79998779296875" text="Category" />
-                        <TableColumn fx:id="vcSalePrice" editable="false" prefWidth="79.19998168945312" text="Sale Price" />
-                        <TableColumn fx:id="vcUnitPrice" editable="false" prefWidth="79.19998779296873" text="Unit Price" />
-                        <TableColumn fx:id="vcCartonPrice" editable="false" prefWidth="75.0" text="Carton Price" />
-                        <TableColumn fx:id="vcQuantity" prefWidth="100.0" text="Quantity" />
-                     </columns>
-                  </TableView>
-               </center>
-               <bottom>
-                  <Pane prefHeight="46.0" prefWidth="590.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <JFXButton id="btnDanger" fx:id="btnVCRemove" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutY="11.0" onAction="#removeCartItem" prefHeight="25.0" prefWidth="128.0" ripplerFill="#c91c1c" text="Remove" textAlignment="CENTER" textFill="WHITE">
-                           <graphic>
-                              <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../assets/danger.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="btnVCGenerateBill" layoutX="462.0" layoutY="11.0" onAction="#generateBill" prefHeight="25.0" prefWidth="128.0" styleClass="btnSuccess" text="Generate Bill" textAlignment="CENTER" textFill="WHITE" />
-                     </children>
-                  </Pane>
-               </bottom>
-            </BorderPane>
-            </children>
-        </AnchorPane>
-    </children>
-</HBox>
+                 </JFXButton>
+             </VBox>
+             
+             <!-- Bottom Actions -->
+             <JFXButton fx:id="btnLogout" onAction="#handleLogout" prefWidth="Infinity" styleClass="nav-button" text="Logout" graphicTextGap="15" style="-fx-text-fill: #ef4444;">
+                <graphic>
+                   <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                      <Image url="@../../../../assets/SuperAdmin/logout.png" />
+                   </ImageView>
+                </graphic>
+             </JFXButton>
+          </children>
+       </VBox>
+    </left>
+ 
+    <!-- Main Content -->
+    <center>
+       <StackPane style="-fx-background-color: -fx-background; -fx-padding: 30;">
+          <children>
+             <!-- Welcome / Hero -->
+              <Label fx:id="lblPerson" text="Welcome, Cashier" styleClass="h2" StackPane.alignment="TOP_LEFT"/>
+          
+             <!-- View Products Pane -->
+             <BorderPane fx:id="vpPane" visible="false" styleClass="card">
+                <top>
+                    <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-padding: 0 0 20 0;">
+                         <Label text="Product Catalog" styleClass="h3"/>
+                         <HBox HBox.hgrow="ALWAYS" />
+                         
+                         <JFXComboBox fx:id="cmbVPSearchColumn" promptText="Search By" prefWidth="150"/>
+                         <TextField fx:id="tfVPSearchVal" promptText="Search term..." />
+                         <JFXButton fx:id="btnVPSearch" onAction="#searchProducts" text="Search" styleClass="btn-primary"/>
+                         <JFXButton fx:id="btnVPCart" onAction="#addToCart" text="Add to Cart" styleClass="btn-success"/>
+                    </HBox>
+                </top>
+                <center>
+                   <TableView fx:id="tblProducts">
+                      <columns>
+                         <TableColumn fx:id="vpID" text="ID" prefWidth="50" />
+                         <TableColumn fx:id="vpName" text="Name" />
+                         <TableColumn fx:id="vpCategory" text="Category" />
+                         <TableColumn fx:id="vpSalePrice" text="Price" />
+                         <TableColumn fx:id="vpUnitPrice" text="Unit Price" visible="false"/> <!-- Hidden for cashier? keeping just in case -->
+                         <TableColumn fx:id="vpCartonPrice" text="Carton Price" visible="false"/>
+                         <TableColumn fx:id="vpQuantity" text="Stock" />
+                      </columns>
+                      <columnResizePolicy>
+                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                      </columnResizePolicy>
+                   </TableView>
+                </center>
+             </BorderPane>
+ 
+             <!-- View Cart Pane -->
+             <BorderPane fx:id="vcPane" visible="false" styleClass="card">
+                <top>
+                    <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-padding: 0 0 20 0;">
+                         <Label text="Shopping Cart" styleClass="h3"/>
+                         <HBox HBox.hgrow="ALWAYS" />
+                    </HBox>
+                </top>
+                <center>
+                   <TableView fx:id="tblCart" editable="true">
+                      <columns>
+                         <TableColumn fx:id="vcID" text="ID" prefWidth="50" editable="false"/>
+                         <TableColumn fx:id="vcName" text="Name" editable="false"/>
+                         <TableColumn fx:id="vcCategory" text="Category" editable="false"/>
+                         <TableColumn fx:id="vcSalePrice" text="Price" editable="false"/>
+                         <TableColumn fx:id="vcUnitPrice" text="Unit Price" visible="false" editable="false"/>
+                         <TableColumn fx:id="vcCartonPrice" text="Carton Price" visible="false" editable="false"/>
+                         <TableColumn fx:id="vcQuantity" text="Quantity" />
+                      </columns>
+                      <columnResizePolicy>
+                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                      </columnResizePolicy>
+                   </TableView>
+                </center>
+                <bottom>
+                    <HBox spacing="20" alignment="CENTER_RIGHT" style="-fx-padding: 20 0 0 0;">
+                        <JFXButton fx:id="btnVCRemove" onAction="#removeCartItem" text="Remove Selected" styleClass="btn-danger"/>
+                        <JFXButton fx:id="btnVCGenerateBill" onAction="#generateBill" text="Generate Bill" styleClass="btn-success"/>
+                    </HBox>
+                </bottom>
+             </BorderPane>
+ 
+             <!-- Change Password Pane -->
+             <VBox fx:id="cpPane" styleClass="card" visible="false" spacing="20" maxWidth="400" maxHeight="450">
+                 <Label text="Change Password" styleClass="h2"/>
+                 
+                 <VBox spacing="5">
+                      <Label text="Old Password" styleClass="text-secondary"/>
+                      <PasswordField promptText="Enter Current Password" />
+                 </VBox>
+                 
+                 <VBox spacing="5">
+                      <Label text="New Password" styleClass="text-secondary"/>
+                      <PasswordField promptText="Enter New Password" />
+                 </VBox>
+                 
+                 <VBox spacing="5">
+                      <Label text="Confirm Password" styleClass="text-secondary"/>
+                      <PasswordField promptText="Re-enter New Password" />
+                 </VBox>
+                 
+                 <JFXToggleButton fx:id="btnToggle" text="Show Passwords" />
+                 <JFXButton text="Update Password" styleClass="btn-primary" maxWidth="Infinity"/>
+             </VBox>
+ 
+          </children>
+       </StackPane>
+    </center>
+ </BorderPane>

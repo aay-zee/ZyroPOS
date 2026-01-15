@@ -3,7 +3,7 @@ package org.example.zyropos;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXToggleButton;
-import database.model.DataOperatorModel;
+import database.dao.DataOperatorDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,8 +11,9 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,11 +26,11 @@ public class DataOperatorController extends DashboardController implements Initi
 
     private String username;
     private int branchID;
-    private DataOperatorModel dataOperatorModel;
+    private DataOperatorDAO dataOperatorDAO;
 
 
     public DataOperatorController() {
-        dataOperatorModel = new DataOperatorModel();
+        dataOperatorDAO = new DataOperatorDAO();
     }
 
     public void setUsername(String username) {
@@ -37,7 +38,7 @@ public class DataOperatorController extends DashboardController implements Initi
         System.out.println("Logged in as: "+username);
 
         //Getting BranchID Corresponding to the username
-        branchID = dataOperatorModel.getBranchID("DataOperator",username);
+        branchID = dataOperatorDAO.getBranchID("DataOperator",username);
         System.out.println("Branch ID: "+branchID);
     }
 
@@ -90,7 +91,7 @@ public class DataOperatorController extends DashboardController implements Initi
     private JFXComboBox<String> cmbVendorID;
 
     @FXML
-    private BorderPane cpPane;
+    private VBox cpPane;
 
     @FXML
     private DatePicker dpAVDate;
@@ -102,7 +103,7 @@ public class DataOperatorController extends DashboardController implements Initi
     private Label lblPerson;
 
     @FXML
-    private HBox rootScene;
+    private BorderPane rootScene;
 
     @FXML
     private Spinner<Integer> sldAPQuantity;
@@ -258,7 +259,7 @@ public class DataOperatorController extends DashboardController implements Initi
     @FXML
     void addProductToDatabase(ActionEvent event) {
         try {
-            dataOperatorModel.addProduct(tfAPName.getText(),Integer.parseInt(cmbVendorID.getValue()),tfAPCategory.getText(),branchID,Double.parseDouble(tfAPOPrice.getText()),Double.parseDouble(tfAPSPrice.getText()),Double.parseDouble(tfAPUPrice.getText()),Double.parseDouble(tfAPCPrice.getText()),Integer.parseInt(sldAPQuantity.getValue().toString()));
+            dataOperatorDAO.addProduct(tfAPName.getText(),Integer.parseInt(cmbVendorID.getValue()),tfAPCategory.getText(),branchID,Double.parseDouble(tfAPOPrice.getText()),Double.parseDouble(tfAPSPrice.getText()),Double.parseDouble(tfAPUPrice.getText()),Double.parseDouble(tfAPCPrice.getText()),Integer.parseInt(sldAPQuantity.getValue().toString()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -283,7 +284,7 @@ public class DataOperatorController extends DashboardController implements Initi
             formattedDate=selectedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         }
         try {
-            dataOperatorModel.addVendor(tfAVName.getText(),branchID,tfAVCPerson.getText(),tfAVContact.getText(),tfAVEmail.getText(),tfAVCName.getText(),formattedDate);
+            dataOperatorDAO.addVendor(tfAVName.getText(),branchID,tfAVCPerson.getText(),tfAVContact.getText(),tfAVEmail.getText(),tfAVCName.getText(),formattedDate);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -308,7 +309,7 @@ public class DataOperatorController extends DashboardController implements Initi
         setupProductTable();
 
         try {
-            tblProducts.setItems(dataOperatorModel.getAllProducts(branchID));
+            tblProducts.setItems(dataOperatorDAO.getAllProducts(branchID));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -350,7 +351,7 @@ public class DataOperatorController extends DashboardController implements Initi
         sldAPQuantity.setValueFactory(valueFactory);
 
         try {
-            cmbVendorID.setItems(dataOperatorModel.getVendorIDs(branchID));
+            cmbVendorID.setItems(dataOperatorDAO.getVendorIDs(branchID));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -368,7 +369,7 @@ public class DataOperatorController extends DashboardController implements Initi
 
         setupVendorTable();
         try {
-            tblVendors.setItems(dataOperatorModel.getAllVendors(branchID));
+            tblVendors.setItems(dataOperatorDAO.getAllVendors(branchID));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -402,10 +403,10 @@ public class DataOperatorController extends DashboardController implements Initi
 
         try {
             if (searchColumn != null && !searchValue.isEmpty()) {
-                tblVendors.setItems(dataOperatorModel.searchVendors(branchID, searchColumn, searchValue));
+                tblVendors.setItems(dataOperatorDAO.searchVendors(branchID, searchColumn, searchValue));
             } else {
                 // Reset to show all vendors if search field is empty
-                tblVendors.setItems(dataOperatorModel.getAllVendors(branchID));
+                tblVendors.setItems(dataOperatorDAO.getAllVendors(branchID));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -418,7 +419,7 @@ public class DataOperatorController extends DashboardController implements Initi
             Vendor selectedVendor = tblVendors.getSelectionModel().getSelectedItem();
             if (selectedVendor != null) {
                 try {
-                    dataOperatorModel.removeVendor(selectedVendor.getId());
+                    dataOperatorDAO.removeVendor(selectedVendor.getId());
                     tblVendors.getItems().remove(selectedVendor);
                     tblVendors.refresh();
                 } catch (SQLException e) {
@@ -463,10 +464,10 @@ public class DataOperatorController extends DashboardController implements Initi
 
         try {
             if (searchColumn != null && !searchValue.isEmpty()) {
-                tblProducts.setItems(dataOperatorModel.searchProducts(branchID, searchColumn, searchValue));
+                tblProducts.setItems(dataOperatorDAO.searchProducts(branchID, searchColumn, searchValue));
             } else {
                 // Reset to show all products if search field is empty
-                tblProducts.setItems(dataOperatorModel.getAllProducts(branchID));
+                tblProducts.setItems(dataOperatorDAO.getAllProducts(branchID));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -479,7 +480,7 @@ public class DataOperatorController extends DashboardController implements Initi
             Product selectedProduct = tblProducts.getSelectionModel().getSelectedItem();
             if (selectedProduct != null) {
                 try {
-                    dataOperatorModel.removeProduct(selectedProduct.getId());
+                    dataOperatorDAO.removeProduct(selectedProduct.getId());
                     tblProducts.getItems().remove(selectedProduct);
                     tblProducts.refresh();
                 } catch (SQLException e) {

@@ -1,7 +1,7 @@
 package org.example.zyropos;
 
 import com.jfoenix.controls.JFXButton;
-import database.model.DashboardModel;
+import database.dao.DashboardDAO;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,14 +19,14 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class DashboardController {
-    private DashboardModel dashboardModel;
+    private DashboardDAO dashboardDAO;
 
     protected Parent root;
     protected Stage stage;
     protected Scene scene;
 
     public DashboardController() {
-        dashboardModel = new DashboardModel();
+        dashboardDAO = new DashboardDAO();
     }
 
 
@@ -35,6 +35,11 @@ public class DashboardController {
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
+
+        // Apply Stylesheet
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/org/example/zyropos/css/styles.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("my-dialog");
+
         alert.showAndWait();
     }
 
@@ -43,6 +48,11 @@ public class DashboardController {
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
+
+        // Apply Stylesheet
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/org/example/zyropos/css/styles.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("my-dialog");
+
         if(alert.showAndWait().get()==ButtonType.OK){
             return true;
         }
@@ -58,6 +68,10 @@ public class DashboardController {
         alert.setTitle("Logout");
         alert.setHeaderText("You're About to Logout!");
         alert.setContentText("Are you sure you want to Logout?");
+        
+        // Apply Stylesheet
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/org/example/zyropos/css/styles.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("my-dialog");
         //alert.setGraphic(new ImageView("D:\\JAVAFX\\logout\\src\\main\\resources\\org\\example\\logout\\svgviewer-png-output.png"));
         if(alert.showAndWait().get() == ButtonType.OK) {
             root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/GeneralLogin.fxml")));

@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,7 +24,7 @@ public class GeneralLoginController {
     @FXML
     private Button btnDO;
     @FXML
-    private AnchorPane scenePane;
+    private javafx.scene.layout.StackPane rootPane;
 
     private Parent root;
     private Stage stage;
@@ -36,10 +35,14 @@ public class GeneralLoginController {
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
+        
+        // Apply CSS
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/org/example/zyropos/css/styles.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("my-dialog");
 
         if(alert.showAndWait().get() == ButtonType.OK){
             root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
-            stage=(Stage)scenePane.getScene().getWindow();
+            stage=(Stage)rootPane.getScene().getWindow();
             scene=new Scene(root);
 
             //add css

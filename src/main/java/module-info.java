@@ -12,6 +12,10 @@ module org.example.zyropos {
     requires com.jfoenix;
     requires java.sql;
     requires java.desktop;
+    requires com.zaxxer.hikari;
+    requires io.github.cdimascio.dotenv.java;
+    requires org.slf4j;
+    requires mysql.connector.j;
 
     opens org.example.zyropos to javafx.fxml;
     exports org.example.zyropos;

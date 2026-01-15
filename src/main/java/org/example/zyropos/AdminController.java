@@ -2,7 +2,7 @@ package org.example.zyropos;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import database.model.AdminModel;
+import database.dao.AdminDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,8 +10,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class AdminController extends DashboardController implements Initializable {
 
-    private AdminModel adminModel;
+    private AdminDAO adminDAO;
     private String username;
     private int branchID;
 
@@ -31,7 +32,7 @@ public class AdminController extends DashboardController implements Initializabl
         System.out.println("Logged in as: "+username);
 
         //Getting BranchID Corresponding to the username
-        branchID = adminModel.getBranchID("BranchManager",username);
+        branchID = adminDAO.getBranchID("BranchManager",username);
         System.out.println("Branch ID: "+branchID);
     }
 
@@ -39,7 +40,7 @@ public class AdminController extends DashboardController implements Initializabl
     private Pane emPane;
 
     @FXML
-    private BorderPane cpPane;
+    private VBox cpPane;
 
     @FXML
     private BorderPane reportPane;
@@ -101,7 +102,7 @@ public class AdminController extends DashboardController implements Initializabl
     private PasswordField pfPassword;
 
     @FXML
-    private HBox rootScene;
+    private BorderPane rootScene;
 
     @FXML
     private AnchorPane sideAnchorPane;
@@ -182,7 +183,7 @@ public class AdminController extends DashboardController implements Initializabl
     private String[] searchCol={"ID","Name","Branch ID","Contact","Address","Email","Salary"};
 
     public AdminController() {
-        adminModel=new AdminModel();
+        adminDAO=new AdminDAO();
     }
 
     @Override
@@ -266,7 +267,7 @@ public class AdminController extends DashboardController implements Initializabl
         emPane.setVisible(false);
         cashierPane.setVisible(false);
         setupOperatorTable();
-        tblDataOperators.setItems(adminModel.getAllOperators(branchID));
+        tblDataOperators.setItems(adminDAO.getAllOperators(branchID));
         vdoPane.setVisible(true);
     }
 
@@ -278,7 +279,7 @@ public class AdminController extends DashboardController implements Initializabl
         emPane.setVisible(false);
         vdoPane.setVisible(false);
         setupCashierTable();
-        tblCashiers.setItems(adminModel.getAllCashiers(branchID));
+        tblCashiers.setItems(adminDAO.getAllCashiers(branchID));
         cashierPane.setVisible(true);
     }
 
@@ -289,7 +290,7 @@ public class AdminController extends DashboardController implements Initializabl
 
     @FXML
     void submit() throws SQLException {
-        adminModel.addNewEmployeeToDatabase(cmbRole.getValue(),Integer.parseInt(tfEID.getText()),tfEName.getText(),Integer.parseInt(tfBID.getText()),tfContact.getText(),tfAddress.getText(),tfEmail.getText(),tfSalary.getText(),tfUsername.getText(),pfPassword.getText());
+        adminDAO.addNewEmployeeToDatabase(cmbRole.getValue(),Integer.parseInt(tfEID.getText()),tfEName.getText(),Integer.parseInt(tfBID.getText()),tfContact.getText(),tfAddress.getText(),tfEmail.getText(),tfSalary.getText(),tfUsername.getText(),pfPassword.getText());
     }
 
     @FXML
@@ -321,10 +322,10 @@ public class AdminController extends DashboardController implements Initializabl
 
         try {
             if (searchColumn != null && !searchValue.isEmpty()) {
-                tblCashiers.setItems(adminModel.searchCashiers(branchID,searchColumn, searchValue));
+                tblCashiers.setItems(adminDAO.searchCashiers(branchID,searchColumn, searchValue));
             } else {
                 // Reset to show all products if search field is empty
-                tblCashiers.setItems(adminModel.getAllCashiers(branchID));
+                tblCashiers.setItems(adminDAO.getAllCashiers(branchID));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -337,7 +338,7 @@ public class AdminController extends DashboardController implements Initializabl
             Cashier selectedCashier = tblCashiers.getSelectionModel().getSelectedItem();
             if (selectedCashier != null) {
                 try {
-                    adminModel.removeCashier(selectedCashier.getId());
+                    adminDAO.removeCashier(selectedCashier.getId());
                     tblCashiers.getItems().remove(selectedCashier);
                     tblCashiers.refresh();
                 } catch (SQLException e) {
@@ -376,10 +377,10 @@ public class AdminController extends DashboardController implements Initializabl
 
         try {
             if (searchColumn != null && !searchValue.isEmpty()) {
-                tblDataOperators.setItems(adminModel.searchDOs(branchID,searchColumn, searchValue));
+                tblDataOperators.setItems(adminDAO.searchDOs(branchID,searchColumn, searchValue));
             } else {
                 // Reset to show all products if search field is empty
-                tblDataOperators.setItems(adminModel.getAllOperators(branchID));
+                tblDataOperators.setItems(adminDAO.getAllOperators(branchID));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -392,7 +393,7 @@ public class AdminController extends DashboardController implements Initializabl
             DataOperator selectedOperator = tblDataOperators.getSelectionModel().getSelectedItem();
             if (selectedOperator != null) {
                 try {
-                    adminModel.removeDO(selectedOperator.getId());
+                    adminDAO.removeDO(selectedOperator.getId());
                     tblCashiers.getItems().remove(selectedOperator);
                     tblCashiers.refresh();
                 } catch (SQLException e) {
