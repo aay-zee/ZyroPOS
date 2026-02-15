@@ -129,6 +129,11 @@
         <artifactId>logback-classic</artifactId>
         <version>1.4.14</version>
     </dependency>
+    <dependency>
+        <groupId>org.mindrot</groupId>
+        <artifactId>jbcrypt</artifactId>
+        <version>0.4</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -158,6 +163,20 @@
               <noManPages>true</noManPages>
               <stripDebug>true</stripDebug>
               <noHeaderFiles>true</noHeaderFiles>
+              <options>
+                  <option>--add-opens</option>
+                  <option>java.base/java.lang.reflect=com.jfoenix</option>
+                  <option>--add-opens</option>
+                  <option>javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix</option>
+                  <option>--add-opens</option>
+                  <option>javafx.controls/javafx.scene.control.skin=com.jfoenix</option>
+                  <option>--add-opens</option>
+                  <option>javafx.graphics/javafx.scene=com.jfoenix</option>
+                  <option>--add-opens</option>
+                  <option>javafx.graphics/com.sun.javafx.stage=com.jfoenix</option>
+                  <option>--add-opens</option>
+                  <option>javafx.base/com.sun.javafx.event=com.jfoenix</option>
+              </options>
             </configuration>
           </execution>
         </executions>

@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -35,6 +36,14 @@
 
             <!-- Navigation -->
             <VBox spacing="5" VBox.vgrow="ALWAYS">
+                <JFXButton fx:id="btnDashboard" onAction="#showDashboard" prefWidth="Infinity" styleClass="nav-button" text="Dashboard" graphicTextGap="15">
+                   <graphic>
+                      <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                         <Image url="@../../../../assets/view.png" />
+                      </ImageView>
+                   </graphic>
+                </JFXButton>
+
                 <JFXButton fx:id="btnAddBranch" onAction="#addBranch" prefWidth="Infinity" styleClass="nav-button" text="Add Branch" graphicTextGap="15">
                    <graphic>
                       <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
@@ -92,48 +101,94 @@
    <center>
       <StackPane style="-fx-background-color: -fx-background; -fx-padding: 30;">
          <children>
-            <!-- Welcome / Hero -->
-             <Label fx:id="lblPerson" text="Welcome, Super Admin" styleClass="h2" StackPane.alignment="TOP_LEFT"/>
-         
-            <!-- Add Branch Pane -->
-            <VBox fx:id="branchPane" styleClass="card" visible="false" spacing="20" maxWidth="600" maxHeight="500">
-               <Label text="Add New Branch" styleClass="h2"/>
-               
-               <VBox spacing="5">
-                   <Label text="Branch Name" styleClass="text-secondary"/>
-                   <TextField fx:id="tfABBranchName" promptText="Enter Branch Name" />
-               </VBox>
-               
-               <HBox spacing="20">
-                   <VBox spacing="5" HBox.hgrow="ALWAYS">
-                       <Label text="City" styleClass="text-secondary"/>
-                       <TextField fx:id="tfABCity" promptText="Enter City" />
-                   </VBox>
-                   <VBox spacing="5" HBox.hgrow="ALWAYS">
-                        <Label text="Status" styleClass="text-secondary"/>
-                        <HBox spacing="10" alignment="CENTER_LEFT">
-                            <JFXRadioButton fx:id="rdABActive" text="Active" selected="true"/>
-                            <JFXRadioButton fx:id="rdABUnactive" text="Inactive" />
-                        </HBox>
-                   </VBox>
+            <!-- Dashboard Pane (New Landing) -->
+            <VBox fx:id="dashboardPane" spacing="20" styleClass="card" visible="true">
+               <HBox alignment="CENTER_LEFT">
+                  <VBox>
+                     <Label fx:id="lblPerson" text="Welcome, Super Admin" styleClass="h2"/>
+                     <Label text="Here's what's happening in your store today." styleClass="text-secondary"/>
+                  </VBox>
                </HBox>
 
-               <VBox spacing="5">
-                   <Label text="Address" styleClass="text-secondary"/>
-                   <TextField fx:id="tfABAddress" promptText="Enter Branch Address" />
-               </VBox>
-               
-               <VBox spacing="5">
-                   <Label text="Contact Number" styleClass="text-secondary"/>
-                   <TextField fx:id="tfABContact" promptText="Enter Contact Number" />
-               </VBox>
-               
-                <VBox spacing="5">
-                   <Label text="Initial Employees" styleClass="text-secondary"/>
-                   <TextField fx:id="tfABEmp" promptText="0" text="0" editable="false"/>
-               </VBox>
+               <!-- KPI Cards -->
+               <HBox spacing="20" alignment="CENTER_LEFT">
+                  <!-- Revenue Card -->
+                  <VBox styleClass="kpi-card" spacing="10" HBox.hgrow="ALWAYS" maxWidth="300" style="-fx-background-color: linear-gradient(to right, #4facfe 0%, #00f2fe 100%); -fx-padding: 20; -fx-background-radius: 10;">
+                     <Label text="Total Revenue" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-opacity: 0.9;"/>
+                     <Label fx:id="lblTotalRevenue" text="0.00" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                  </VBox>
 
-               <JFXButton fx:id="btnABSubmit" onAction="#addBranchDB" text="Create Branch" styleClass="btn-primary" prefWidth="200" style="-fx-alignment: center;"/>
+                  <!-- Active Branches Card -->
+                  <VBox styleClass="kpi-card" spacing="10" HBox.hgrow="ALWAYS" maxWidth="300" style="-fx-background-color: linear-gradient(to right, #43e97b 0%, #38f9d7 100%); -fx-padding: 20; -fx-background-radius: 10;">
+                     <Label text="Active Branches" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-opacity: 0.9;"/>
+                     <Label fx:id="lblActiveBranches" text="0" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                  </VBox>
+
+                  <!-- Employees Card -->
+                  <VBox styleClass="kpi-card" spacing="10" HBox.hgrow="ALWAYS" maxWidth="300" style="-fx-background-color: linear-gradient(to right, #fa709a 0%, #fee140 100%); -fx-padding: 20; -fx-background-radius: 10;">
+                     <Label text="Total Employees" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-opacity: 0.9;"/>
+                     <Label fx:id="lblTotalEmployees" text="0" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                  </VBox>
+               </HBox>
+
+                <!-- Chart Section -->
+               <VBox VBox.vgrow="ALWAYS" style="-fx-padding: 10 0 0 0;">
+                    <Label text="Revenue Trend" styleClass="h3"/>
+                    <LineChart fx:id="dashboardChart" title="System Performance">
+                      <xAxis>
+                        <CategoryAxis label="Time" />
+                      </xAxis>
+                      <yAxis>
+                        <NumberAxis label="Revenue" />
+                      </yAxis>
+                    </LineChart>
+               </VBox>
+            </VBox>
+         
+            <!-- Add Branch Pane -->
+            <VBox fx:id="branchPane" styleClass="card" visible="false" spacing="20" maxWidth="800">
+               <VBox spacing="5">
+                   <Label text="Add New Branch" styleClass="h2"/>
+                   <Label text="Enter branch details below to create a new location." styleClass="text-secondary"/>
+               </VBox>
+               
+               <HBox spacing="40">
+                  <!-- Left Column -->
+                   <VBox spacing="20" HBox.hgrow="ALWAYS">
+                       <VBox spacing="8">
+                           <Label text="Branch Name" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                           <TextField fx:id="tfABBranchName" promptText="E.g. Main Street Branch" styleClass="input-field"/>
+                       </VBox>
+                       <VBox spacing="8">
+                           <Label text="City" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                           <TextField fx:id="tfABCity" promptText="E.g. New York" styleClass="input-field"/>
+                       </VBox>
+                        <VBox spacing="8">
+                           <Label text="Address" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                           <TextField fx:id="tfABAddress" promptText="E.g. 123 Business Rd" styleClass="input-field"/>
+                       </VBox>
+                   </VBox>
+
+                   <!-- Right Column -->
+                   <VBox spacing="20" HBox.hgrow="ALWAYS">
+                       <VBox spacing="8">
+                           <Label text="Contact Number" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                           <TextField fx:id="tfABContact" promptText="E.g. 03001234567" styleClass="input-field"/>
+                       </VBox>
+                        <VBox spacing="8">
+                            <Label text="Operational Status" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                            <VBox spacing="10" style="-fx-padding: 5 0 0 0;">
+                                <JFXRadioButton fx:id="rdABActive" text="Active (Open for business)" selected="true"/>
+                                <JFXRadioButton fx:id="rdABUnactive" text="Inactive (Closed/Under construction)" />
+                            </VBox>
+                        </VBox>
+                   </VBox>
+               </HBox>
+               
+               <HBox alignment="CENTER_RIGHT" spacing="15" style="-fx-padding: 20 0 0 0;">
+                    <JFXButton text="Clear Form" onAction="#clearAddBranchForm" style="-fx-background-color: #e5e7eb; -fx-text-fill: #374151; -fx-cursor: hand;"/>
+                    <JFXButton fx:id="btnABSubmit" onAction="#addBranchDB" text="Create Branch" styleClass="btn-primary" prefWidth="180" style="-fx-cursor: hand;"/>
+               </HBox>
             </VBox>
 
 
@@ -148,8 +203,8 @@
                 
                  <HBox spacing="20">
                      <VBox spacing="5" HBox.hgrow="ALWAYS">
-                        <Label text="Branch ID" styleClass="text-secondary"/>
-                        <TextField fx:id="tfBID" promptText="Target Branch ID" />
+                        <Label text="Branch" styleClass="text-secondary"/>
+                        <JFXComboBox fx:id="cbBranch" promptText="Select Branch" maxWidth="Infinity" />
                      </VBox>
                      <VBox spacing="5" HBox.hgrow="ALWAYS">
                         <Label text="Contact" styleClass="text-secondary"/>
@@ -174,7 +229,22 @@
                      </VBox>
                      <VBox spacing="5" HBox.hgrow="ALWAYS">
                         <Label text="Password" styleClass="text-secondary"/>
-                        <TextField fx:id="tfPassword" promptText="Secure Password" />
+                        <StackPane alignment="CENTER_RIGHT">
+                           <TextField fx:id="tfPasswordVisible" promptText="Secure Password" visible="false" managed="false"/>
+                           <PasswordField fx:id="pfPassword" promptText="Secure Password" />
+                           <JFXButton fx:id="btnTogglePassword" contentDisplay="GRAPHIC_ONLY" style="-fx-cursor: hand;" onAction="#togglePasswordVisibility">
+                               <graphic>
+                                   <ImageView fx:id="ivPasswordToggle" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                           <Image url="@../../../../assets/view.png" />
+                                       </image>
+                                   </ImageView>
+                               </graphic>
+                               <StackPane.margin>
+                                   <Insets right="5.0" />
+                               </StackPane.margin>
+                           </JFXButton>
+                        </StackPane>
                      </VBox>
                  </HBox>
 
@@ -185,15 +255,21 @@
             <!-- View Branches Pane -->
             <BorderPane fx:id="vbPane" visible="false" styleClass="card">
                <top>
-                   <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-padding: 0 0 20 0;">
-                        <Label text="Branch List" styleClass="h3"/>
-                        <HBox HBox.hgrow="ALWAYS" /> <!-- Spacer -->
-                        
-                        <JFXComboBox fx:id="cmbSearchColumn" promptText="Search By" prefWidth="150"/>
-                        <TextField fx:id="tfSearchVal" promptText="Search term..." />
-                        <JFXButton fx:id="btnVBSearch" onAction="#searchBranches" text="Search" styleClass="btn-primary"/>
-                        <JFXButton fx:id="btnVBRemove" onAction="#removeBranches" text="Delete" styleClass="btn-danger"/>
-                   </HBox>
+                   <VBox spacing="15" style="-fx-padding: 0 0 20 0;">
+                       <HBox alignment="CENTER_LEFT">
+                            <VBox>
+                                <Label text="Branch Management" styleClass="h3"/>
+                                <Label text="View and manage, or remove existing branches." styleClass="text-secondary"/>
+                            </VBox>
+                       </HBox>
+                       
+                       <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: #f9fafb; -fx-padding: 10; -fx-background-radius: 5;">
+                            <JFXComboBox fx:id="cmbSearchColumn" promptText="Search Field" prefWidth="150" style="-fx-background-color: white;"/>
+                            <TextField fx:id="tfSearchVal" promptText="Enter search keyword..." HBox.hgrow="ALWAYS" styleClass="input-field"/>
+                            <JFXButton fx:id="btnVBSearch" onAction="#searchBranches" text="Search" styleClass="btn-primary" style="-fx-cursor: hand;"/>
+                            <JFXButton fx:id="btnVBRemove" onAction="#removeBranches" text="Remove Selected" styleClass="btn-danger" style="-fx-background-color: #ef4444; -fx-text-fill: white; -fx-cursor: hand;"/>
+                       </HBox>
+                   </VBox>
                </top>
                <center>
                   <TableView fx:id="tblBranches">
@@ -216,15 +292,21 @@
             <!-- View Managers Pane -->
             <BorderPane fx:id="vmPane" visible="false" styleClass="card">
                <top>
-                    <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-padding: 0 0 20 0;">
-                        <Label text="Manager List" styleClass="h3"/>
-                        <HBox HBox.hgrow="ALWAYS" /> <!-- Spacer -->
-                        
-                        <JFXComboBox fx:id="cmbVMSearchCol" promptText="Search By" prefWidth="150"/>
-                        <TextField fx:id="tfVMSearchVal" promptText="Search term..." />
-                        <JFXButton fx:id="btnVMSearch" onAction="#searchManagers" text="Search" styleClass="btn-primary"/>
-                        <JFXButton fx:id="btnVMRemove" onAction="#removeBManagers" text="Delete" styleClass="btn-danger"/>
-                   </HBox>
+                   <VBox spacing="15" style="-fx-padding: 0 0 20 0;">
+                       <HBox alignment="CENTER_LEFT">
+                            <VBox>
+                                <Label text="Manager Management" styleClass="h3"/>
+                                <Label text="View and manage, or remove existing branch managers." styleClass="text-secondary"/>
+                            </VBox>
+                       </HBox>
+                       
+                       <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: #f9fafb; -fx-padding: 10; -fx-background-radius: 5;">
+                            <JFXComboBox fx:id="cmbVMSearchCol" promptText="Search Field" prefWidth="150" style="-fx-background-color: white;"/>
+                            <TextField fx:id="tfVMSearchVal" promptText="Enter search keyword..." HBox.hgrow="ALWAYS" styleClass="input-field"/>
+                            <JFXButton fx:id="btnVMSearch" onAction="#searchManagers" text="Search" styleClass="btn-primary" style="-fx-cursor: hand;"/>
+                            <JFXButton fx:id="btnVMRemove" onAction="#removeBManagers" text="Remove Selected" styleClass="btn-danger" style="-fx-background-color: #ef4444; -fx-text-fill: white; -fx-cursor: hand;"/>
+                       </HBox>
+                   </VBox>
                </top>
                <center>
                   <TableView fx:id="tblManagers">
@@ -246,14 +328,20 @@
             <!-- Reports Pane -->
             <BorderPane fx:id="reportPane" visible="false" styleClass="card">
                <top>
-                   <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-padding: 0 0 20 0;">
-                        <Label text="Analytics" styleClass="h3"/>
-                        <HBox HBox.hgrow="ALWAYS" />
-                        
-                        <JFXComboBox fx:id="cbReportType" promptText="Report Type" />
-                        <JFXComboBox fx:id="cbRange" promptText="Range" />
-                        <JFXButton fx:id="btnGenerateReport" text="Refresh" styleClass="btn-primary"/>
-                   </HBox>
+                   <VBox spacing="15" style="-fx-padding: 0 0 20 0;">
+                       <HBox alignment="CENTER_LEFT">
+                            <VBox>
+                                <Label text="Analytics &amp; Reports" styleClass="h3"/>
+                                <Label text="Visualize sales performance and operational metrics." styleClass="text-secondary"/>
+                            </VBox>
+                       </HBox>
+                       
+                       <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: #f9fafb; -fx-padding: 10; -fx-background-radius: 5;">
+                            <JFXComboBox fx:id="cbReportType" promptText="Select Metric" style="-fx-background-color: white;" prefWidth="150"/>
+                            <JFXComboBox fx:id="cbRange" promptText="Time Period" style="-fx-background-color: white;" prefWidth="150"/>
+                            <JFXButton fx:id="btnGenerateReport" onAction="#setupChart" text="Generate Report" styleClass="btn-primary" style="-fx-cursor: hand;"/>
+                       </HBox>
+                   </VBox>
                </top>
                <center>
                    <LineChart fx:id="lineChart" title="Performance Overview">
@@ -261,7 +349,7 @@
                        <CategoryAxis label="Time Period" fx:id="x" />
                      </xAxis>
                      <yAxis>
-                       <NumberAxis fx:id="y" label="Revenue" />
+                       <NumberAxis fx:id="y" label="Amount" />
                      </yAxis>
                    </LineChart>
                </center>

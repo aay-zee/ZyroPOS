@@ -15,6 +15,67 @@ public class DataOperatorDAO extends BaseDAO {
     public DataOperatorDAO() {
     }
 
+    public int getTotalVendors(int branchId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM vendor WHERE branch_id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, branchId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        }
+        return 0;
+    }
+
+    public int getTotalProducts(int branchId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM product WHERE branch_id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, branchId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        }
+        return 0;
+    }
+
+    public int getLowStockCount(int branchId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM product WHERE branch_id = ? AND quantity < 10";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, branchId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        }
+        return 0;
+    }
+
+    public ObservableList<Product> getLowStockItems(int branchId) throws SQLException {
+        ObservableList<Product> products = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM product WHERE branch_id = ? AND quantity < 10 ORDER BY quantity ASC LIMIT 10";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, branchId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    products.add(new Product(
+                            rs.getInt("product_id"),
+                            rs.getString("name"),
+                            rs.getInt("vendor_id"),
+                            rs.getString("category"),
+                            rs.getDouble("original_price"),
+                            rs.getDouble("sale_price"),
+                            rs.getDouble("unit_price"),
+                            rs.getDouble("carton_price"),
+                            rs.getInt("quantity")
+                    ));
+                }
+            }
+        }
+        return products;
+    }
+
     public void addVendor(String name,int branchID,String cPerson,String phone,String email,String cName,String regDate) throws SQLException {
 
         String insertQuery="INSERT INTO vendor (name, branch_id, contact_person, phone, email, company_name, registration_date) VALUES(?,?,?,?,?,?,?)";

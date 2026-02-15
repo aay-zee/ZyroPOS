@@ -33,6 +33,14 @@
  
              <!-- Navigation -->
              <VBox spacing="5" VBox.vgrow="ALWAYS">
+                 <JFXButton fx:id="btnDashboard" onAction="#showDashboard" prefWidth="Infinity" styleClass="nav-button" text="Dashboard" graphicTextGap="15">
+                    <graphic>
+                       <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                          <Image url="@../../../../assets/home.png" />
+                       </ImageView>
+                    </graphic>
+                 </JFXButton>
+
                  <JFXButton fx:id="btnViewProducts" onAction="#displayVP" prefWidth="Infinity" styleClass="nav-button" text="View Products" graphicTextGap="15">
                     <graphic>
                        <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
@@ -75,20 +83,65 @@
        <StackPane style="-fx-background-color: -fx-background; -fx-padding: 30;">
           <children>
              <!-- Welcome / Hero -->
-              <Label fx:id="lblPerson" text="Welcome, Cashier" styleClass="h2" StackPane.alignment="TOP_LEFT"/>
+              <Label fx:id="lblPerson" text="Welcome, Cashier" styleClass="h2" StackPane.alignment="TOP_LEFT" visible="false"/> <!-- Hidden in favor of Dashboard -->
           
+             <!-- Dashboard Pane -->
+             <VBox fx:id="dashboardPane" spacing="20" styleClass="dashboard-container">
+                 <Label text="Overview" styleClass="h2"/>
+                 <HBox spacing="20">
+                     <!-- Metric Cards -->
+                     <VBox styleClass="metric-card" HBox.hgrow="ALWAYS">
+                         <Label text="Today's Sales" styleClass="metric-title"/>
+                         <Label fx:id="lblTodaySales" text="0.00" styleClass="metric-value"/>
+                         <Label text="+0% from yesterday" styleClass="metric-subtitle"/>
+                     </VBox>
+                     <VBox styleClass="metric-card" HBox.hgrow="ALWAYS">
+                         <Label text="Transactions" styleClass="metric-title"/>
+                         <Label fx:id="lblTransactionCount" text="0" styleClass="metric-value"/>
+                         <Label text="Processed today" styleClass="metric-subtitle"/>
+                     </VBox>
+                     <VBox styleClass="metric-card" HBox.hgrow="ALWAYS">
+                         <Label text="Products Sold" styleClass="metric-title"/>
+                         <Label fx:id="lblProductsSold" text="0" styleClass="metric-value"/>
+                         <Label text="Items moved" styleClass="metric-subtitle"/>
+                     </VBox>
+                 </HBox>
+                 
+                 <!-- Recent Transactions Section -->
+                 <VBox spacing="10" VBox.vgrow="ALWAYS">
+                     <Label text="Recent Transactions" styleClass="h3"/>
+                     <TableView fx:id="tblRecentTransactions" VBox.vgrow="ALWAYS">
+                        <columns>
+                           <TableColumn fx:id="colSaleID" text="Transaction ID" prefWidth="100"/>
+                           <TableColumn fx:id="colAmount" text="Amount" prefWidth="100"/>
+                           <TableColumn fx:id="colDate" text="Time" prefWidth="150"/>
+                           <TableColumn fx:id="colCashier" text="Cashier" prefWidth="150"/>
+                        </columns>
+                        <columnResizePolicy>
+                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                     </TableView>
+                 </VBox>
+             </VBox>
+
              <!-- View Products Pane -->
              <BorderPane fx:id="vpPane" visible="false" styleClass="card">
                 <top>
-                    <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-padding: 0 0 20 0;">
-                         <Label text="Product Catalog" styleClass="h3"/>
-                         <HBox HBox.hgrow="ALWAYS" />
-                         
-                         <JFXComboBox fx:id="cmbVPSearchColumn" promptText="Search By" prefWidth="150"/>
-                         <TextField fx:id="tfVPSearchVal" promptText="Search term..." />
-                         <JFXButton fx:id="btnVPSearch" onAction="#searchProducts" text="Search" styleClass="btn-primary"/>
-                         <JFXButton fx:id="btnVPCart" onAction="#addToCart" text="Add to Cart" styleClass="btn-success"/>
-                    </HBox>
+                    <VBox spacing="15" style="-fx-padding: 0 0 20 0;">
+                        <HBox alignment="CENTER_LEFT">
+                             <VBox>
+                                 <Label text="Product Catalog" styleClass="h3"/>
+                                 <Label text="Browse and search inventory." styleClass="text-secondary"/>
+                             </VBox>
+                        </HBox>
+                        
+                        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: #f9fafb; -fx-padding: 10; -fx-background-radius: 5;">
+                             <JFXComboBox fx:id="cmbVPSearchColumn" promptText="Search By" prefWidth="150" style="-fx-background-color: white;"/>
+                             <TextField fx:id="tfVPSearchVal" promptText="Search term..." HBox.hgrow="ALWAYS" styleClass="input-field"/>
+                             <JFXButton fx:id="btnVPSearch" onAction="#searchProducts" text="Search" styleClass="btn-primary" style="-fx-cursor: hand;"/>
+                             <JFXButton fx:id="btnVPCart" onAction="#addToCart" text="Add to Cart" styleClass="btn-success" style="-fx-background-color: #22c55e; -fx-text-fill: white; -fx-cursor: hand;"/>
+                        </HBox>
+                    </VBox>
                 </top>
                 <center>
                    <TableView fx:id="tblProducts">
@@ -111,10 +164,14 @@
              <!-- View Cart Pane -->
              <BorderPane fx:id="vcPane" visible="false" styleClass="card">
                 <top>
-                    <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-padding: 0 0 20 0;">
-                         <Label text="Shopping Cart" styleClass="h3"/>
-                         <HBox HBox.hgrow="ALWAYS" />
-                    </HBox>
+                    <VBox spacing="15" style="-fx-padding: 0 0 20 0;">
+                        <HBox alignment="CENTER_LEFT">
+                             <VBox>
+                                 <Label text="Shopping Cart" styleClass="h3"/>
+                                 <Label text="Review items before checkout." styleClass="text-secondary"/>
+                             </VBox>
+                        </HBox>
+                    </VBox>
                 </top>
                 <center>
                    <TableView fx:id="tblCart" editable="true">
@@ -134,8 +191,8 @@
                 </center>
                 <bottom>
                     <HBox spacing="20" alignment="CENTER_RIGHT" style="-fx-padding: 20 0 0 0;">
-                        <JFXButton fx:id="btnVCRemove" onAction="#removeCartItem" text="Remove Selected" styleClass="btn-danger"/>
-                        <JFXButton fx:id="btnVCGenerateBill" onAction="#generateBill" text="Generate Bill" styleClass="btn-success"/>
+                        <JFXButton fx:id="btnVCRemove" onAction="#removeCartItem" text="Remove Selected" styleClass="btn-danger" style="-fx-cursor: hand;"/>
+                        <JFXButton fx:id="btnVCGenerateBill" onAction="#generateBill" text="Complete Sale" styleClass="btn-success" style="-fx-cursor: hand;"/>
                     </HBox>
                 </bottom>
              </BorderPane>

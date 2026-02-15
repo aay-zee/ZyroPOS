@@ -3,6 +3,7 @@ package database.dao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.example.zyropos.CashierProduct;
+import org.example.zyropos.Sale;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +13,52 @@ import java.sql.SQLException;
 public class CashierDAO extends BaseDAO {
 
     public CashierDAO() {
+    }
+
+    public double getTodaySales(int branchId) throws SQLException {
+        String sql = "SELECT SUM(total_amount) FROM sales WHERE branch_id = ? AND DATE(sale_date) = CURRENT_DATE";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, branchId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) return rs.getDouble(1);
+            }
+        }
+        return 0.0;
+    }
+
+    public int getTransactionCount(int branchId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM sales WHERE branch_id = ? AND DATE(sale_date) = CURRENT_DATE";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, branchId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        }
+        return 0;
+    }
+
+    public ObservableList<Sale> getRecentTransactions(int branchId) throws SQLException {
+        ObservableList<Sale> sales = FXCollections.observableArrayList();
+        String sql = "SELECT sale_id, total_amount, branch_id, cashier_username, sale_date FROM sales WHERE branch_id = ? ORDER BY sale_date DESC LIMIT 10";
+        
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, branchId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    sales.add(new Sale(
+                        rs.getInt("sale_id"),
+                        rs.getDouble("total_amount"),
+                        rs.getInt("branch_id"),
+                        rs.getString("cashier_username"),
+                        rs.getTimestamp("sale_date")
+                    ));
+                }
+            }
+        }
+        return sales;
     }
 
 
@@ -103,30 +150,42 @@ public class CashierDAO extends BaseDAO {
         return false;
     }
 
-    public void addSaleRecord(int productId, int quantity, double amount, int branchId) throws SQLException {
-        // SQL to insert individual product sale linking to the latest sale for this branch
-        // Note: Relies on sequential processing; concurrency safe only if serialized per branch.
-        String sql = "INSERT INTO sale_details (product_id, quantity, amount, sale_id) VALUES (?, ?, ?, (SELECT MAX(sale_id) FROM sales WHERE branch_id=?))";
+    public void addSaleLineItem(int saleId, int productId, int quantity, double amount, int branchId) throws SQLException {
+        // SQL to insert individual product sale linking to the EXPLICIT sale_id
+        String sql = "INSERT INTO sale_details (sale_id, product_id, quantity, amount) VALUES (?, ?, ?, ?)";
         
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, productId);
-            preparedStatement.setInt(2, quantity);
-            preparedStatement.setDouble(3, amount);
-            preparedStatement.setInt(4, branchId);
+            preparedStatement.setInt(1, saleId);
+            preparedStatement.setInt(2, productId);
+            preparedStatement.setInt(3, quantity);
+            preparedStatement.setDouble(4, amount);
             preparedStatement.executeUpdate();
         }
     }
 
-    public void addSaleTransaction(double totalAmount, int branchId, String cashierUsername) throws SQLException {
-        // SQL to insert complete sale transaction
+    public int createSaleTransaction(double totalAmount, int branchId, String cashierUsername) throws SQLException {
+        // SQL to insert complete sale transaction and RETURN the generated ID
         String sql = "INSERT INTO sales (total_amount, branch_id, cashier_username, sale_date) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
+        
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setDouble(1, totalAmount);
             preparedStatement.setInt(2, branchId);
             preparedStatement.setString(3, cashierUsername);
-            preparedStatement.executeUpdate();
+            
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating sale failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating sale failed, no ID obtained.");
+                }
+            }
         }
     }
 }

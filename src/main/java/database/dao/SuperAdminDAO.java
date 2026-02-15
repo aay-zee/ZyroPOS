@@ -71,7 +71,7 @@ public class SuperAdminDAO extends BaseDAO {
 
     public ObservableList<Branch> getAllBranches() throws SQLException {
         ObservableList<Branch> branches = FXCollections.observableArrayList();
-        String selectQuery="SELECT * FROM branch";
+        String selectQuery="SELECT * FROM branch WHERE is_deleted = FALSE";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
              ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -93,7 +93,7 @@ public class SuperAdminDAO extends BaseDAO {
 
     public ObservableList<BranchManager> getAllBranchManagers() throws SQLException {
         ObservableList<BranchManager> branches = FXCollections.observableArrayList();
-        String selectQuery="SELECT manager_id, name, branch_id, phone, address, email FROM branch_manager";
+        String selectQuery="SELECT manager_id, name, branch_id, phone, address, email FROM branch_manager WHERE is_deleted = FALSE";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
              ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -117,7 +117,7 @@ public class SuperAdminDAO extends BaseDAO {
         // NOTE: Column name must be validated or mapped in real app to prevent injection,
         // but assuming user passes valid 'name', 'city' etc for now.
         // We'll leave the dynamic column but make sure table is correct.
-        String searchQuery = "SELECT * FROM branch WHERE " + column + " LIKE ?";
+        String searchQuery = "SELECT * FROM branch WHERE " + column + " LIKE ? AND is_deleted = FALSE";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(searchQuery)) {
             
@@ -142,7 +142,7 @@ public class SuperAdminDAO extends BaseDAO {
 
     public ObservableList<BranchManager> searchManagers(String column, String value) throws SQLException {
         ObservableList<BranchManager> managers = FXCollections.observableArrayList();
-        String searchQuery = "SELECT manager_id, name, branch_id, phone, address, email FROM branch_manager WHERE " + column + " LIKE ?";
+        String searchQuery = "SELECT manager_id, name, branch_id, phone, address, email FROM branch_manager WHERE " + column + " LIKE ? AND is_deleted = FALSE";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(searchQuery)) {
             
@@ -165,20 +165,144 @@ public class SuperAdminDAO extends BaseDAO {
     }
 
     public void removeBranch(int branchId) throws SQLException {
-        String deleteQuery = "DELETE FROM branch WHERE branch_id = ?";
+        // Soft delete the branch
+        String updateBranch = "UPDATE branch SET is_deleted = TRUE, is_active = FALSE WHERE branch_id = ?";
+        // Soft delete associated employees (Optional logic, but good practice)
+        
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(updateBranch)) {
             preparedStatement.setInt(1, branchId);
             preparedStatement.executeUpdate();
         }
     }
 
-    public void removeBranchManager(int managerId) throws SQLException {
-        String deleteQuery = "DELETE FROM branch_manager WHERE manager_id = ?";
+
+    // --- Dashboard Metric Methods ---
+
+    /**
+     * Gets the total active branches count.
+     */
+    public int getActiveBranchCount() throws SQLException {
+        String query = "SELECT COUNT(*) FROM branch WHERE is_active = TRUE AND is_deleted = FALSE";
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
+             PreparedStatement ps = connection.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Gets the total count of all employees (Managers + Cashiers + Data Operators).
+     */
+    public int getTotalEmployeeCount() throws SQLException {
+        int total = 0;
+        String[] tables = {"branch_manager", "cashier", "data_operator"};
+
+        for (String table : tables) {
+            String query = "SELECT COUNT(*) FROM " + table + " WHERE is_deleted = FALSE";
+            try (Connection connection = getConnection();
+                 PreparedStatement ps = connection.prepareStatement(query);
+                 ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    total += rs.getInt(1);
+                }
+            }
+        }
+        return total;
+    }
+
+    /**
+     * Gets the total revenue from all sales.
+     */
+    public double getTotalRevenue() throws SQLException {
+        String query = "SELECT SUM(total_amount) FROM sales WHERE is_deleted = FALSE";
+        try (Connection connection = getConnection();
+             PreparedStatement ps = connection.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getDouble(1);
+            }
+        }
+        return 0.0;
+    }
+
+    /**
+     * Gets revenue trend (Last 7 days sales).
+     * Returns a Map where key is Date (String) and value is Total Amount (Double).
+     */
+    public java.util.Map<String, Double> getRevenueTrend() throws SQLException {
+        java.util.Map<String, Double> trendData = new java.util.LinkedHashMap<>();
+        
+        // MySQL specific query for last 7 days grouped by date
+        String query = "SELECT DATE(sale_date) as date, SUM(total_amount) as total " +
+                       "FROM sales " +
+                       "WHERE is_deleted = FALSE " +
+                       "GROUP BY DATE(sale_date) " +
+                       "ORDER BY DATE(sale_date) ASC " +
+                       "LIMIT 7";
+                       
+        try (Connection connection = getConnection();
+             PreparedStatement ps = connection.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                trendData.put(rs.getString("date"), rs.getDouble("total"));
+            }
+        }
+        return trendData;
+    }
+    
+    // --- End Dashboard Metric Methods ---
+
+    public void removeBranchManager(int managerId) throws SQLException {
+        String updateQuery = "UPDATE branch_manager SET is_deleted = TRUE WHERE manager_id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
             preparedStatement.setInt(1, managerId);
             preparedStatement.executeUpdate();
         }
+    }
+    public java.util.Map<String, Double> getSalesData(String range) throws SQLException {
+        java.util.Map<String, Double> data = new java.util.LinkedHashMap<>();
+        String query = "";
+
+        // Determine query based on range
+        switch (range) {
+            case "Daily": // Last 7 days daily breakdown
+                query = "SELECT DATE(sale_date) as metric, SUM(total_amount) as value FROM sales " +
+                        "WHERE sale_date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) " +
+                        "GROUP BY DATE(sale_date) ORDER BY metric ASC";
+                break;
+            case "Weekly": // Last 4 weeks weekly breakdown
+                query = "SELECT CONCAT('Week ', YEARWEEK(sale_date, 1)) as metric, SUM(total_amount) as value FROM sales " +
+                        "WHERE sale_date >= DATE_SUB(CURDATE(), INTERVAL 4 WEEK) " +
+                        "GROUP BY YEARWEEK(sale_date, 1) ORDER BY metric ASC";
+                break;
+            case "Monthly": // Last 12 months monthly breakdown
+                query = "SELECT DATE_FORMAT(sale_date, '%Y-%m') as metric, SUM(total_amount) as value FROM sales " +
+                        "WHERE sale_date >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH) " +
+                        "GROUP BY DATE_FORMAT(sale_date, '%Y-%m') ORDER BY metric ASC";
+                break;
+            case "Yearly": // Last 5 years
+                query = "SELECT YEAR(sale_date) as metric, SUM(total_amount) as value FROM sales " +
+                        "WHERE sale_date >= DATE_SUB(CURDATE(), INTERVAL 5 YEAR) " +
+                        "GROUP BY YEAR(sale_date) ORDER BY metric ASC";
+                break;
+            default: // Default to Daily
+                 query = "SELECT DATE(sale_date) as metric, SUM(total_amount) as value FROM sales " +
+                        "WHERE sale_date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) " +
+                        "GROUP BY DATE(sale_date) ORDER BY metric ASC";
+        }
+
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                data.put(rs.getString("metric"), rs.getDouble("value"));
+            }
+        }
+        return data;
     }
 }

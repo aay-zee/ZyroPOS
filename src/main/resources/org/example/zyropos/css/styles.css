@@ -216,7 +216,7 @@
 }
 
 .dialog-pane .content {
-    -fx-padding: 20px;
+  -fx-padding: 20px;
 }
 
 .dialog-pane .label {
@@ -232,6 +232,31 @@
 }
 
 .dialog-pane .button-bar .button:hover {
-    -fx-background-color: -fx-primary-dark;
+  -fx-background-color: -fx-primary-dark;
 }
 
+/* --- Metrics Cards --- */
+.metric-card {
+  -fx-background-color: -fx-surface;
+  -fx-background-radius: 8px;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0, 0, 3);
+  -fx-padding: 20px;
+  -fx-alignment: CENTER_LEFT;
+}
+
+.metric-title {
+  -fx-text-fill: -fx-text-secondary;
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+}
+
+.metric-value {
+  -fx-text-fill: -fx-primary;
+  -fx-font-size: 28px;
+  -fx-font-weight: bold;
+}
+
+.metric-subtitle {
+  -fx-text-fill: -fx-success;
+  -fx-font-size: 12px;
+}

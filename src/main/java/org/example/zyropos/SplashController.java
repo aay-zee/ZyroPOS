@@ -40,31 +40,31 @@ public class SplashController implements Initializable {
         increaseProgress();
     }
 
-    public void increaseProgress(){
-        Thread thread=new Thread(()->{
-            double progress=0.0;
+    public void increaseProgress() {
+        Thread thread = new Thread(() -> {
+            double progress = 0.0;
 
-            while(progress<1.0){
+            while (progress < 1.0) {
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     System.out.println(e.getMessage());
                 }
 
-                progress+=Math.random()*0.1;
-                if(progress>1.0){
-                    progress=1.0;
+                progress += Math.random() * 0.1;
+                if (progress > 1.0) {
+                    progress = 1.0;
                 }
 
-                double finalProgress=progress;
-                Platform.runLater(()->{
-                    //progressIndicator.setProgress(finalProgress);
-                    myLabel.setText((int) (finalProgress*100)+"%");
+                double finalProgress = progress;
+                Platform.runLater(() -> {
+                    // progressIndicator.setProgress(finalProgress);
+                    myLabel.setText((int) (finalProgress * 100) + "%");
 
-                    if(finalProgress*100==100){
-//                        myProgress.setDisable(true);
+                    if (finalProgress * 100 == 100) {
+                        // myProgress.setDisable(true);
                         myLabel.setText("Loading Done");
-                        PauseTransition pause=new PauseTransition(Duration.seconds(0.5));
+                        PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
                         pause.setOnFinished(event -> {
                             try {
                                 switchToGeneralLogin();
@@ -83,12 +83,12 @@ public class SplashController implements Initializable {
     }
 
     public void switchToGeneralLogin() throws IOException {
-        root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/GeneralLogin.fxml")));
-        stage=(Stage)myProgress.getScene().getWindow();
-        scene=new Scene(root);
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/GeneralLogin.fxml")));
+        stage = (Stage) myProgress.getScene().getWindow();
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.setWidth(1280);
-        stage.setHeight(720);
+        stage.setHeight(820);
         stage.centerOnScreen();
         stage.setResizable(true);
         stage.show();

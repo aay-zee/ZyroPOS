@@ -22,8 +22,8 @@ public class App extends Application {
                 DatabaseConnection dbConnection = DatabaseConnection.getInstance();
                 Runtime.getRuntime().addShutdownHook(new Thread(dbConnection::closeConnection));
                 
-                // Initialize Database Schema if needed
-                database.DatabaseSetup.createTables();
+                // Database connection is initialized
+                // Schema creation is now manual via DatabaseSetup.main() or external script
                 
             } catch (Exception e) {
                 System.err.println("WARNING: Database connection failed. Starting in OFFLINE mode for UI testing.");

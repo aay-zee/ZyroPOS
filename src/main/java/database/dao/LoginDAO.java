@@ -20,22 +20,23 @@ public class LoginDAO extends BaseDAO {
             default -> throw new SQLException("Invalid role: " + role);
         };
 
-        String insertQuery="SELECT username,password FROM " + tableName + " WHERE username=? AND password=?";
+        // Select password hash for verification
+        String selectQuery="SELECT password FROM " + tableName + " WHERE username=? AND is_deleted=FALSE";
 
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
 
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
 
             try (ResultSet result = preparedStatement.executeQuery()) {
                 if (result.next()) {
-                    System.out.println("Authentication Successful");
-                    // Assuming you might want to fetch more user info here later
-                    return true;
-                } else {
-                    System.out.println("Authentication Failed");
+                    String storedHash = result.getString("password");
+                    if (utilities.PasswordUtil.checkPassword(password, storedHash)) {
+                         System.out.println("Authentication Successful");
+                         return true;
+                    }
                 }
+                System.out.println("Authentication Failed");
             }
         }
         return false;

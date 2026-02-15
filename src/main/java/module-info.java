@@ -16,6 +16,8 @@ module org.example.zyropos {
     requires io.github.cdimascio.dotenv.java;
     requires org.slf4j;
     requires mysql.connector.j;
+    requires jbcrypt;
+    requires javafx.base;
 
     opens org.example.zyropos to javafx.fxml;
     exports org.example.zyropos;

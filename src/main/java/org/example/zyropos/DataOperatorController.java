@@ -3,6 +3,7 @@ package org.example.zyropos;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXToggleButton;
+import com.jfoenix.controls.JFXDatePicker;
 import database.dao.DataOperatorDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,6 +41,8 @@ public class DataOperatorController extends DashboardController implements Initi
         //Getting BranchID Corresponding to the username
         branchID = dataOperatorDAO.getBranchID("DataOperator",username);
         System.out.println("Branch ID: "+branchID);
+        
+        showDashboard();
     }
 
     @FXML
@@ -94,7 +97,25 @@ public class DataOperatorController extends DashboardController implements Initi
     private VBox cpPane;
 
     @FXML
-    private DatePicker dpAVDate;
+    private JFXDatePicker dpAVDate;
+
+    @FXML
+    private VBox dashboardPane;
+
+    @FXML
+    private Label lblTotalVendors;
+
+    @FXML
+    private Label lblTotalProducts;
+
+    @FXML
+    private Label lblLowStock;
+    
+    @FXML private TableView<Product> tblLowStock;
+    @FXML private TableColumn<Product, Integer> lsID;
+    @FXML private TableColumn<Product, String> lsName;
+    @FXML private TableColumn<Product, Integer> lsQty;
+    @FXML private TableColumn<Product, Integer> lsVendor;
 
     @FXML
     private Pane innerPane1;
@@ -234,6 +255,43 @@ public class DataOperatorController extends DashboardController implements Initi
         //tfVVSearchVal.textProperty().addListener((observable, oldValue, newValue) -> searchVendors());
     }
 
+    private void hideAllPanes() {
+        if(dashboardPane != null) dashboardPane.setVisible(false);
+        avPane.setVisible(false);
+        apPane.setVisible(false);
+        vvPane.setVisible(false);
+        vpPane.setVisible(false);
+        cpPane.setVisible(false);
+        lblPerson.setVisible(false);
+    }
+
+    @FXML
+    public void showDashboard() {
+        hideAllPanes();
+        dashboardPane.setVisible(true);
+        
+        try {
+            int vendors = dataOperatorDAO.getTotalVendors(branchID);
+            int products = dataOperatorDAO.getTotalProducts(branchID);
+            int lowStock = dataOperatorDAO.getLowStockCount(branchID);
+            
+            lblTotalVendors.setText(String.valueOf(vendors));
+            lblTotalProducts.setText(String.valueOf(products));
+            lblLowStock.setText(String.valueOf(lowStock));
+            
+            // Populate Low Stock Table
+            lsID.setCellValueFactory(new PropertyValueFactory<>("id"));
+            lsName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+            lsQty.setCellValueFactory(new PropertyValueFactory<>("Quantity"));
+            lsVendor.setCellValueFactory(new PropertyValueFactory<>("VendorID"));
+            
+            tblLowStock.setItems(dataOperatorDAO.getLowStockItems(branchID));
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void setupVendorTable(){
         vvID.setCellValueFactory(new PropertyValueFactory<>("id"));
         vvName.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -300,11 +358,7 @@ public class DataOperatorController extends DashboardController implements Initi
 
     @FXML
     void dislayVP(ActionEvent event) {
-        lblPerson.setVisible(false);
-        avPane.setVisible(false);
-        apPane.setVisible(false);
-        vvPane.setVisible(false);
-        cpPane.setVisible(false);
+        hideAllPanes();
 
         setupProductTable();
 
@@ -320,31 +374,19 @@ public class DataOperatorController extends DashboardController implements Initi
 
     @FXML
     void displayAV(ActionEvent event) {
-        lblPerson.setVisible(false);
-        apPane.setVisible(false);
-        vvPane.setVisible(false);
-        cpPane.setVisible(false);
-        vpPane.setVisible(false);
+        hideAllPanes();
         avPane.setVisible(true);
     }
 
     @FXML
     void displayCP(ActionEvent event) {
-        lblPerson.setVisible(false);
-        avPane.setVisible(false);
-        apPane.setVisible(false);
-        vpPane.setVisible(false);
-        vvPane.setVisible(false);
+        hideAllPanes();
         cpPane.setVisible(true);
     }
 
     @FXML
     void displayP(ActionEvent event) {
-        lblPerson.setVisible(false);
-        avPane.setVisible(false);
-        vpPane.setVisible(false);
-        vvPane.setVisible(false);
-        cpPane.setVisible(false);
+        hideAllPanes();
 
 
         valueFactory.setValue(1);
@@ -360,11 +402,7 @@ public class DataOperatorController extends DashboardController implements Initi
 
     @FXML
     void displayVV(ActionEvent event) {
-        lblPerson.setVisible(false);
-        avPane.setVisible(false);
-        vpPane.setVisible(false);
-        cpPane.setVisible(false);
-        apPane.setVisible(false);
+        hideAllPanes();
         vvPane.setVisible(true);
 
         setupVendorTable();
